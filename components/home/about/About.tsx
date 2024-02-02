@@ -30,17 +30,20 @@ export const About = () => {
           </Reveal>
           <Reveal>
             <p className={styles.aboutText}>
-              Outside of work, I still love to paint. Any given Sunday
-              you&apos;ll find me scribbling some happy clouds with my son ☁️ I
-              even teach courses online if you&apos;re looking to learn!
+              Outside of work, I love to hiking. And i really like to smoke
+              Shisha. In Shisha bar i am focusing in Web Development, because
+              it&apros;s friendly environment for me, where i can focus for this
+              kind of activity. Sometimes playing also various Board games with
+              my friends.
             </p>
           </Reveal>
           <Reveal>
             <p className={styles.aboutText}>
               I&apos;m passively looking for new positions where I can merge my
-              love for code with my love for the canvas. If you think
-              you&apos;ve got an opening that I might like, let&apos;s connect
-              🔗
+              love for code. Also i am opened as freelancer for your required
+              kind of Web-Projects, you would like to develop from me. If you
+              think you&apos;ve got an project, which you would like to ask me,
+              let&apos;s connect 🔗
             </p>
           </Reveal>
           <Reveal>

@@ -18,36 +18,46 @@ export const Projects = () => {
 
 const projects = [
   {
-    title: "Paint.app",
+    title: "Web OTS interface",
     imgSrc: "project-imgs/ots-project.png",
     code: "https://github.com/Daniel88dev/HMMC_OTS_interface-main",
-    projectLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    tech: ["Flutter", "MUI", "Python", "FastAPI"],
+    projectLink: "",
+    tech: [
+      "React",
+      "Javascript",
+      "Node.js",
+      "Express",
+      "Postgres",
+      "Sequelize",
+    ],
     description:
-      "A real-time coaching app for students learning to paint. This app is my baby, designed and built on my own.",
+      "A interface for job allocation of HMMC Assembly hall processes, job allocation, Manpower, and efficiency.",
     modalContent: (
       <>
         <p>
-          Pain.app is a real-time coaching app for students learning to paint.
-          This app is my baby, designed and built on my own.
+          Web OTS is a real-time tool for managing vehicle assembly processes,
+          Manpower, and helps calculating work Efficiency.
         </p>
         <p>
-          The tech stack is based on top of Flutter for the mobile app,
-          connected to a Python & FastAPI backend, with data stored in Postgres,
-          deployed on Heroku.
+          Its Fullstack web application build with React Framework for Frontend.
+          And for backend is used Nodejs, Express, Sequelize, and Postgres db.
         </p>
         <p>
-          Because this isn&apos;t real, here&apos;s some gibberish to fill space{" "}
-          {":)"}
+          It can serve APS (Assembly Process Sheets) as PDF file opened in Modal
+          pop-up windows, or as new window in Web browser.
         </p>
         <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur
-          quia officia odio nulla consectetur aperiam ad tempora magni magnam
-          nesciunt.
+          Frontend is build as multi-page web app, which serves APS in table
+          rows, where all data are provided from backend API. All data provided
+          can be filtered by line, station, and side of position on the line.
+          Several tools are attached, so for each APS record can be made request
+          to responsible person, can be displayed history of changes, and also
+          calculated performance of each person in whole Web OTS project.
         </p>
         <p>
-          Fuga id sapiente facere ipsa eius exercitationem officiis deleniti,
-          rerum dolorum. Deserunt soluta modi culpa animi.
+          Web OTS was mainly build for HMMC needs, and can&apros;t be accessed
+          outside. In case, of someone would like to Purchase similar developed
+          project, i am opened to talk about it.
         </p>
       </>
     ),
