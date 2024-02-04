@@ -1,6 +1,7 @@
 import { StandardButton } from "@/components/buttons/StandardButton";
 import { Reveal } from "@/components/utils/Reveal";
 import { DotGrid } from "./DotGrid";
+import { ReactTyped } from "react-typed";
 import styles from "./hero.module.scss";
 // TODO count years of experience
 export const Hero = () => {
@@ -15,7 +16,19 @@ export const Hero = () => {
         <Reveal>
           <h2 className={styles.subTitle}>
             I&apos;m a{" "}
-            <span>Full Stack Developer || Manufacturing Engineer</span>
+            <ReactTyped
+              strings={[
+                "Full Stack Developer",
+                "Full Stack Engineer",
+                "Manufacturing Engineer",
+                "Project Manager",
+              ]}
+              typeSpeed={50}
+              loop
+              backSpeed={20}
+              cursorChar="_"
+              showCursor={true}
+            />
           </h2>
         </Reveal>
         <Reveal>
