@@ -39,6 +39,10 @@
     font-weight: bold;
     color: var(--brand);
   }
+
+  @media (max-width: 768px) {
+    font-size: var(--text-sm);
+  }
 }
 
 .aboutCopy {
