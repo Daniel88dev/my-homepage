@@ -66,15 +66,14 @@ const projects = [
     title: "DTC List",
     imgSrc: "project-imgs/DTC_list.png",
     code: "https://github.com/Daniel88dev/dtc-list",
-    projectLink:
-      "https://dtc-list-8krmhskl6-daniel-hrynusiws-projects.vercel.app/",
+    projectLink: "https://dtc-list.vercel.app/",
     tech: ["React", "Typescript", "Tailwind"],
     description: "Web app to search, and display DTC",
     modalContent: (
       <>
         <p>
           Added large amount of DTC codes, with Filtering based on entered DTC
-          code.
+          code. Access is protected by password.
         </p>
         <p>
           DTC means Diagnosis Trouble Code, which are codes displaying some type
