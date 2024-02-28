@@ -90,4 +90,22 @@ const projects = [
       </>
     ),
   },
+  {
+    title: "CFT Problem Lists - IN DEVELOPMENT",
+    imgSrc: "project-imgs/CFT_problem_list.png",
+    code: "https://github.com/Daniel88dev/cft-problem-lists",
+    projectLink: "https://cft-problem-lists.vercel.app/",
+    tech: ["React", "Typescript", "Tailwind", "Node.js"],
+    description: "Web app to manage problem lists of vehicle production",
+    modalContent: (
+      <>
+        <p>Project is under development. Finish plan is in June 2024.</p>
+        <p>
+          Web app to register issues during new Vehicle production stages.
+          Possibility to easily register issues from phone, and then update
+          content through desktop browser.
+        </p>
+      </>
+    ),
+  },
 ];
