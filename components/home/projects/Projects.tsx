@@ -19,7 +19,7 @@ export const Projects = () => {
 const projects = [
   {
     title: "Web OTS interface",
-    imgSrc: "project-imgs/ots-project.png",
+    imgSrc: "/project-imgs/ots-project.png",
     code: "https://github.com/Daniel88dev/HMMC_OTS_interface-main",
     projectLink: "",
     tech: [
@@ -64,7 +64,7 @@ const projects = [
   },
   {
     title: "DTC List",
-    imgSrc: "project-imgs/DTC_list.png",
+    imgSrc: "/project-imgs/DTC_list.png",
     code: "https://github.com/Daniel88dev/dtc-list",
     projectLink: "https://dtc-list.vercel.app/",
     tech: ["React", "Typescript", "Tailwind"],
@@ -92,7 +92,7 @@ const projects = [
   },
   {
     title: "CFT Problem Lists - IN DEVELOPMENT",
-    imgSrc: "project-imgs/CFT_problem_list.png",
+    imgSrc: "/project-imgs/CFT_problem_list.png",
     code: "https://github.com/Daniel88dev/cft-problem-lists",
     projectLink: "https://cft-problem-lists.vercel.app/",
     tech: ["React", "Typescript", "Tailwind", "Node.js"],

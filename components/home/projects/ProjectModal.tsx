@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { AiFillGithub, AiOutlineExport } from "react-icons/ai";
 import { MdClose } from "react-icons/md";
+import Image from "next/image";
 
 interface Props {
   isOpen: boolean;
@@ -49,7 +50,9 @@ export const ProjectModal = ({
         onClick={(e) => e.stopPropagation()}
         className={styles.modalCard}
       >
-        <img
+        <Image
+          height={400}
+          width={700}
           className={styles.modalImage}
           src={imgSrc}
           alt={`An image of the ${title} project.`}
