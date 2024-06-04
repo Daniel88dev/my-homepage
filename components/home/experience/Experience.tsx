@@ -30,6 +30,7 @@ const experience = [
       "SCSS",
       "Postgres",
       "Sequelize",
+      "Next.js",
     ],
   },
   {

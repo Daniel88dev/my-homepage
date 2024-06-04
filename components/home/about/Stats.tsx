@@ -20,7 +20,7 @@ export const Stats = () => {
             <span className="chip">Redux</span>
             <span className="chip">NodeJS</span>
             <span className="chip">Express</span>
-            <span className="chip">Postgres</span>
+            <span className="chip">PostgresSQL</span>
             <span className="chip">Sequelize</span>
             <span className="chip">MongoDB</span>
             <span className="chip">GitHub</span>
@@ -31,6 +31,7 @@ export const Stats = () => {
             <span className="chip">Tailwind</span>
             <span className="chip">SCSS</span>
             <span className="chip">GraphQL</span>
+            <span className="chip">Next.js</span>
           </div>
         </div>
       </Reveal>
