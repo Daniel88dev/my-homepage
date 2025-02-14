@@ -64,16 +64,24 @@ const projects = [
   },
   {
     title: "DTC List",
-    imgSrc: "/project-imgs/DTC_list.png",
-    code: "https://github.com/Daniel88dev/dtc-list",
-    projectLink: "https://dtc-list.vercel.app/",
-    tech: ["React", "Typescript", "Tailwind"],
+    imgSrc: "/project-imgs/next-dtc-list.png",
+    code: "https://github.com/Daniel88dev/next-dtc-list",
+    projectLink: "https://next-dtc-list.vercel.app\n",
+    tech: [
+      "React",
+      "Typescript",
+      "Tailwind",
+      "Next.js",
+      "Drizzle",
+      "Clerk",
+      "Postgres",
+    ],
     description: "Web app to search, and display DTC",
     modalContent: (
       <>
         <p>
           Added large amount of DTC codes, with Filtering based on entered DTC
-          code. Access is protected by password.
+          code.
         </p>
         <p>
           DTC means Diagnosis Trouble Code, which are codes displaying some type
@@ -84,26 +92,9 @@ const projects = [
           quiet large list. This App helps easily identify type of DTC code.
         </p>
         <p>
-          App will show just description of DTC on mobile device, and on Desktop
-          can display more details for related DTC.
-        </p>
-      </>
-    ),
-  },
-  {
-    title: "CFT Problem Lists - IN DEVELOPMENT",
-    imgSrc: "/project-imgs/CFT_problem_list.png",
-    code: "https://github.com/Daniel88dev/cft-problem-lists",
-    projectLink: "https://cft-problem-lists.vercel.app/",
-    tech: ["React", "Typescript", "Tailwind", "Node.js"],
-    description: "Web app to manage problem lists of vehicle production",
-    modalContent: (
-      <>
-        <p>Project is under development. Finish plan is in June 2024.</p>
-        <p>
-          Web app to register issues during new Vehicle production stages.
-          Possibility to easily register issues from phone, and then update
-          content through desktop browser.
+          Applied also Authentication through Clerk to enable more
+          functionality, like displaying more DTC details, and also report, if
+          DTC code is missing in database..
         </p>
       </>
     ),
