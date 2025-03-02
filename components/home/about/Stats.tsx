@@ -12,6 +12,7 @@ export const Stats = () => {
             <span>Use at work</span>
           </h4>
           <div className={styles.statGrid}>
+            <span className="chip">English</span>
             <span className="chip">JavaScript</span>
             <span className="chip">TypeScript</span>
             <span className="chip">HTML</span>
@@ -32,6 +33,19 @@ export const Stats = () => {
             <span className="chip">SCSS</span>
             <span className="chip">GraphQL</span>
             <span className="chip">Next.js</span>
+            <span className="chip">Python</span>
+            <span className="chip">Deno</span>
+            <span className="chip">Docker</span>
+            <span className="chip">Kubernetes</span>
+            <span className="chip">OWASP</span>
+            <span className="chip">Github</span>
+            <span className="chip">Drizzle ORM</span>
+            <span className="chip">Shadcn/ui</span>
+            <span className="chip">Sentry</span>
+            <span className="chip">Clerk</span>
+            <span className="chip">Python</span>
+            <span className="chip">Office 365</span>
+            <span className="chip">MS Excel + VBA</span>
           </div>
         </div>
       </Reveal>

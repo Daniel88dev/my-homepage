@@ -5,20 +5,6 @@ import { ReactTyped } from "react-typed";
 import styles from "./hero.module.scss";
 // TODO count years of experience
 export const Hero = () => {
-  const calculateYearSpent = () => {
-    const startDate = new Date("2021-09-02");
-    const now = new Date();
-
-    const diffInMs = now.getTime() - startDate.getTime();
-
-    const msInYear = 1000 * 60 * 60 * 24 * 362.25;
-
-    const yearsSpent = diffInMs / msInYear;
-
-    return parseFloat(yearsSpent.toFixed(1));
-  };
-
-  const yearsSpent = calculateYearSpent();
   return (
     <section className={`section-wrapper ${styles.hero}`}>
       <div className={styles.copyWrapper}>
@@ -47,16 +33,24 @@ export const Hero = () => {
         </Reveal>
         <Reveal>
           <p className={styles.aboutCopy}>
-            I&apos;ve spent the last {yearsSpent} years (from 2021 September)
-            learning, and developing web projects. Finished several courses for
-            Frontend, and Backend development. So Full Stack development
-            isn&apos;t problem for me. <br />I am working also as Manufacturer
-            Engineer at Hyundai Motor Manufacturing s.r.o. Where i am
-            responsible for Equipment preparation for new vehicle model
-            production, solving Manufacturing problems, and implementing those
-            Models in to production.
-            <br />I have experience with Project Management of several projects,
-            to improve workability, and save money in long term production.
+            I’ve been passionate about web development since September 2021,
+            continuously learning and honing my skills in frontend, backend, and
+            full-stack development through various courses and hands-on
+            projects.
+            <br />
+            Currently, I work as a Manufacturing Engineer at Hyundai Motor
+            Manufacturing s.r.o., where I am responsible for equipment
+            preparation for new vehicle models, solving manufacturing
+            challenges, and implementing new models into production.
+            <br />
+            What started as a hobby soon turned into a valuable asset—outside of
+            my main role, I have developed several web applications that have
+            been successfully implemented within the company, receiving positive
+            feedback for improving efficiency and workflow.
+            <br />
+            Beyond development, I also have experience in project management,
+            leading initiatives aimed at optimizing processes, enhancing
+            productivity, and achieving long-term cost savings in manufacturing.
           </p>
         </Reveal>
         <Reveal>

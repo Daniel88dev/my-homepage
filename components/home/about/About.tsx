@@ -13,37 +13,36 @@ export const About = () => {
         <div>
           <Reveal>
             <p className={`${styles.aboutText} ${styles.highlightFirstLetter}`}>
-              Hey! I&apos;m Daniel, if you didnt got that yet, i am specializing
-              in Full Stack web development. So both Frontend, and Backend
-              isn&apos;t stranger for me. Focusing in development in React for
-              Frontend, and node.js with express as Backend. But learning new
-              frameworks, and tools isn&apos;t problem for me. Same as speaking
-              fluently in English language beside my native Czech language.
+              If you haven’t figured it out yet—I specialize in Full Stack Web
+              Development. Both frontend and backend development are within my
+              expertise. My primary focus is on React with Next.js, but I
+              originally started with Node.js and Express for backend
+              development. Learning new frameworks and tools comes naturally to
+              me, just like speaking fluent English alongside my native Czech.
             </p>
           </Reveal>
           <Reveal>
             <p className={styles.aboutText}>
-              I currently work for Hyundai Motor Manufacturing Czech s.r.o.,
-              where web development isn&apos;t my job description. Web
-              development is more like my hobby for me.
+              Currently, I work at Hyundai Motor Manufacturing Czech s.r.o.,
+              where web development wasn’t originally my main focus. I started
+              coding as a hobby in my free time, but over time, it became a
+              passion. Now, I’m increasingly involved in web development, as I
+              find it both fascinating and a valuable skill to improve workflows
+              and efficiency.
             </p>
           </Reveal>
           <Reveal>
             <p className={styles.aboutText}>
-              Outside of work, I love to hiking. And i really like to smoke
-              Shisha. In Shisha bar i am focusing in Web Development, because
-              it&apros;s friendly environment for me, where i can focus for this
-              kind of activity. Sometimes playing also various Board games with
-              my friends.
+              Outside of work, I love hiking and occasionally enjoy playing
+              board games with friends.
             </p>
           </Reveal>
           <Reveal>
             <p className={styles.aboutText}>
-              I&apos;m passively looking for new positions where I can merge my
-              love for code. Also i am opened as freelancer for your required
-              kind of Web-Projects, you would like to develop from me. If you
-              think you&apos;ve got an project, which you would like to ask me,
-              let&apos;s connect 🔗
+              I’m open to new opportunities where I can merge my passion for
+              coding with impactful projects. I’m also available for freelance
+              web development—so if you have a project in mind, let’s connect!
+              🔗
             </p>
           </Reveal>
           <Reveal>
