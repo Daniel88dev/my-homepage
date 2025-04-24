@@ -31,7 +31,6 @@ const experience = [
       "Postgres",
       "Sequelize",
       "Next.js",
-      "Python",
       "Deno",
       "Docker",
       "OWASP",

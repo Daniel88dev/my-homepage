@@ -18,6 +18,44 @@ export const Projects = () => {
 
 const projects = [
   {
+    title: "gRPC_Swagger-case-study",
+    imgSrc: "/project-imgs/grpc_case_study.png",
+    code: "https://github.com/Daniel88dev/gRPC_Swagger-case-study",
+    projectLink: "https://github.com/Daniel88dev/gRPC_Swagger-case-study",
+    tech: [
+      "Node.js",
+      "Express",
+      "Typescript",
+      "gRPC",
+      "Swagger",
+      "OpenAPI",
+      "json-server",
+      "axios",
+      "pug",
+    ],
+    description:
+      "Case study project with using new technologies with focus to learn them (gRPC, Swagger, OpenAPI). ",
+    modalContent: (
+      <>
+        <p>
+          Focus of project was to learn using gRPC communication of 2 node
+          applications between each other.
+        </p>
+        <p>
+          Server app to handle DB logic, and provide data for client app. On
+          client created also viewable content through pug, to display data in
+          browser. There are on client side also initialisation tasks to load
+          data in to DB (at server side).
+        </p>
+        <p>
+          On client app created also open API documentation using swagger, to
+          make REST API calls to client app, and return required data for each
+          call.
+        </p>
+      </>
+    ),
+  },
+  {
     title: "Task Master",
     imgSrc: "/project-imgs/task-master.png",
     code: "https://github.com/Daniel88dev/next-task-list",
