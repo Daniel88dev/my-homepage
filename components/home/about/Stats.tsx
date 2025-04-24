@@ -2,7 +2,7 @@ import styles from "./stats.module.scss";
 import { AiFillCode, AiFillSmile } from "react-icons/ai";
 import { Reveal } from "@/components/utils/Reveal";
 import { BsBrowserChrome } from "react-icons/bs";
-import { FaDev, FaServer } from "react-icons/fa";
+import { FaServer } from "react-icons/fa";
 
 export const Stats = () => {
   return (
