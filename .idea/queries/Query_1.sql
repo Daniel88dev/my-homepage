@@ -1,0 +1,1 @@
+SELECT setval('aps_records_id_seq', (SELECT MAX(id) FROM aps_records) + 1);
