@@ -1,1 +1,0 @@
-SELECT setval('upg_list_id_seq', 2402);
