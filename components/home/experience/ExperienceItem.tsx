@@ -1,5 +1,4 @@
 import { Reveal } from "@/components/utils/Reveal";
-import styles from "./experience.module.scss";
 
 interface Props {
   title: string;
@@ -19,29 +18,29 @@ export const ExperienceItem = ({
   tech,
 }: Props) => {
   return (
-    <div className={styles.experience}>
-      <div className={styles.heading}>
+    <div className="mb-[2.4rem] border-b border-background-light px-[1.2rem] pb-[2.4rem]">
+      <div className="mb-[1.2rem] flex items-center justify-between">
         <Reveal>
-          <span className={styles.title}>{title}</span>
+          <span className="text-md font-bold">{title}</span>
         </Reveal>
         <Reveal>
           <span>{time}</span>
         </Reveal>
       </div>
 
-      <div className={styles.heading}>
+      <div className="mb-[1.2rem] flex items-center justify-between">
         <Reveal>
-          <span className={styles.position}>{position}</span>
+          <span className="font-bold text-brand">{position}</span>
         </Reveal>
         <Reveal>
           <span>{location}</span>
         </Reveal>
       </div>
       <Reveal>
-        <p className={styles.description}>{description}</p>
+        <p className="mb-[1.8rem] font-extralight">{description}</p>
       </Reveal>
       <Reveal>
-        <div className={styles.tech}>
+        <div className="flex flex-wrap gap-[1.2rem]">
           {tech.map((item) => (
             <span key={item} className="chip">
               {item}

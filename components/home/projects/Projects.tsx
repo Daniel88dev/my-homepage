@@ -1,13 +1,12 @@
 import { SectionHeader } from "@/components/utils/SectionHeader";
 import { Project } from "./Project";
-import styles from "./projects.module.scss";
 
 export const Projects = () => {
   return (
     <section className="section-wrapper" id="projects">
       <SectionHeader title="Projects" dir="r" />
 
-      <div className={styles.projects}>
+      <div className="grid grid-cols-2 gap-[3.2rem] max-md:grid-cols-1">
         {projects.map((project) => {
           return <Project key={project.title} {...project} />;
         })}

@@ -1,4 +1,3 @@
-import styles from "./dotgrid.module.scss";
 import anime from "animejs";
 
 export const DotGrid = () => {
@@ -36,11 +35,14 @@ export const DotGrid = () => {
       dots.push(
         <div
           onClick={handleDotClick}
-          className={styles.dotWrapper}
+          className="group cursor-crosshair rounded-[8px] p-[0.8rem] transition-[background] duration-[250ms] hover:bg-[rgba(255,255,255,0.15)]"
           data-index={index}
           key={`${i}-${j}`}
         >
-          <div className={`${styles.dot} dot-point`} data-index={index} />
+          <div
+            className="dot-point h-[8px] w-[8px] rounded-full bg-[linear-gradient(180deg,var(--background),var(--text))] opacity-[0.35] group-hover:bg-[linear-gradient(180deg,var(--background),var(--brand))] group-hover:opacity-100"
+            data-index={index}
+          />
         </div>
       );
       index++;
@@ -50,7 +52,7 @@ export const DotGrid = () => {
   return (
     <div
       style={{ gridTemplateColumns: `repeat(${GRID_WIDTH}, 1fr)` }}
-      className={styles.dotGrid}
+      className="absolute bottom-[12px] right-[3.6rem] top-[12px] z-0 grid max-w-[75%]"
     >
       {dots.map((dot) => dot)}
     </div>

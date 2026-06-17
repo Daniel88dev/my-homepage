@@ -1,4 +1,3 @@
-import styles from "./stats.module.scss";
 import { AiFillCode, AiFillSmile } from "react-icons/ai";
 import { Reveal } from "@/components/utils/Reveal";
 import { BsBrowserChrome } from "react-icons/bs";
@@ -6,14 +5,16 @@ import { FaServer } from "react-icons/fa";
 
 export const Stats = () => {
   return (
-    <div className={styles.stats}>
+    <div className="relative">
       <Reveal>
-        <div className={styles.statColumn}>
-          <h4>
+        <div>
+          <h4 className="mb-[2.4rem] flex items-center">
             <BsBrowserChrome size="2.4rem" color="var(--brand)" />
-            <span>Frontend technologies</span>
+            <span className="relative ml-[0.8rem] text-md font-bold">
+              Frontend technologies
+            </span>
           </h4>
-          <div className={styles.statGrid}>
+          <div className="mb-[4.8rem] flex flex-wrap gap-[1.2rem]">
             <span className="chip">JavaScript</span>
             <span className="chip">TypeScript</span>
             <span className="chip">HTML</span>
@@ -27,11 +28,13 @@ export const Stats = () => {
             <span className="chip">Shadcn/ui</span>
             <span className="chip">Clerk</span>
           </div>
-          <h4>
+          <h4 className="mb-[2.4rem] flex items-center">
             <FaServer size="2.4rem" color="var(--brand)" />
-            <span>Backend technologies</span>
+            <span className="relative ml-[0.8rem] text-md font-bold">
+              Backend technologies
+            </span>
           </h4>
-          <div className={styles.statGrid}>
+          <div className="mb-[4.8rem] flex flex-wrap gap-[1.2rem]">
             <span className="chip">NodeJS</span>
             <span className="chip">Express</span>
             <span className="chip">PostgresSQL</span>
@@ -46,11 +49,13 @@ export const Stats = () => {
             <span className="chip">Open API</span>
             <span className="chip">Swagger</span>
           </div>
-          <h4>
+          <h4 className="mb-[2.4rem] flex items-center">
             <AiFillCode size="2.4rem" color="var(--brand)" />
-            <span>Other technologies</span>
+            <span className="relative ml-[0.8rem] text-md font-bold">
+              Other technologies
+            </span>
           </h4>
-          <div className={styles.statGrid}>
+          <div className="mb-[4.8rem] flex flex-wrap gap-[1.2rem]">
             <span className="chip">English</span>
             <span className="chip">GitHub</span>
             <span className="chip">Docker</span>
@@ -64,12 +69,14 @@ export const Stats = () => {
         </div>
       </Reveal>
       <Reveal>
-        <div className={styles.statColumn}>
-          <h4>
+        <div>
+          <h4 className="mb-[2.4rem] flex items-center">
             <AiFillSmile size="2.4rem" color="var(--brand)" />
-            <span>Hobbies</span>
+            <span className="relative ml-[0.8rem] text-md font-bold">
+              Hobbies
+            </span>
           </h4>
-          <div className={styles.statGrid}>
+          <div className="mb-[4.8rem] flex flex-wrap gap-[1.2rem]">
             <span className="chip">Hiking</span>
             <span className="chip">Shisha</span>
             <span className="chip">Board Games</span>

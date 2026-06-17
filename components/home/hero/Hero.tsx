@@ -2,19 +2,18 @@ import { StandardButton } from "@/components/buttons/StandardButton";
 import { Reveal } from "@/components/utils/Reveal";
 import { DotGrid } from "./DotGrid";
 import { ReactTyped } from "react-typed";
-import styles from "./hero.module.scss";
 // TODO count years of experience
 export const Hero = () => {
   return (
-    <section className={`section-wrapper ${styles.hero}`}>
-      <div className={styles.copyWrapper}>
+    <section className="section-wrapper mb-[9.6rem] max-md:mb-[4.8rem]">
+      <div className="relative z-10 my-[4.8rem] w-fit">
         <Reveal>
-          <h1 className={styles.title}>
-            Hey, I&apos;m Daniel<span>.</span>
+          <h1 className="text-2xl font-black leading-[1.1] max-md:text-xl">
+            Hey, I&apos;m Daniel<span className="text-brand">.</span>
           </h1>
         </Reveal>
         <Reveal>
-          <h2 className={styles.subTitle}>
+          <h2 className="mb-[1rem] mt-[1.6rem] text-lg font-extralight leading-[1.1] max-md:text-sm [&_span]:font-bold [&_span]:text-brand">
             I&apos;m a{" "}
             <ReactTyped
               strings={[
@@ -32,7 +31,7 @@ export const Hero = () => {
           </h2>
         </Reveal>
         <Reveal>
-          <p className={styles.aboutCopy}>
+          <p className="my-[2.4rem] max-w-[700px] font-extralight">
             I’ve been passionate about web development since September 2021,
             continuously learning and honing my skills in frontend, backend, and
             full-stack development through various courses and hands-on
