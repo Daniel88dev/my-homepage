@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, ReactElement } from "react";
 import ReactDOM from "react-dom";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -14,7 +14,7 @@ interface Props {
   code: string;
   projectLink: string;
   tech: string[];
-  modalContent: JSX.Element;
+  modalContent: ReactElement;
 }
 
 export const ProjectModal = ({
