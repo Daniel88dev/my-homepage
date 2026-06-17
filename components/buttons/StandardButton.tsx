@@ -1,7 +1,7 @@
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, ReactElement } from "react";
 
 interface Props {
-  children: string | JSX.Element;
+  children: string | ReactElement;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
