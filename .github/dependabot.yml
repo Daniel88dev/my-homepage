@@ -1,0 +1,25 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    groups:
+      # One PR per week for routine minor/patch bumps instead of one per package.
+      # Major bumps stay separate so they get reviewed on their own.
+      npm-minor-patch:
+        applies-to: version-updates
+        update-types:
+          - "minor"
+          - "patch"
+      # Security fixes are grouped too, but Dependabot still opens these
+      # immediately when an advisory lands, regardless of the weekly schedule.
+      npm-security:
+        applies-to: security-updates
+        patterns:
+          - "*"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
