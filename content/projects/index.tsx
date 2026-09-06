@@ -1,26 +1,67 @@
-import { SectionHeader } from "@/components/utils/SectionHeader";
-import { Project } from "./Project";
+import { flexiDayCaseStudy } from "./flexi-day/case-study";
+import { FLEXI_DAY_REPOSITORIES } from "./flexi-day/repositories";
+import type { Project } from "./types";
 
-export const Projects = () => {
-  return (
-    <section className="section-wrapper" id="projects">
-      <SectionHeader title="Projects" index="02" dir="r" />
+export type {
+  CaseStudy,
+  CaseStudyImage,
+  CaseStudyNavItem,
+  Project,
+  RelatedRepository,
+} from "./types";
 
-      <div className="grid grid-cols-2 gap-x-[4.8rem] gap-y-[6.4rem] max-md:grid-cols-1 max-md:gap-y-[4.8rem] md:[&>*:nth-child(even)]:mt-[6.4rem]">
-        {projects.map((project) => {
-          return <Project key={project.title} {...project} />;
-        })}
-      </div>
-    </section>
-  );
-};
-
-const projects = [
+/** Display order is array order. */
+export const projects: Project[] = [
   {
+    slug: "flexi-day",
+    title: "flexiday",
+    imgSrc: "/project-imgs/flexi-day/calendar-card.webp",
+    code: "https://github.com/Daniel88dev/flexi-day",
+    liveUrl: "https://www.flexi-day.com",
+    tech: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind",
+      "shadcn/ui",
+      "TanStack Query",
+      "better-auth",
+      "Express 5",
+      "Drizzle ORM",
+      "PostgreSQL",
+      "react-email",
+      "AWS (App Runner, RDS, S3, SES, Lambda, CloudFront)",
+      "Terraform",
+      "Paddle",
+      "Sentry",
+      "Vitest",
+    ],
+    description:
+      "A live vacation and day-off management product for teams: shared calendar, one-click approvals, balances and calendar sync, free for early adopters.",
+    dialogContent: (
+      <>
+        <p>
+          flexiday is a shared team calendar for time off. People request
+          vacation, home office or sick days in seconds, managers approve them
+          in a click, and everyone sees who is in and who is away.
+        </p>
+        <p>
+          It runs in production on AWS as three independently deployed
+          repositories: a static Next.js web app, an Express API on PostgreSQL,
+          and a transactional email pipeline. I run it as a sole trader from
+          Brno, and it is free for early adopters.
+        </p>
+      </>
+    ),
+    relatedRepositories: FLEXI_DAY_REPOSITORIES,
+    caseStudy: flexiDayCaseStudy,
+  },
+  {
+    slug: "grpc-swagger-case-study",
     title: "gRPC_Swagger-case-study",
     imgSrc: "/project-imgs/grpc_case_study.png",
     code: "https://github.com/Daniel88dev/gRPC_Swagger-case-study",
-    projectLink: "https://github.com/Daniel88dev/gRPC_Swagger-case-study",
+    liveUrl: "https://github.com/Daniel88dev/gRPC_Swagger-case-study",
     tech: [
       "Node.js",
       "Express",
@@ -34,7 +75,7 @@ const projects = [
     ],
     description:
       "Case study project with using new technologies with focus to learn them (gRPC, Swagger, OpenAPI). ",
-    modalContent: (
+    dialogContent: (
       <>
         <p>
           Focus of project was to learn using gRPC communication of 2 node
@@ -55,10 +96,11 @@ const projects = [
     ),
   },
   {
+    slug: "task-master",
     title: "Task Master",
     imgSrc: "/project-imgs/task-master.png",
     code: "https://github.com/Daniel88dev/next-task-list",
-    projectLink: "https://www.task-master.cz/",
+    liveUrl: "https://www.task-master.cz/",
     tech: [
       "Next.js",
       "React",
@@ -72,7 +114,7 @@ const projects = [
     ],
     description:
       "IN DEVELOPMENT - Fullstack web application for managing tasks of authenticated user",
-    modalContent: (
+    dialogContent: (
       <>
         <p>IN DEVELOPMENT From February 2025</p>
         <p>
@@ -87,10 +129,11 @@ const projects = [
     ),
   },
   {
+    slug: "dtc-list",
     title: "DTC List",
     imgSrc: "/project-imgs/next-dtc-list.png",
     code: "https://github.com/Daniel88dev/next-dtc-list",
-    projectLink: "https://next-dtc-list.vercel.app",
+    liveUrl: "https://next-dtc-list.vercel.app",
     tech: [
       "React",
       "Typescript",
@@ -104,7 +147,7 @@ const projects = [
     ],
     description:
       "Fullstack Web app to search, and display DTC codes for vehicle problems",
-    modalContent: (
+    dialogContent: (
       <>
         <p>
           Added large amount of DTC codes, with Filtering based on entered DTC
@@ -127,10 +170,11 @@ const projects = [
     ),
   },
   {
+    slug: "new-web-ots",
     title: "New WEB OTS",
     imgSrc: "/project-imgs/new-ots.png",
     code: "https://github.com/Daniel88dev/ots-next",
-    projectLink: "https://github.com/Daniel88dev/ots-next",
+    liveUrl: "https://github.com/Daniel88dev/ots-next",
     tech: [
       "Next.js",
       "React",
@@ -143,7 +187,7 @@ const projects = [
     ],
     description:
       "Fullstack web application for managing vehicle assembly processes, Job Allocation, Manpower, Efficiency, and Tightening Management",
-    modalContent: (
+    dialogContent: (
       <>
         <p>
           Fullstack web application for managing vehicle assembly processes, Job
@@ -197,14 +241,15 @@ const projects = [
     ),
   },
   {
+    slug: "little-lemon-frontend-capstone-project",
     title: "Little Lemon Frontend Capstone Project",
     imgSrc: "/project-imgs/little-lemon.png",
     code: "https://github.com/Daniel88dev/meta-frontend-capstone-project",
-    projectLink: "https://meta-frontend-capstone-project-pi.vercel.app/",
+    liveUrl: "https://meta-frontend-capstone-project-pi.vercel.app/",
     tech: ["React", "SASS CSS", "Framer Motion", "Figma"],
     description:
       "Frontend Capstone project of Meta Frontend Course for building Little Lemon - static website to reserve table in restaurant",
-    modalContent: (
+    dialogContent: (
       <>
         <p>
           Frontend Capstone project of Meta Frontend Course for building Little
@@ -228,10 +273,11 @@ const projects = [
     ),
   },
   {
+    slug: "web-ots-interface",
     title: "Web OTS interface",
     imgSrc: "/project-imgs/ots-project.png",
     code: "https://github.com/Daniel88dev/HMMC_OTS_interface-main",
-    projectLink: "",
+    liveUrl: "",
     tech: [
       "React",
       "Javascript",
@@ -242,7 +288,7 @@ const projects = [
     ],
     description:
       "A interface for job allocation of HMMC Assembly hall processes, job allocation, Manpower, and efficiency.",
-    modalContent: (
+    dialogContent: (
       <>
         <p>
           Web OTS is a real-time tool for managing vehicle assembly processes,
@@ -273,10 +319,11 @@ const projects = [
     ),
   },
   {
+    slug: "cft-problem-list",
     title: "CFT Problem List",
     imgSrc: "/project-imgs/cft_problem_list.png",
     code: "https://github.com/Daniel88dev/cft-next",
-    projectLink: "https://cft-problem-lists.vercel.app/",
+    liveUrl: "https://cft-problem-lists.vercel.app/",
     tech: [
       "Next.js",
       "React",
@@ -287,7 +334,7 @@ const projects = [
     ],
     description:
       "Project to manage CFT (Cross Functional Team) Problems on new Vehicle model Development",
-    modalContent: (
+    dialogContent: (
       <>
         <p>UNFINISHED</p>
         <p>
@@ -306,14 +353,15 @@ const projects = [
     ),
   },
   {
+    slug: "e-plant-shopping",
     title: "E-Plant Shopping",
     imgSrc: "/project-imgs/e-plant_shopping.png",
     code: "https://github.com/Daniel88dev/e-plantShopping",
-    projectLink: "https://github.com/Daniel88dev/e-plantShopping",
+    liveUrl: "https://github.com/Daniel88dev/e-plantShopping",
     tech: ["React", "Javascript", "HTML", "CSS", "Redux"],
     description:
       "Forked Project from IBM Fullstack course, to make React App using Redux",
-    modalContent: (
+    dialogContent: (
       <>
         <p>
           This was Project, which was part of IBM Fullstack course, to make
@@ -327,14 +375,15 @@ const projects = [
     ),
   },
   {
+    slug: "express-book-review",
     title: "express book review",
     imgSrc: "/project-imgs/express-book-review.png",
     code: "https://github.com/Daniel88dev/expressBookReviews",
-    projectLink: "https://github.com/Daniel88dev/expressBookReviews",
+    liveUrl: "https://github.com/Daniel88dev/expressBookReviews",
     tech: ["Node.js", "Express", "Axios"],
     description:
       "Project for IBM Fullstack course to manage Book Reviews, and also to display reviews of other users",
-    modalContent: (
+    dialogContent: (
       <>
         <p>
           Project for IBM Fullstack course to manage Book Reviews, and also to
@@ -353,14 +402,15 @@ const projects = [
     ),
   },
   {
+    slug: "gift-link",
     title: "Gift Link",
     imgSrc: "/project-imgs/gift-link.png",
     code: "https://github.com/Daniel88dev/fullstack-capstone-project",
-    projectLink: "https://github.com/Daniel88dev/fullstack-capstone-project",
+    liveUrl: "https://github.com/Daniel88dev/fullstack-capstone-project",
     tech: ["React", "Bootstrap", "Node.js", "Express", "MongoDB"],
     description:
       "Fullstack IBM Final Capstone Project for building Gift Link - application to share gifts, and to share posts for each item for other users.",
-    modalContent: (
+    dialogContent: (
       <>
         <p>
           Final Fullstack Capstone project of IBM course for building a
@@ -387,73 +437,14 @@ const projects = [
     ),
   },
   {
-    title: "Flexi Day",
-    imgSrc: "/project-imgs/flexi-day.png",
-    code: "https://github.com/Daniel88dev/flexi-day",
-    projectLink: "https://flexi-day.vercel.app/",
-    tech: [
-      "Next.js",
-      "React",
-      "Typescript",
-      "Tailwind",
-      "Postgres",
-      "Drizzle ORM",
-      "Shadcn/ui",
-      "Clerk",
-      "Sentry",
-    ],
-    description:
-      "Fullstack web application for managing company Vacation, or Home Office. Unfortunately unfinished, but lot of functionality was finished",
-    modalContent: (
-      <>
-        <p>UNFINISHED</p>
-        <p>
-          Fullstack web application for managing company Vacation, or Home
-          Office.
-        </p>
-        <p>
-          Built with Next.js, tailwind. For First time I started to use Drizzle
-          ORM (with Vercel/Neon Postgres SQL DB), which i found great to query
-          and manage DB records. Started to use Shadcn/ui, which has large
-          library of perfectly designed components. Also found Great service for
-          Authentication - Clerk, which saves lot of time of building own
-          authentication logic for each project. For Clerk I made also webhook,
-          to store, and update user details in my Postgres DB, because all users
-          records needs to be available for managing their vacation.
-        </p>
-        <p>
-          In Application is possible to Create Company/Team, and manage their
-          vacation over the Year. Manager can approve/reject their Vacation, or
-          home office requests.
-        </p>
-        <p>
-          As part of Project, I started to use also sentry to monitor errors,
-          and report them to me. Added also button to report bug/error by user
-          (bottom right corner).
-        </p>
-        <p>
-          Application is nearly finished, and I wanted to make preview of my
-          programming skills, and maybe start to use it in our company. Didnt
-          finish it, because I had to focus on Development of WEB OTS for my
-          company. Maybe one day I will return to it, and make it fully
-          functional.
-        </p>
-        <p>
-          Even not fully finished, application preview is available on Vercel,
-          with all described Function. For test it, it is necessary to register
-          as new user.
-        </p>
-      </>
-    ),
-  },
-  {
+    slug: "node-file-server",
     title: "Node File Server",
     imgSrc: "/project-imgs/node-file-server.png",
     code: "https://github.com/Daniel88dev/ots-node-file-server",
-    projectLink: "https://github.com/Daniel88dev/ots-node-file-server",
+    liveUrl: "https://github.com/Daniel88dev/ots-node-file-server",
     tech: ["Node.js", "Express", "Multer"],
     description: "Very simple Node.js File Server microservice",
-    modalContent: (
+    dialogContent: (
       <>
         <p>
           Very simple Node.js File Server microservice. (Really very simple,
@@ -472,13 +463,14 @@ const projects = [
     ),
   },
   {
+    slug: "asteroids-python-game",
     title: "Asteroids - Python Game",
     imgSrc: "/project-imgs/asteroids-python.png",
     code: "https://github.com/Daniel88dev/asteroids-python-game",
-    projectLink: "https://github.com/Daniel88dev/asteroids-python-game",
+    liveUrl: "https://github.com/Daniel88dev/asteroids-python-game",
     tech: ["Python", "Pygame"],
     description: "Very simple Python Game - Asteroids",
-    modalContent: (
+    dialogContent: (
       <>
         <p>Very simple Python Game - Asteroids</p>
         <p>
@@ -492,14 +484,15 @@ const projects = [
     ),
   },
   {
+    slug: "maze-solver-python",
     title: "Maze Solver - Python",
     imgSrc: "/project-imgs/maze-solver.png",
     code: "https://github.com/Daniel88dev/maze-solver",
-    projectLink: "https://github.com/Daniel88dev/maze-solver",
+    liveUrl: "https://github.com/Daniel88dev/maze-solver",
     tech: ["Python"],
     description:
       "Python application, which generates Maze labyrinth, and then attempts to solve it, by searching way through labyrinth",
-    modalContent: (
+    dialogContent: (
       <>
         <p>
           Python application, generating Maze labyrinth, and afterwards trying
@@ -517,3 +510,10 @@ const projects = [
     ),
   },
 ];
+
+export const getProjectBySlug = (slug: string): Project | undefined =>
+  projects.find((project) => project.slug === slug);
+
+/** Slugs of every Project that has a Case Study, in display order. */
+export const getCaseStudySlugs = (): string[] =>
+  projects.filter((project) => project.caseStudy !== undefined).map((project) => project.slug);
