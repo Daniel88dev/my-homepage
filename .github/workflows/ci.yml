@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+# A force-push or a quick follow-up commit shouldn't leave the superseded run
+# burning a runner — only the newest commit on a ref is worth verifying.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Lint, typecheck and test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          # Keep in step with the Node version the Vercel project builds on.
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        id: install
+        run: npm ci
+
+      # The three checks are independent, so report all of them in one run
+      # rather than making each red push reveal only the next failure along.
+      # They are still gated on a successful install, which nothing survives.
+      - name: Lint
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run lint
+
+      - name: Typecheck
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run typecheck
+
+      - name: Test
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm test
