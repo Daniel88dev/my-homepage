@@ -16,7 +16,7 @@ export const Footer = () => {
         </p>
         <ul className="flex flex-wrap items-center gap-[2.4rem]">
           <li>
-            <Link href="mailto:daniel.hrynusiw@gmail.com" className={footerLink}>
+            <Link href="mailto:daniel@hrynusiw.cz" className={footerLink}>
               Email
             </Link>
           </li>
