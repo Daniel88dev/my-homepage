@@ -15,7 +15,7 @@
     "@types/react-dom": "^19.2.5",
     "@vercel/analytics": "^2.0.1",
     "animejs": "^4.5.0",
-    "eslint": "^10.9.1",
+    "eslint": "^9.39.5",
     "eslint-config-next": "^16.3.3",
     "framer-motion": "^13.1.1",
     "next": "16.3.3",
@@ -33,5 +33,10 @@
     "serialize-javascript": "^7.0.3",
     "js-yaml": "^4.2.0",
     "postcss": "^8.5.15"
+  },
+  "allowScripts": {
+    "@sentry/cli": true,
+    "unrs-resolver": true,
+    "fsevents": true
   }
 }
