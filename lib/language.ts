@@ -12,13 +12,6 @@ export const DEFAULT_LANGUAGE: Language = "en";
 export const isLanguage = (value: string): value is Language =>
   (LANGUAGES as readonly string[]).includes(value);
 
-/**
- * Paths still served by the Pages Router. They have no App Router route to be
- * rewritten into, so rewriting them would 404 a live page. Delete this list,
- * and the branch that reads it, when the Case Study moves routers.
- */
-const PAGES_ROUTER_PREFIXES = ["/projects"];
-
 /** The Sentry tunnel, which serves no page. */
 const TUNNEL_ROUTE = "/monitoring";
 
@@ -35,14 +28,6 @@ const TUNNEL_ROUTE = "/monitoring";
 export const languageRewriteTarget = (pathname: string): string | null => {
   const [, firstSegment = ""] = pathname.split("/");
   if (isLanguage(firstSegment)) return null;
-
-  if (
-    PAGES_ROUTER_PREFIXES.some(
-      (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
-    )
-  ) {
-    return null;
-  }
 
   if (pathname.startsWith("/_next/") || pathname === TUNNEL_ROUTE) return null;
 

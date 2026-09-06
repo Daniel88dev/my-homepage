@@ -30,6 +30,6 @@ Sentry.init({
 });
 
 // Required by the Sentry SDK to instrument navigations. This hook fires for App
-// Router navigations only, so it is inert on this Pages Router app today, but the
-// SDK warns at build time when it is absent.
+// Router navigations only, so it is live for the first time now that the Pages
+// Router is gone.
 export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;

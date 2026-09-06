@@ -41,10 +41,10 @@ describe("languageRewriteTarget", () => {
     expect(languageRewriteTarget("/cs/resume")).toBe("/en/cs/resume");
   });
 
-  // The Case Study is still served by the Pages Router. There is no App Router
-  // route to rewrite it into, so rewriting it would 404 a live page.
-  it("leaves paths still served by the Pages Router alone", () => {
-    expect(languageRewriteTarget("/projects/flexi-day")).toBeNull();
+  it("rewrites a Case Study path into the English segment", () => {
+    expect(languageRewriteTarget("/projects/flexi-day")).toBe(
+      "/en/projects/flexi-day",
+    );
   });
 
   it("leaves framework internals alone", () => {

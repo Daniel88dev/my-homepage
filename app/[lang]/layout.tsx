@@ -21,10 +21,6 @@ const geistMono = Geist_Mono({
 /**
  * Every URL-valued metadata field below this layout is written as a path and
  * resolved against this base, so no page builds an absolute URL itself.
- *
- * The Pages Router's `_app` and `_document` still carry their own copies of the
- * fonts, the analytics mount and the theme colour, because the Case Study is
- * still served from there. They go when it moves routers.
  */
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

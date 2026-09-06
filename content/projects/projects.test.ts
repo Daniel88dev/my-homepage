@@ -51,6 +51,18 @@ describe("project content", () => {
     expect(Object.keys(CASE_STUDY_CONTENT).sort()).toEqual([...getCaseStudySlugs()].sort());
   });
 
+  it("loads a content module with a default export for every case study slug", async () => {
+    for (const slug of getCaseStudySlugs()) {
+      const load = CASE_STUDY_CONTENT[slug];
+      expect(load, `no content module for ${slug}`).toBeDefined();
+      const { default: Content } = await load!();
+      // Any ComponentType will do; a plain function, a memo and a forwardRef
+      // are all legal here. What this guards is that the module resolves at
+      // all, which the `next/dynamic` wrapper used to hide until render time.
+      expect(Content, `${slug} has no default export`).toBeDefined();
+    }
+  });
+
   it("resolves nothing for an unknown slug", () => {
     expect(getProjectBySlug("does-not-exist")).toBeUndefined();
     expect(getProjectBySlug("does-not-exist")?.caseStudy).toBeUndefined();
