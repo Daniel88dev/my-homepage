@@ -30,19 +30,11 @@ export default withSentryConfig(nextConfig, {
     disable: true,
   },
 
-  // Webpack-only build-time options (not applied under Turbopack).
-  webpack: {
-    // Automatically annotate React components to show their full name in breadcrumbs and session replay
-    reactComponentAnnotation: {
-      enabled: true,
-    },
-
-    // Automatically tree-shake Sentry logger statements to reduce bundle size
-    treeshake: {
-      removeDebugLogging: true,
-    },
-
-    // Enables automatic instrumentation of Vercel Cron Monitors.
-    automaticVercelMonitors: true,
-  },
+  // No `webpack` block here on purpose. Next.js 16 builds with Turbopack by
+  // default, and Sentry's `reactComponentAnnotation`, `treeshake` and
+  // `automaticVercelMonitors` options live on `SentryBuildWebpackOptions` —
+  // they are applied only by the SDK's webpack plugin, so under Turbopack they
+  // silently do nothing. They were configured here and inert. Re-add them only
+  // alongside a deliberate move back to `next build --webpack`, or once the SDK
+  // supports them under Turbopack.
 });
