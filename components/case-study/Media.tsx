@@ -8,7 +8,8 @@ import { Lightbox, SHOT_QUALITY } from "./Lightbox";
 const frame =
   "overflow-hidden rounded-[0.8rem] border border-border bg-background-light shadow-[0_32px_64px_-32px_rgb(3_8_6/0.9),0_0_0_1px_rgb(3_8_6/0.4)]";
 
-interface ZoomableProps {
+/** Everything needed to place one screenshot on the page. */
+interface ShotProps {
   shot: CaseStudyImage;
   caption?: ReactNode;
   /** Preload this image. Only for the one above-the-fold hero screenshot. */
@@ -21,7 +22,7 @@ interface ZoomableProps {
  * A framed screenshot that opens enlarged on click. The whole frame is the
  * button; a small corner glyph appears on hover and focus as the affordance.
  */
-export const Zoomable = ({ shot, caption, preload, sizes, className }: ZoomableProps) => {
+export const Zoomable = ({ shot, caption, preload, sizes, className }: ShotProps) => {
   const [open, setOpen] = useState(false);
   const close = useCallback(() => setOpen(false), []);
 
@@ -55,13 +56,8 @@ export const Zoomable = ({ shot, caption, preload, sizes, className }: ZoomableP
   );
 };
 
-interface FigureProps {
-  shot: CaseStudyImage;
-  caption?: ReactNode;
-  preload?: boolean;
-  sizes?: string;
-  className?: string;
-}
+/** As a Zoomable, but the layout picks the sizes when the caller does not. */
+type FigureProps = Omit<ShotProps, "sizes"> & { sizes?: string };
 
 /** A framed screenshot with an optional caption below it. Never on top of it. */
 export const Figure = ({ shot, caption, preload, sizes, className }: FigureProps) => {
