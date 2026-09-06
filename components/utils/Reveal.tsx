@@ -1,5 +1,10 @@
 import React, { useEffect, useRef, ReactElement } from "react";
-import { motion, useInView, useAnimation } from "framer-motion";
+import {
+  motion,
+  useInView,
+  useAnimation,
+  useReducedMotion,
+} from "framer-motion";
 
 interface Props {
   children: ReactElement;
@@ -9,9 +14,10 @@ interface Props {
 export const Reveal = ({ children, width = "fit-content" }: Props) => {
   const mainControls = useAnimation();
   const slideControls = useAnimation();
+  const reduceMotion = useReducedMotion();
 
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+  const isInView = useInView(ref, { once: true, margin: "0px 0px -10% 0px" });
 
   useEffect(() => {
     if (isInView) {
@@ -23,27 +29,32 @@ export const Reveal = ({ children, width = "fit-content" }: Props) => {
     }
   }, [isInView, mainControls, slideControls]);
 
+  if (reduceMotion) {
+    return <div style={{ width }}>{children}</div>;
+  }
+
   return (
     <div ref={ref} style={{ position: "relative", width, overflow: "hidden" }}>
       <motion.div
         variants={{
-          hidden: { opacity: 0, y: 75 },
+          hidden: { opacity: 0, y: 48 },
           visible: { opacity: 1, y: 0 },
         }}
         initial="hidden"
         animate={mainControls}
-        transition={{ duration: 0.5, delay: 0.25 }}
+        transition={{ duration: 0.5, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
       >
         {children}
       </motion.div>
       <motion.div
+        aria-hidden
         variants={{
-          hidden: { left: 0 },
-          visible: { left: "100%" },
+          hidden: { x: "0%" },
+          visible: { x: "101%" },
         }}
         initial="hidden"
         animate={slideControls}
-        transition={{ duration: 0.5, ease: "easeIn" }}
+        transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
         style={{
           position: "absolute",
           top: 4,
@@ -52,6 +63,7 @@ export const Reveal = ({ children, width = "fit-content" }: Props) => {
           right: 0,
           background: "var(--brand)",
           zIndex: 20,
+          willChange: "transform",
         }}
       />
     </div>
