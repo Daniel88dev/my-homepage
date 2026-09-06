@@ -38,6 +38,16 @@ _Avoid_: Demo link, project link, preview
 The technologies shown for a Project, joined into one line on the Project Card and grouped by Related Repository in a Case Study.
 _Avoid_: Stack tags, badges, skills
 
+### Languages
+
+**Language**:
+One of the languages the site is published in. English is published today, and is the one whose URLs carry no prefix; every other Language lives under its own prefix at otherwise identical paths.
+_Avoid_: Locale, translation, i18n
+
+**Language segment**:
+The part of a URL that names the Language, and the route segment every page sits beneath. English URLs carry no Language segment; a rewrite supplies it.
+_Avoid_: Locale segment, lang param
+
 ### Products
 
 **flexiday**:
