@@ -20,6 +20,12 @@ updates:
         applies-to: security-updates
         patterns:
           - "*"
+    ignore:
+      # eslint-config-next's plugins (eslint-plugin-react, -import, -jsx-a11y)
+      # still peer-cap at ESLint 9; ESLint 10 makes `npm run lint` crash.
+      # Drop this once eslint-config-next ships ESLint 10 support.
+      - dependency-name: "eslint"
+        update-types: ["version-update:semver-major"]
     commit-message:
       prefix: "chore"
       include: "scope"
