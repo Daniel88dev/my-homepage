@@ -48,6 +48,10 @@ _Avoid_: Locale, translation, i18n
 The part of a URL that names the Language, and the route segment every page sits beneath. English URLs carry no Language segment; a rewrite supplies it.
 _Avoid_: Locale segment, lang param
 
+**Project Copy**:
+The half of a Project's content that is written anew in each Language: its description, its Project Dialog content, and the title, pitch and description of its Case Study. Everything else about a Project — its screenshot, its repositories, its Live URL and its Tech List — is the same in every Language.
+_Avoid_: Translation, project strings, localised content
+
 ### Products
 
 **flexiday**:

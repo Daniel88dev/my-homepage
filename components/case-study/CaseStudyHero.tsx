@@ -4,16 +4,19 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { PiArrowUpRight, PiGithubLogo } from "react-icons/pi";
 import { Reveal } from "@/components/utils/Reveal";
-import type { CaseStudy, CaseStudyNavItem, Project } from "@/content/projects/types";
+import type { CaseStudyImage, Project } from "@/content/projects/types";
 import { repositoryName } from "@/content/projects/repository";
 import { StandardButton } from "@/components/buttons/StandardButton";
 import { Zoomable } from "./Media";
 
 interface Props {
   project: Project;
-  caseStudy: CaseStudy;
-  /** The hero's own navigation entry, so it anchors like every other section. */
-  nav: CaseStudyNavItem;
+  /** Screenshot beside the pitch. Invariant, like every other Case Study image. */
+  heroImage: CaseStudyImage;
+  /** The one-line pitch, from this Language's Project Copy. */
+  pitch: string;
+  /** The hero's own section id, so it anchors like every other section. */
+  sectionId: string;
 }
 
 const ctaSecondary =
@@ -23,13 +26,13 @@ const ctaSecondary =
  * Split hero: the pitch and the way into the product on the left, the hero
  * screenshot on the right. Stacks under 768px.
  */
-export const CaseStudyHero = ({ project, caseStudy, nav }: Props) => {
+export const CaseStudyHero = ({ project, heroImage, pitch, sectionId }: Props) => {
   const reduceMotion = useReducedMotion();
   const repositories = project.relatedRepositories ?? [];
 
   return (
     <section
-      id={nav.id}
+      id={sectionId}
       aria-labelledby="case-study-title"
       className="relative scroll-mt-[calc(45px_+_3.6rem)] overflow-hidden"
     >
@@ -50,7 +53,7 @@ export const CaseStudyHero = ({ project, caseStudy, nav }: Props) => {
           </Reveal>
           <Reveal>
             <p className="mt-[2rem] max-w-[38ch] text-md font-light text-text-muted max-md:text-sm">
-              {caseStudy.pitch}
+              {pitch}
             </p>
           </Reveal>
           <Reveal>
@@ -89,8 +92,8 @@ export const CaseStudyHero = ({ project, caseStudy, nav }: Props) => {
           className="rounded-[0.8rem] shadow-[0_40px_80px_-40px_rgb(3_8_6/0.95)]"
         >
           <Zoomable
-            shot={caseStudy.heroImage}
-            caption={caseStudy.heroImage.alt}
+            shot={heroImage}
+            caption={heroImage.alt}
             preload
             sizes="(max-width: 768px) 100vw, 660px"
           />

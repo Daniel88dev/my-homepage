@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { toLanguage, type Language } from "@/lib/language";
 import { getCaseStudySlugs, getProjectBySlug } from "@/content/projects";
-import { CASE_STUDY_CONTENT } from "@/content/projects/case-studies";
+import { getProjectCopy } from "@/content/projects/copy";
+import { loadCaseStudyContent } from "@/content/projects/case-studies";
 import { CaseStudyLayout } from "@/components/case-study/CaseStudyLayout";
 import { CaseStudyHero } from "@/components/case-study/CaseStudyHero";
 
@@ -25,23 +27,24 @@ export const generateStaticParams = () =>
 export const dynamicParams = false;
 
 /**
- * Metadata and content are separate modules, so a Project can carry a Case
- * Study without one being written yet. That slug is a 404, never a blank page.
+ * The invariant data, this Language's Copy and this Language's content are
+ * three separate modules, so a Project can carry a Case Study without one
+ * being written yet. That slug is a 404, never a blank page.
  */
-const resolveCaseStudy = (slug: string) => {
+const resolveCaseStudy = (slug: string, lang: Language) => {
   const project = getProjectBySlug(slug);
   const caseStudy = project?.caseStudy;
-  const loadContent = CASE_STUDY_CONTENT[slug];
-  const heroNav = caseStudy?.sections[0];
-  if (!project || !caseStudy || !loadContent || !heroNav) notFound();
-  return { project, caseStudy, loadContent, heroNav };
+  const copy = getProjectCopy(lang, slug)?.caseStudy;
+  const loadContent = loadCaseStudyContent(lang, slug);
+  if (!project || !caseStudy || !copy || !loadContent) notFound();
+  return { project, caseStudy, copy, loadContent };
 };
 
 export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
-  const { slug } = await params;
-  const { caseStudy } = resolveCaseStudy(slug);
+  const { lang, slug } = await params;
+  const { caseStudy, copy } = resolveCaseStudy(slug, toLanguage(lang));
 
-  const title = `Daniel Hrynusiw | ${caseStudy.title}`;
+  const title = `Daniel Hrynusiw | ${copy.title}`;
   // The published URL is the unprefixed English one, and every URL below is a
   // path resolved against the layout's metadata base. See
   // docs/adr/0001-unprefixed-english-urls.md. Adding Czech makes these
@@ -50,20 +53,20 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
 
   return {
     title,
-    description: caseStudy.description,
+    description: copy.description,
     alternates: { canonical: url },
     openGraph: {
       type: "article",
       siteName: "Daniel Hrynusiw",
       url,
       title,
-      description: caseStudy.description,
+      description: copy.description,
       images: [{ url: caseStudy.ogImage, width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
       title,
-      description: caseStudy.description,
+      description: copy.description,
       images: [caseStudy.ogImage],
     },
     icons: { icon: "/favicon.ico" },
@@ -71,14 +74,28 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
 };
 
 export default async function CaseStudyPage({ params }: Props) {
-  const { slug } = await params;
-  const { project, caseStudy, loadContent, heroNav } = resolveCaseStudy(slug);
-  const { default: Content } = await loadContent();
+  const { lang, slug } = await params;
+  const { project, caseStudy, copy, loadContent } = resolveCaseStudy(
+    slug,
+    toLanguage(lang)
+  );
+  const { default: Content, sections } = await loadContent();
+
+  // The hero is the first section, and it anchors like the rest of them.
+  const heroSection = sections[0];
+  if (!heroSection) notFound();
 
   return (
     <CaseStudyLayout
-      sections={caseStudy.sections}
-      hero={<CaseStudyHero project={project} caseStudy={caseStudy} nav={heroNav} />}
+      sections={sections}
+      hero={
+        <CaseStudyHero
+          project={project}
+          heroImage={caseStudy.heroImage}
+          pitch={copy.pitch}
+          sectionId={heroSection.id}
+        />
+      }
     >
       <Content />
     </CaseStudyLayout>

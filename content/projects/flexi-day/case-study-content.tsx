@@ -9,7 +9,24 @@ import {
 } from "@/components/case-study/Lists";
 import { ArchitectureDiagram } from "@/components/case-study/ArchitectureDiagram";
 import { FLEXI_DAY_REPOSITORIES } from "./repositories";
-import { SECTIONS, shots } from "./case-study";
+import type { CaseStudyNavItem } from "@/content/projects/types";
+import { SECTION_IDS, shots } from "./case-study";
+
+/**
+ * The section navigation, in page order, in this module's Language. The ids
+ * are the invariant ones; only the labels are prose. A Language whose content
+ * module labels a different set, or the same set in a different order, is a
+ * test failure rather than a navigation that silently stops tracking.
+ */
+export const sections: CaseStudyNavItem[] = [
+  { id: SECTION_IDS.hero, label: "Overview" },
+  { id: SECTION_IDS.problem, label: "The problem" },
+  { id: SECTION_IDS.features, label: "What it does" },
+  { id: SECTION_IDS.architecture, label: "Architecture" },
+  { id: SECTION_IDS.stack, label: "Tech list" },
+  { id: SECTION_IDS.status, label: "Status" },
+  { id: SECTION_IDS.learnings, label: "What I learned" },
+];
 
 /**
  * The long-form content of the flexiday Case Study. Loaded only by the Case
@@ -18,7 +35,7 @@ import { SECTIONS, shots } from "./case-study";
 const FlexiDayCaseStudyContent = () => (
   <>
     <CaseStudySection
-      nav={SECTIONS.problem}
+      id={SECTION_IDS.problem}
       title="A spreadsheet that kept breaking"
       lede="Every small team I have worked in tracked time off in a shared sheet. It answered nobody's real question."
     >
@@ -53,7 +70,7 @@ const FlexiDayCaseStudyContent = () => (
     </CaseStudySection>
 
     <CaseStudySection
-      nav={SECTIONS.features}
+      id={SECTION_IDS.features}
       title="What it does"
       lede="Everything hangs off one calendar. The rest exists so that calendar is always right."
     >
@@ -207,7 +224,7 @@ const FlexiDayCaseStudyContent = () => (
     </CaseStudySection>
 
     <CaseStudySection
-      nav={SECTIONS.architecture}
+      id={SECTION_IDS.architecture}
       title="Three repositories, one product"
       lede="The web app, the API and the email templates version and deploy on their own schedules."
     >
@@ -259,7 +276,7 @@ const FlexiDayCaseStudyContent = () => (
       </div>
     </CaseStudySection>
 
-    <CaseStudySection nav={SECTIONS.stack} title="Tech list, by repository">
+    <CaseStudySection id={SECTION_IDS.stack} title="Tech list, by repository">
       <TechListGroups
         groups={[
           {
@@ -326,7 +343,7 @@ const FlexiDayCaseStudyContent = () => (
     </CaseStudySection>
 
     <CaseStudySection
-      nav={SECTIONS.status}
+      id={SECTION_IDS.status}
       title="Where it stands"
       lede="Live, in production, and free for early adopters."
     >
@@ -377,7 +394,7 @@ const FlexiDayCaseStudyContent = () => (
       </div>
     </CaseStudySection>
 
-    <CaseStudySection nav={SECTIONS.learnings} title="What I learned">
+    <CaseStudySection id={SECTION_IDS.learnings} title="What I learned">
       <LessonList
         items={[
           {

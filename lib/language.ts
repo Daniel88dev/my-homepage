@@ -12,6 +12,16 @@ export const DEFAULT_LANGUAGE: Language = "en";
 export const isLanguage = (value: string): value is Language =>
   (LANGUAGES as readonly string[]).includes(value);
 
+/**
+ * Narrows a route param to a Language. The framework's route validator rejects
+ * a `params` type narrower than its own, so every page receives `lang` as a
+ * `string`; `dynamicParams = false` is what guarantees the value is published.
+ * The fallback exists so that guarantee does not have to be restated as a
+ * non-null assertion at every call site.
+ */
+export const toLanguage = (value: string): Language =>
+  isLanguage(value) ? value : DEFAULT_LANGUAGE;
+
 /** The Sentry tunnel, which serves no page. */
 const TUNNEL_ROUTE = "/monitoring";
 

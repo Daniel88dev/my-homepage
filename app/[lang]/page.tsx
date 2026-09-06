@@ -1,5 +1,15 @@
 import type { Metadata } from "next";
+import { toLanguage } from "@/lib/language";
 import { Home } from "@/components/home/Home";
+
+// Written out rather than taken from the generated `PageProps` helper, because
+// typecheck runs in CI without a build and the generated types are not there.
+// `string` rather than `Language` because the framework's own route validator
+// rejects a params type narrower than its own; `dynamicParams` is what narrows
+// the values that actually reach here.
+interface Props {
+  params: Promise<{ lang: string }>;
+}
 
 const title = "Daniel Hrynusiw | Web Developer";
 const description =
@@ -25,6 +35,7 @@ export const metadata: Metadata = {
   icons: { icon: "/favicon.ico" },
 };
 
-export default function HomePage() {
-  return <Home />;
+export default async function HomePage({ params }: Props) {
+  const { lang } = await params;
+  return <Home lang={toLanguage(lang)} />;
 }

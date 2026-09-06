@@ -1,4 +1,4 @@
-import type { CaseStudy, CaseStudyImage, CaseStudyNavItem } from "@/content/projects/types";
+import type { CaseStudy, CaseStudyImage } from "@/content/projects/types";
 
 const dir = "/project-imgs/flexi-day";
 
@@ -58,27 +58,24 @@ export const shots = {
 };
 
 /**
- * The sections, in page order. The content module builds each section from the
- * entry here, so an id can never drift from the one the navigation links to.
+ * The section anchors, in page order. Invariant: the sticky section navigation
+ * links to these ids and every Language's content module builds its sections
+ * from them, so an id can never drift from the one being linked to. The labels
+ * are prose, and live in the content module beside the sections they name.
  */
-export const SECTIONS = {
-  hero: { id: "hero", label: "Overview" },
-  problem: { id: "problem", label: "The problem" },
-  features: { id: "features", label: "What it does" },
-  architecture: { id: "architecture", label: "Architecture" },
-  stack: { id: "stack", label: "Tech list" },
-  status: { id: "status", label: "Status" },
-  learnings: { id: "learnings", label: "What I learned" },
-} satisfies Record<string, CaseStudyNavItem>;
+export const SECTION_IDS = {
+  hero: "hero",
+  problem: "problem",
+  features: "features",
+  architecture: "architecture",
+  stack: "stack",
+  status: "status",
+  learnings: "learnings",
+} as const satisfies Record<string, string>;
 
 export const flexiDayCaseStudy: CaseStudy = {
-  title: "flexiday, a calm calendar for team time off",
-  pitch:
-    "The shared calendar for team time off. Request in seconds, approve in a click, and always know who is in and who is away.",
-  description:
-    "How I built and run flexiday: a vacation and day-off product for teams, shipped as a static Next.js app, an Express API and an email pipeline on AWS.",
   heroImage: shots.calendar,
   ogImage: `${dir}/og.png`,
   images: Object.values(shots).map((shot) => shot.src),
-  sections: Object.values(SECTIONS),
+  sectionIds: Object.values(SECTION_IDS),
 };

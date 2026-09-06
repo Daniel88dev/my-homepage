@@ -4,6 +4,7 @@ import {
   LANGUAGES,
   isLanguage,
   languageRewriteTarget,
+  toLanguage,
 } from "./language";
 
 describe("LANGUAGES", () => {
@@ -18,6 +19,20 @@ describe("LANGUAGES", () => {
   it("recognises only published Languages", () => {
     expect(isLanguage("en")).toBe(true);
     expect(isLanguage("de")).toBe(false);
+  });
+});
+
+describe("toLanguage", () => {
+  it("keeps a published Language", () => {
+    expect(toLanguage("en")).toBe("en");
+  });
+
+  // `dynamicParams = false` means only a published Language ever reaches a
+  // page, but the route param is typed `string`, so the narrowing needs an
+  // answer for the case the router has already ruled out.
+  it("falls back to the default Language for anything else", () => {
+    expect(toLanguage("de")).toBe(DEFAULT_LANGUAGE);
+    expect(toLanguage("")).toBe(DEFAULT_LANGUAGE);
   });
 });
 
