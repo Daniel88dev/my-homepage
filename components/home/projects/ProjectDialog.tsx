@@ -13,8 +13,10 @@ import {
 } from "react-icons/pi";
 import type { RelatedRepository } from "@/content/projects";
 import { StandardButton } from "@/components/buttons/StandardButton";
+import type { ProjectLabels } from "./Project";
 
 interface Props {
+  labels: ProjectLabels;
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   title: string;
@@ -31,6 +33,7 @@ const dialogLink =
   "inline-flex items-center gap-[0.6rem] rounded-[4px] border border-border px-[1.4rem] py-[0.8rem] text-xs text-text transition-[border-color,color] duration-200 hover:border-brand hover:text-brand";
 
 export const ProjectDialog = ({
+  labels,
   dialogContent,
   liveUrl,
   setIsOpen,
@@ -77,7 +80,7 @@ export const ProjectDialog = ({
       <button
         ref={closeRef}
         type="button"
-        aria-label="Close project details"
+        aria-label={labels.closeDialog}
         onClick={() => setIsOpen(false)}
         className="fixed right-[1.6rem] top-[1.6rem] flex h-[4rem] w-[4rem] cursor-pointer items-center justify-center rounded-[4px] border border-border bg-background text-md text-text transition-colors duration-200 hover:border-brand hover:text-brand"
       >
@@ -99,7 +102,7 @@ export const ProjectDialog = ({
           width={720}
           className="w-full border-b border-border"
           src={imgSrc}
-          alt={`Screenshot of the ${title} project.`}
+          alt={labels.screenshotAlt}
         />
         <div className="p-[3.2rem] max-md:p-[2.4rem]">
           <h3 id="project-dialog-title" className="text-lg font-semibold">
@@ -116,7 +119,7 @@ export const ProjectDialog = ({
           <div className="mt-[3.2rem] flex flex-wrap items-center gap-[1.2rem]">
             {caseStudyHref && (
               <StandardButton href={caseStudyHref} size="sm">
-                Read the case study <PiArrowRight aria-hidden />
+                {labels.readCaseStudy} <PiArrowRight aria-hidden />
               </StandardButton>
             )}
             {!hasRepositories && (
@@ -126,7 +129,7 @@ export const ProjectDialog = ({
                 href={code}
                 className={dialogLink}
               >
-                <PiGithubLogo aria-hidden /> Source code
+                <PiGithubLogo aria-hidden /> {labels.sourceCode}
               </Link>
             )}
             {liveUrl !== "" && (
@@ -136,7 +139,7 @@ export const ProjectDialog = ({
                 href={liveUrl}
                 className={dialogLink}
               >
-                <PiArrowUpRight aria-hidden /> Live project
+                <PiArrowUpRight aria-hidden /> {labels.liveProject}
               </Link>
             )}
           </div>
@@ -144,7 +147,7 @@ export const ProjectDialog = ({
           {hasRepositories && (
             <div className="mt-[3.2rem] border-t border-border pt-[2.4rem]">
               <h4 className="font-mono text-2xs uppercase tracking-[0.08em] text-text-muted">
-                Repositories
+                {labels.repositories}
               </h4>
               <ul className="mt-[1.2rem] flex flex-col">
                 {relatedRepositories.map((repo) => (

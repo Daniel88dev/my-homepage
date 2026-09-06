@@ -1,10 +1,22 @@
 /**
- * The Languages the site is published in. Czech joins the list when its
- * content lands; until then a `/cs` URL is just an unknown path.
+ * The Languages the site is published in. Adding one here publishes it: the
+ * root layout generates a static param for it, and the Dictionary and Project
+ * Copy registries stop typechecking until they carry an entry for it.
  */
-export const LANGUAGES = ["en"] as const;
+export const LANGUAGES = ["en", "cs"] as const;
 
 export type Language = (typeof LANGUAGES)[number];
+
+/**
+ * Each Language named in itself, as a Language Picker names it. Invariant, in
+ * the same way a product name is: "Čeština" reads the same to an English
+ * visitor as to a Czech one, and a Dictionary entry per Language would only
+ * invite one of them to be translated.
+ */
+export const LANGUAGE_NAMES: Record<Language, string> = {
+  en: "English",
+  cs: "Čeština",
+};
 
 /** The Language whose URLs carry no prefix. See docs/adr/0001. */
 export const DEFAULT_LANGUAGE: Language = "en";
@@ -21,6 +33,49 @@ export const isLanguage = (value: string): value is Language =>
  */
 export const toLanguage = (value: string): Language =>
   isLanguage(value) ? value : DEFAULT_LANGUAGE;
+
+/**
+ * The path a page is published at in `lang`, given the path it is written at —
+ * which is the same in every Language, because the site translates prose and
+ * not URL segments. English carries no prefix, so for English this is the
+ * identity. See docs/adr/0001-unprefixed-english-urls.md.
+ *
+ * This is the one place that knows how a Language and a path make a URL: the
+ * Language Picker, and any canonical or alternate link, go through it.
+ */
+export const languagePath = (lang: Language, path: string): string => {
+  if (lang === DEFAULT_LANGUAGE) return path;
+  return path === "/" ? `/${lang}` : `/${lang}${path}`;
+};
+
+/**
+ * The path beneath any Language prefix — the path as it is written, which is
+ * what the two Languages have in common. English is reachable both unprefixed
+ * and at `/en`, so both forms answer the same.
+ */
+const unprefixedPath = (pathname: string): string => {
+  const [, firstSegment = "", ...rest] = pathname.split("/");
+  if (!isLanguage(firstSegment)) return pathname;
+  return rest.length > 0 ? `/${rest.join("/")}` : "/";
+};
+
+/**
+ * Where the Language Picker points: the page currently being read, in
+ * `target`. `counterparts` is the paths `target` actually publishes — see
+ * `publishedPaths` in content/pages.ts — so a page with no counterpart lands
+ * on that Language's home page instead of on a 404.
+ *
+ * Pure, and given every input it needs, so the Picker itself is markup and
+ * this is the part with a test.
+ */
+export const languageSwitchTarget = (
+  pathname: string,
+  target: Language,
+  counterparts: readonly string[]
+): string => {
+  const path = unprefixedPath(pathname);
+  return languagePath(target, counterparts.includes(path) ? path : "/");
+};
 
 /** The Sentry tunnel, which serves no page. */
 const TUNNEL_ROUTE = "/monitoring";

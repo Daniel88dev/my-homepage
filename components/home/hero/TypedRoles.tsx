@@ -3,14 +3,9 @@
 import { ReactTyped } from "react-typed";
 
 /** The role that types itself out inside the hero headline. */
-export const TypedRoles = () => (
+export const TypedRoles = ({ roles }: { roles: string[] }) => (
   <ReactTyped
-    strings={[
-      "Full Stack Developer",
-      "Back-end Developer",
-      "Manufacturing Engineer",
-      "Project Manager",
-    ]}
+    strings={roles}
     typeSpeed={50}
     loop
     backSpeed={20}

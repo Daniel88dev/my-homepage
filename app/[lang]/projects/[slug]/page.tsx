@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { toLanguage, type Language } from "@/lib/language";
-import { getCaseStudySlugs, getProjectBySlug } from "@/content/projects";
+import { languagePath, toLanguage, type Language } from "@/lib/language";
+import { getCaseStudySlugs, getProjectBySlug, liveHost } from "@/content/projects";
 import { getProjectCopy } from "@/content/projects/copy";
 import { loadCaseStudyContent } from "@/content/projects/case-studies";
+import { getDictionary } from "@/content/dictionary";
 import { CaseStudyLayout } from "@/components/case-study/CaseStudyLayout";
 import { CaseStudyHero } from "@/components/case-study/CaseStudyHero";
 
@@ -42,14 +43,15 @@ const resolveCaseStudy = (slug: string, lang: Language) => {
 
 export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
   const { lang, slug } = await params;
-  const { caseStudy, copy } = resolveCaseStudy(slug, toLanguage(lang));
+  const language = toLanguage(lang);
+  const { caseStudy, copy } = resolveCaseStudy(slug, language);
 
   const title = `Daniel Hrynusiw | ${copy.title}`;
-  // The published URL is the unprefixed English one, and every URL below is a
-  // path resolved against the layout's metadata base. See
-  // docs/adr/0001-unprefixed-english-urls.md. Adding Czech makes these
-  // Language-dependent.
-  const url = `/projects/${slug}`;
+  // A path, resolved against the layout's metadata base rather than made
+  // absolute here. English stays unprefixed, so the English canonical is
+  // byte-identical to the one that has been published all along; Czech
+  // declares its own. See docs/adr/0001-unprefixed-english-urls.md.
+  const url = languagePath(language, `/projects/${slug}`);
 
   return {
     title,
@@ -75,11 +77,13 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
 
 export default async function CaseStudyPage({ params }: Props) {
   const { lang, slug } = await params;
+  const language = toLanguage(lang);
   const { project, caseStudy, copy, loadContent } = resolveCaseStudy(
     slug,
-    toLanguage(lang)
+    language
   );
   const { default: Content, sections } = await loadContent();
+  const dict = getDictionary(language);
 
   // The hero is the first section, and it anchors like the rest of them.
   const heroSection = sections[0];
@@ -87,10 +91,18 @@ export default async function CaseStudyPage({ params }: Props) {
 
   return (
     <CaseStudyLayout
+      lang={language}
+      dict={dict}
+      path={`/projects/${slug}`}
       sections={sections}
       hero={
         <CaseStudyHero
           project={project}
+          labels={{
+            eyebrow: dict.caseStudy.eyebrow,
+            openLive: dict.caseStudy.openLive(liveHost(project)),
+            sourceOnGitHub: dict.caseStudy.sourceOnGitHub,
+          }}
           heroImage={caseStudy.heroImage}
           pitch={copy.pitch}
           sectionId={heroSection.id}

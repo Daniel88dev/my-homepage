@@ -1,27 +1,28 @@
 import { SectionHeader } from "@/components/utils/SectionHeader";
+import type { Dictionary } from "@/content/dictionary";
 import { ExperienceItem } from "./ExperienceItem";
 
-export const Experience = () => {
+export const Experience = ({ dict }: { dict: Dictionary["experience"] }) => {
   return (
     <section className="section-wrapper" id="experience">
-      <SectionHeader title="Experience" index="03" dir="l" />
+      <SectionHeader title={dict.title} index="03" dir="l" />
       <ol className="list-none">
-        {experience.map((item) => (
-          <ExperienceItem key={item.title} {...item} />
+        {roles.map(({ key, tech }) => (
+          <ExperienceItem key={key} {...dict.roles[key]} tech={tech} />
         ))}
       </ol>
     </section>
   );
 };
 
-const experience = [
+/**
+ * The invariant half of the timeline: which roles it lists, in which order,
+ * and the technologies each one used. The prose — title, position, dates and
+ * description — is in the Dictionary, keyed by the same `key`.
+ */
+const roles: { key: keyof Dictionary["experience"]["roles"]; tech: string[] }[] = [
   {
-    title: "Back end developer at Figure",
-    position: "Back end developer",
-    time: "August 2025 - present",
-    location: "Brno - Czech Republic",
-    description:
-      "Developer and maintainer of Figure - working on back end microservices in AWS",
+    key: "figure",
     tech: [
       "Javascript",
       "Typescript",
@@ -35,12 +36,7 @@ const experience = [
     ],
   },
   {
-    title: "Manufacturing Engineer at HMMC",
-    position: "Manufacturing Engineer",
-    time: "January 2021 - July 2025",
-    location: "Nošovice - Czech Republic",
-    description:
-      "Manufacturing Engineer on Assembly factory of Hyundai Motor Manufacturing Czech s.r.o. In charge of development, and deployment of new vehicles in Manufacturing factory. Leading Cross Functional Team for vehicle Electrical parts. Also in charge for modifying, and installing equipment for manufacturing processes, and setting new technology on vehicles. HVDT (High Voltage Diagnosis Technician) to control High Voltage vehicle processes, and factory safety rules for High Voltage Electrical vehicles. And Trainer for HVT (High Voltage Technicians) to maintain High Voltage safety, and processes to other technicians.",
+    key: "hmmcManufacturing",
     tech: [
       "Office 365",
       "AutoCAD",
@@ -52,21 +48,11 @@ const experience = [
     ],
   },
   {
-    title: "Process Engineer at HMMC",
-    position: "Process Engineer",
-    time: "September 2013 - December 2020",
-    location: "Nošovice - Czech Republic",
-    description:
-      "Process Engineer on Assembly factory of Hyundai Motor Manufacturing Czech s.r.o. Responsible for electrical processes of Manufacturing Vehicles. Managing coding equipment, new equipment installation, and improvements of installed equipment, to install larger components.",
+    key: "hmmcProcess",
     tech: ["Office", "AutoCAD", "MS Access", "VBA + Excel"],
   },
   {
-    title: "PEGATRON Czech s.r.o",
-    position: "Industrial Engineer",
-    time: "July 2008 - August 2013",
-    location: "Ostrava - Czech Republic",
-    description:
-      "Industrial Engineer in Manufacturing of settopbox, TV, Personal Computers. My initial work, during studying High School. Responsible for allocating processes, and maintain layout of all manufacturing lines in AutoCAD.",
+    key: "pegatron",
     tech: ["AutoCAD", "Office"],
   },
 ];

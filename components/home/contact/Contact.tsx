@@ -1,11 +1,12 @@
 import { Reveal } from "@/components/utils/Reveal";
 import Link from "next/link";
 import { PiArrowUpRight } from "react-icons/pi";
+import type { Dictionary } from "@/content/dictionary";
 
 const inlineLink =
   "text-text underline decoration-border underline-offset-4 transition-colors duration-200 hover:text-brand hover:decoration-brand";
 
-export const Contact = () => {
+export const Contact = ({ dict }: { dict: Dictionary["contact"] }) => {
   return (
     <section className="section-wrapper" id="contact">
       <div
@@ -14,35 +15,34 @@ export const Contact = () => {
       />
       <div className="relative z-10 mx-auto max-w-[720px] text-center">
         <Reveal width="100%">
-          <p className="eyebrow mb-[2rem]">04 · Get in touch</p>
+          <p className="eyebrow mb-[2rem]">{dict.eyebrow}</p>
         </Reveal>
         <Reveal width="100%">
           <h2 className="text-2xl font-bold max-md:text-xl">
-            Let&apos;s build something
+            {dict.heading}
             <span className="text-brand">.</span>
           </h2>
         </Reveal>
         <Reveal width="100%">
           <p className="mx-auto my-[3.2rem] max-w-[52ch] text-sm text-text-muted">
-            Email is the fastest way to reach me. You can also find me on{" "}
-            <Link
-              href="https://www.linkedin.com/in/daniel-hrynusiw"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={inlineLink}
-            >
-              LinkedIn
-            </Link>{" "}
-            or{" "}
-            <Link
-              href="https://www.facebook.com/danielhrynusiw/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={inlineLink}
-            >
-              Facebook
-            </Link>{" "}
-            if that&apos;s more your speed.
+            {dict.body(
+              <Link
+                href="https://www.linkedin.com/in/daniel-hrynusiw"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={inlineLink}
+              >
+                {dict.linkedIn}
+              </Link>,
+              <Link
+                href="https://www.facebook.com/danielhrynusiw/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={inlineLink}
+              >
+                {dict.facebook}
+              </Link>
+            )}
           </p>
         </Reveal>
         <Reveal width="100%">

@@ -11,6 +11,17 @@ import { Zoomable } from "./Media";
 
 interface Props {
   project: Project;
+  /**
+   * This Language's labels for the hero, already resolved to strings: this is
+   * a Client Component, and a Dictionary entry that takes an argument is a
+   * function, which cannot cross the boundary.
+   */
+  labels: {
+    eyebrow: string;
+    /** Names the Live URL's host, so the button says where it goes. */
+    openLive: string;
+    sourceOnGitHub: string;
+  };
   /** Screenshot beside the pitch. Invariant, like every other Case Study image. */
   heroImage: CaseStudyImage;
   /** The one-line pitch, from this Language's Project Copy. */
@@ -26,7 +37,7 @@ const ctaSecondary =
  * Split hero: the pitch and the way into the product on the left, the hero
  * screenshot on the right. Stacks under 768px.
  */
-export const CaseStudyHero = ({ project, heroImage, pitch, sectionId }: Props) => {
+export const CaseStudyHero = ({ project, labels, heroImage, pitch, sectionId }: Props) => {
   const reduceMotion = useReducedMotion();
   const repositories = project.relatedRepositories ?? [];
 
@@ -43,7 +54,7 @@ export const CaseStudyHero = ({ project, heroImage, pitch, sectionId }: Props) =
       <div className="relative z-10 mx-auto grid max-w-[1150px] items-center gap-x-[6.4rem] gap-y-[4rem] px-[9.6rem] pb-[8rem] pt-[8rem] max-md:px-[2.4rem] max-md:pb-[5.6rem] max-md:pt-[4.8rem] md:grid-cols-[5fr_7fr]">
         <div>
           <Reveal>
-            <p className="eyebrow mb-[2rem]">Case study</p>
+            <p className="eyebrow mb-[2rem]">{labels.eyebrow}</p>
           </Reveal>
           <Reveal>
             <h1 id="case-study-title" className="text-xl font-bold max-md:text-lg">
@@ -64,7 +75,7 @@ export const CaseStudyHero = ({ project, heroImage, pitch, sectionId }: Props) =
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Open flexi-day.com
+                  {labels.openLive}
                   <PiArrowUpRight aria-hidden />
                 </StandardButton>
               )}
@@ -75,7 +86,7 @@ export const CaseStudyHero = ({ project, heroImage, pitch, sectionId }: Props) =
                 className={ctaSecondary}
               >
                 <PiGithubLogo size="2rem" aria-hidden />
-                Source on GitHub
+                {labels.sourceOnGitHub}
                 <PiArrowUpRight
                   aria-hidden
                   className="transition-transform duration-200 group-hover:-translate-y-px group-hover:translate-x-px"

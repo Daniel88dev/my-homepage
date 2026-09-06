@@ -1,10 +1,18 @@
 import { describe, expect, it } from "vitest";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { LANGUAGES } from "@/lib/language";
+import { LANGUAGES, type Language } from "@/lib/language";
 import { getCaseStudySlugs, getProjectBySlug, projects } from "./index";
-import { getProjectCopy } from "./copy";
-import { CASE_STUDY_CONTENT, loadCaseStudyContent } from "./case-studies";
+import {
+  PROJECT_COPY,
+  PROJECT_COPY_AWAITING_TRANSLATION,
+  getProjectCopy,
+} from "./copy";
+import {
+  CASE_STUDIES_AWAITING_TRANSLATION,
+  CASE_STUDY_CONTENT,
+  loadCaseStudyContent,
+} from "./case-studies";
 import { SECTION_IDS, shots } from "./flexi-day/case-study";
 
 const publicDir = join(__dirname, "..", "..", "public");
@@ -184,6 +192,45 @@ describe("the invariant/Project Copy split", () => {
         }
       }
     }
+  });
+
+  /**
+   * A Language may be published before its prose is written, by pointing its
+   * registry entry at English. Nothing about a total `Record<Language, ...>`
+   * can tell that apart from a real translation — English under a Czech flag
+   * renders perfectly — so each registry declares which Languages are still
+   * reading English, and these two tests hold the declaration to the truth.
+   *
+   * That makes the placeholder impossible to forget in either direction: a
+   * translation that lands without its Language leaving the list fails here,
+   * and so does a list entry for a Language that is already translated.
+   * Emptying both lists is what finishes #37 and #38.
+   */
+  it("declares exactly the Languages whose Project Copy is still English", () => {
+    const aliased = LANGUAGES.filter(
+      (lang) => lang !== "en" && PROJECT_COPY[lang] === PROJECT_COPY.en
+    );
+    expect([...aliased].sort()).toEqual([...PROJECT_COPY_AWAITING_TRANSLATION].sort());
+  });
+
+  it("declares exactly the Languages whose Case Study content is still English", async () => {
+    const aliased: Language[] = [];
+    for (const lang of LANGUAGES) {
+      if (lang === "en") continue;
+      // Module identity, not loader identity: two `import()` calls for the
+      // same specifier resolve to the same module, however they are written.
+      const readsEnglish = await Promise.all(
+        getCaseStudySlugs().map(async (slug) => {
+          const [translated, english] = await Promise.all([
+            loadCaseStudyContent(lang, slug)!(),
+            loadCaseStudyContent("en", slug)!(),
+          ]);
+          return translated.default === english.default;
+        })
+      );
+      if (readsEnglish.some(Boolean)) aliased.push(lang);
+    }
+    expect([...aliased].sort()).toEqual([...CASE_STUDIES_AWAITING_TRANSLATION].sort());
   });
 
   it("keeps Project Dialog content out of the invariant data module", () => {

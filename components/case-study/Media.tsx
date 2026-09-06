@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { PiArrowsOutSimple } from "react-icons/pi";
 import type { CaseStudyImage } from "@/content/projects/types";
 import { Lightbox, SHOT_QUALITY } from "./Lightbox";
+import { useScreenshotLabels } from "./screenshot-labels";
 
 const frame =
   "overflow-hidden rounded-[0.8rem] border border-border bg-background-light shadow-[0_32px_64px_-32px_rgb(3_8_6/0.9),0_0_0_1px_rgb(3_8_6/0.4)]";
@@ -25,6 +26,7 @@ interface ShotProps {
  * button; a small corner glyph appears on hover and focus as the affordance.
  */
 export const Zoomable = ({ shot, caption, preload, sizes, className }: ShotProps) => {
+  const labels = useScreenshotLabels();
   const [open, setOpen] = useState(false);
   const close = useCallback(() => setOpen(false), []);
 
@@ -33,7 +35,7 @@ export const Zoomable = ({ shot, caption, preload, sizes, className }: ShotProps
       <button
         type="button"
         onClick={() => setOpen(true)}
-        aria-label={`Enlarge screenshot: ${shot.alt}`}
+        aria-label={`${labels.enlargeScreenshot}: ${shot.alt}`}
         className={`group relative block w-full cursor-zoom-in text-left transition-[border-color,transform] duration-300 hover:border-[rgb(46_229_157/0.35)] ${frame} ${className ?? ""}`}
       >
         <Image

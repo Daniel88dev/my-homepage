@@ -19,7 +19,7 @@ The overlay opened from a Project Card. Holds a short description of the Project
 _Avoid_: Modal, popup, project details
 
 **Case Study**:
-The long-form page for a single Project, describing what it is, what it does, how it is built, and what was learned. Only some Projects have one.
+The long-form page for a single Project, describing what it is, what it does, how it is built, and what was learned. Only some Projects have one, and one exists per Language.
 _Avoid_: Detail page, project detail, project page
 
 **Lightbox**:
@@ -41,12 +41,20 @@ _Avoid_: Stack tags, badges, skills
 ### Languages
 
 **Language**:
-One of the languages the site is published in. English is published today, and is the one whose URLs carry no prefix; every other Language lives under its own prefix at otherwise identical paths.
+One of the languages the site is published in. English and Czech are published; English is the one whose URLs carry no prefix, and every other Language lives under its own prefix at otherwise identical paths.
 _Avoid_: Locale, translation, i18n
 
 **Language segment**:
 The part of a URL that names the Language, and the route segment every page sits beneath. English URLs carry no Language segment; a rewrite supplies it.
 _Avoid_: Locale segment, lang param
+
+**Language Picker**:
+The control in the header that switches the Language being read. It shows which Language that is, and leads to the same page in the other one, or to that Language's home page when the current page has no counterpart.
+_Avoid_: Language switcher, locale toggle, language selector
+
+**Dictionary**:
+The interface text of one Language: navigation, section headings, button labels, the homepage's own prose, and the accessible names that are never shown. A Project's own words are Project Copy, and a Case Study's are its content module, so neither is here.
+_Avoid_: Translations, strings, messages, i18n file
 
 **Project Copy**:
 The half of a Project's content that is written anew in each Language: its description, its Project Dialog content, and the title, pitch and description of its Case Study. Everything else about a Project — its screenshot, its repositories, its Live URL and its Tech List — is the same in every Language.

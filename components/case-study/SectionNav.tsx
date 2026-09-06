@@ -5,13 +5,15 @@ import type { CaseStudyNavItem } from "@/content/projects/types";
 
 interface Props {
   sections: CaseStudyNavItem[];
+  /** Accessible name of the section list, from the Dictionary. */
+  label: string;
 }
 
 /**
  * The Case Study's sections, from the medium breakpoint up. Highlights the
  * section currently in view, in the same spirit as the homepage sidebar.
  */
-export const SectionNav = ({ sections }: Props) => {
+export const SectionNav = ({ sections, label }: Props) => {
   const [active, setActive] = useState<string>(sections[0]?.id ?? "");
 
   useEffect(() => {
@@ -38,7 +40,7 @@ export const SectionNav = ({ sections }: Props) => {
   }, [sections]);
 
   return (
-    <nav aria-label="On this page" className="max-md:hidden">
+    <nav aria-label={label} className="max-md:hidden">
       <ol className="flex flex-col border-l border-border">
         {sections.map((section) => {
           const isActive = section.id === active;

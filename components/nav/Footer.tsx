@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { PiArrowUpRight } from "react-icons/pi";
+import type { Dictionary } from "@/content/dictionary";
 
 const footerLink =
   "inline-flex items-center gap-[0.4rem] text-text-muted transition-colors duration-200 hover:text-text";
 
-export const Footer = () => {
+export const Footer = ({ dict }: { dict: Dictionary["footer"] }) => {
   const year = new Date().getFullYear();
 
   return (
@@ -17,7 +18,7 @@ export const Footer = () => {
         <ul className="flex flex-wrap items-center gap-[2.4rem]">
           <li>
             <Link href="mailto:daniel@hrynusiw.cz" className={footerLink}>
-              Email
+              {dict.email}
             </Link>
           </li>
           <li>
@@ -37,7 +38,7 @@ export const Footer = () => {
               rel="noopener noreferrer"
               className={footerLink}
             >
-              Site source <PiArrowUpRight aria-hidden />
+              {dict.siteSource} <PiArrowUpRight aria-hidden />
             </Link>
           </li>
         </ul>

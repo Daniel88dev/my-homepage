@@ -3,7 +3,7 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
-import { LANGUAGES } from "@/lib/language";
+import { LANGUAGES, toLanguage } from "@/lib/language";
 import { SITE_URL } from "@/lib/site";
 
 const geist = Geist({
@@ -51,7 +51,9 @@ export default async function RootLayout({
   const { lang } = await params;
 
   return (
-    <html lang={lang}>
+    // The declared page language is the Language being rendered, so a screen
+    // reader pronounces the page the way it is written.
+    <html lang={toLanguage(lang)}>
       <body>
         <div id="root" className={`${geist.variable} ${geistMono.variable}`}>
           {children}

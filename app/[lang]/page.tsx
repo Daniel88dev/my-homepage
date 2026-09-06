@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { toLanguage } from "@/lib/language";
+import { languagePath, toLanguage } from "@/lib/language";
+import { getDictionary } from "@/content/dictionary";
 import { Home } from "@/components/home/Home";
 
 // Written out rather than taken from the generated `PageProps` helper, because
@@ -11,28 +12,33 @@ interface Props {
   params: Promise<{ lang: string }>;
 }
 
-const title = "Daniel Hrynusiw | Web Developer";
-const description =
-  "Full-stack web developer based in Brno, Czech Republic. Projects, experience, and contact.";
+export const generateMetadata = async ({
+  params,
+}: Props): Promise<Metadata> => {
+  const { lang } = await params;
+  const language = toLanguage(lang);
+  const { title, description } = getDictionary(language).meta;
 
-export const metadata: Metadata = {
-  title,
-  description,
-  // English is reachable both unprefixed and at /en, and the unprefixed form is
-  // the one that is published. See docs/adr/0001-unprefixed-english-urls.md.
-  alternates: { canonical: "/" },
-  openGraph: {
-    type: "website",
-    siteName: "Daniel Hrynusiw",
+  return {
     title,
     description,
-  },
-  twitter: {
-    card: "summary",
-    title,
-    description,
-  },
-  icons: { icon: "/favicon.ico" },
+    // English is reachable both unprefixed and at /en, and the unprefixed form
+    // is the one that is published; every other Language declares its own
+    // prefixed URL. See docs/adr/0001-unprefixed-english-urls.md.
+    alternates: { canonical: languagePath(language, "/") },
+    openGraph: {
+      type: "website",
+      siteName: "Daniel Hrynusiw",
+      title,
+      description,
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+    },
+    icons: { icon: "/favicon.ico" },
+  };
 };
 
 export default async function HomePage({ params }: Props) {

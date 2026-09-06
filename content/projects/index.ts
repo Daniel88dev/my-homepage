@@ -207,6 +207,15 @@ export const projects: Project[] = [
   },
 ];
 
+/**
+ * A Project's Live URL as a label: its host, without the www. nobody reads.
+ * Empty when the Project is not deployed.
+ */
+export const liveHost = (project: Project): string =>
+  project.liveUrl === ""
+    ? ""
+    : new URL(project.liveUrl).host.replace(/^www\./, "");
+
 export const getProjectBySlug = (slug: string): Project | undefined =>
   projects.find((project) => project.slug === slug);
 

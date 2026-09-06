@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { PiX } from "react-icons/pi";
 import type { CaseStudyImage } from "@/content/projects/types";
+import { useScreenshotLabels } from "./screenshot-labels";
 
 /**
  * Screenshots are dense UI text, so they are optimised above the site default
@@ -24,6 +25,7 @@ interface Props {
  * handling as the Project Dialog, so the two feel like one system.
  */
 export const Lightbox = ({ shot, caption, onClose }: Props) => {
+  const labels = useScreenshotLabels();
   const closeRef = useRef<HTMLButtonElement>(null);
   const reduceMotion = useReducedMotion();
 
@@ -56,7 +58,7 @@ export const Lightbox = ({ shot, caption, onClose }: Props) => {
       <button
         ref={closeRef}
         type="button"
-        aria-label="Close enlarged screenshot"
+        aria-label={labels.closeEnlargedScreenshot}
         onClick={onClose}
         className="fixed right-[1.6rem] top-[1.6rem] flex h-[4rem] w-[4rem] cursor-pointer items-center justify-center rounded-[4px] border border-border bg-background text-md text-text transition-colors duration-200 hover:border-brand hover:text-brand"
       >

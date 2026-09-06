@@ -14,7 +14,20 @@ import { EN_PROJECT_COPY } from "./en";
  */
 export const PROJECT_COPY: Record<Language, ProjectCopyBySlug> = {
   en: EN_PROJECT_COPY,
+  // Czech is published, its Project Copy is not yet written. #37 replaces this
+  // with `cs: CS_PROJECT_COPY` and removes "cs" below, in the same commit.
+  cs: EN_PROJECT_COPY,
 };
+
+/**
+ * The Languages whose entry above is still English rather than their own
+ * prose. Declared rather than inferred: English under another Language's flag
+ * renders perfectly, so nothing else can tell a placeholder from a
+ * translation. `projects.test.ts` holds this list to what the registry
+ * actually does, in both directions — which is what makes the alias
+ * impossible to forget and impossible to leave declared once it is gone.
+ */
+export const PROJECT_COPY_AWAITING_TRANSLATION: readonly Language[] = ["cs"];
 
 /**
  * One Project's Copy in one Language. Every Project has Copy in every
