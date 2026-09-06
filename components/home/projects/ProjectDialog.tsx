@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef, ReactElement, Dispatch, SetStateAction } from "react";
 import ReactDOM from "react-dom";
 import { motion } from "framer-motion";

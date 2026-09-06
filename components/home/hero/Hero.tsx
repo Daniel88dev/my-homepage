@@ -1,7 +1,7 @@
 import { StandardButton } from "@/components/buttons/StandardButton";
 import { Reveal } from "@/components/utils/Reveal";
 import { DotGrid } from "./DotGrid";
-import { ReactTyped } from "react-typed";
+import { TypedRoles } from "./TypedRoles";
 import { PiArrowDown, PiArrowRight } from "react-icons/pi";
 
 export const Hero = () => {
@@ -25,20 +25,7 @@ export const Hero = () => {
         </Reveal>
         <Reveal>
           <p className="mb-[1rem] mt-[2rem] text-lg font-light text-text-muted max-md:text-md [&_span]:font-medium [&_span]:text-brand">
-            I&apos;m a{" "}
-            <ReactTyped
-              strings={[
-                "Full Stack Developer",
-                "Back-end Developer",
-                "Manufacturing Engineer",
-                "Project Manager",
-              ]}
-              typeSpeed={50}
-              loop
-              backSpeed={20}
-              cursorChar="_"
-              showCursor={true}
-            />
+            I&apos;m a <TypedRoles />
           </p>
         </Reveal>
         <Reveal>
@@ -52,11 +39,7 @@ export const Hero = () => {
         </Reveal>
         <Reveal>
           <div className="flex flex-wrap items-center gap-[2.4rem]">
-            <StandardButton
-              onClick={() =>
-                document.getElementById("contact")?.scrollIntoView()
-              }
-            >
+            <StandardButton href="#contact">
               Contact me
               <PiArrowRight aria-hidden />
             </StandardButton>

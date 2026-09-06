@@ -1,9 +1,11 @@
+"use client";
+
 import { Reveal } from "@/components/utils/Reveal";
-import type { Project as ProjectData } from "@/content/projects";
+import type { RelatedRepository } from "@/content/projects/types";
 import { useAnimation, useInView, motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactElement } from "react";
 import {
   PiGithubLogo,
   PiArrowUpRight,
@@ -13,13 +15,24 @@ import {
 } from "react-icons/pi";
 import { ProjectDialog } from "./ProjectDialog";
 
-type Props = ProjectData;
+interface Props {
+  title: string;
+  description: string;
+  imgSrc: string;
+  code: string;
+  liveUrl: string;
+  tech: string[];
+  /** Short content for the Project Dialog. */
+  dialogContent: ReactElement;
+  relatedRepositories?: RelatedRepository[];
+  /** Where this Project's Case Study lives, when it has one. */
+  caseStudyHref?: string;
+}
 
 const iconLink =
   "text-text-muted transition-[color,transform] duration-200 hover:-translate-y-px hover:text-text";
 
 export const Project = ({
-  slug,
   dialogContent,
   liveUrl,
   description,
@@ -28,7 +41,7 @@ export const Project = ({
   code,
   tech,
   relatedRepositories,
-  caseStudy,
+  caseStudyHref,
 }: Props) => {
   const [hovered, setHovered] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -47,7 +60,6 @@ export const Project = ({
   }, [isInView, controls]);
 
   const hasLiveLink = liveUrl !== "" && liveUrl !== code;
-  const caseStudyHref = caseStudy ? `/projects/${slug}` : undefined;
 
   return (
     <>

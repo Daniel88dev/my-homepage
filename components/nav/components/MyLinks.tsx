@@ -1,3 +1,5 @@
+"use client";
+
 import { PiLinkedinLogo, PiGithubLogo, PiFacebookLogo } from "react-icons/pi";
 import Link from "next/link";
 import { motion } from "framer-motion";

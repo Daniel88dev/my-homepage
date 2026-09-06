@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { ReactNode, useCallback, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";

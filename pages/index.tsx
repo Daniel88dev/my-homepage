@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Home } from "@/components/home/Home";
 
-export default function home() {
+export default function HomePage() {
   return (
     <>
       <Head>
@@ -10,8 +10,6 @@ export default function home() {
           name="description"
           content="Full-stack web developer based in Brno, Czech Republic. Projects, experience, and contact."
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta charSet="UTF-8" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Daniel Hrynusiw" />
         <meta property="og:title" content="Daniel Hrynusiw | Web Developer" />

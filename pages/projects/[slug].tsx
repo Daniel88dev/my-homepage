@@ -50,8 +50,6 @@ export default function CaseStudyPage({
       <Head>
         <title>{pageTitle}</title>
         <meta name="description" content={caseStudy.description} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta charSet="UTF-8" />
         <link rel="canonical" href={url} />
         <meta property="og:type" content="article" />
         <meta property="og:site_name" content="Daniel Hrynusiw" />
