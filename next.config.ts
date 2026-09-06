@@ -4,6 +4,12 @@ import { withSentryConfig } from "@sentry/nextjs";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   outputFileTracingRoot: process.cwd(),
+  images: {
+    // 75 is the default everywhere. Case Study screenshots are dense UI text,
+    // and the enlarged view serves the full 2880px source, where 75 rings
+    // around small glyphs; those images ask for 90.
+    qualities: [75, 90],
+  },
 };
 
 export default withSentryConfig(nextConfig, {

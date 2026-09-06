@@ -47,10 +47,10 @@ export const Contact = () => {
         </Reveal>
         <Reveal width="100%">
           <Link
-            href="mailto:daniel.hrynusiw@gmail.com"
+            href="mailto:daniel@hrynusiw.cz"
             className="group mx-auto inline-flex items-center gap-[1rem] border-b-2 border-border pb-[0.6rem] font-mono text-md text-text transition-[color,border-color] duration-200 hover:border-brand hover:text-brand max-md:text-sm"
           >
-            daniel.hrynusiw@gmail.com
+            daniel@hrynusiw.cz
             <PiArrowUpRight
               aria-hidden
               className="transition-transform duration-200 group-hover:-translate-y-px group-hover:translate-x-px"

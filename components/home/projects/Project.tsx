@@ -1,32 +1,34 @@
 import { Reveal } from "@/components/utils/Reveal";
+import type { Project as ProjectData } from "@/content/projects";
 import { useAnimation, useInView, motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState, ReactElement } from "react";
-import { PiGithubLogo, PiArrowUpRight, PiCaretRight } from "react-icons/pi";
-import { ProjectModal } from "./ProjectModal";
+import { useEffect, useRef, useState } from "react";
+import {
+  PiGithubLogo,
+  PiArrowUpRight,
+  PiCaretRight,
+  PiBookOpenText,
+  PiArrowRight,
+} from "react-icons/pi";
+import { ProjectDialog } from "./ProjectDialog";
 
-interface Props {
-  modalContent: ReactElement;
-  description: string;
-  projectLink: string;
-  imgSrc: string;
-  tech: string[];
-  title: string;
-  code: string;
-}
+type Props = ProjectData;
 
 const iconLink =
   "text-text-muted transition-[color,transform] duration-200 hover:-translate-y-px hover:text-text";
 
 export const Project = ({
-  modalContent,
-  projectLink,
+  slug,
+  dialogContent,
+  liveUrl,
   description,
   imgSrc,
   title,
   code,
   tech,
+  relatedRepositories,
+  caseStudy,
 }: Props) => {
   const [hovered, setHovered] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +46,8 @@ export const Project = ({
     }
   }, [isInView, controls]);
 
-  const hasLiveLink = projectLink !== "" && projectLink !== code;
+  const hasLiveLink = liveUrl !== "" && liveUrl !== code;
+  const caseStudyHref = caseStudy ? `/projects/${slug}` : undefined;
 
   return (
     <>
@@ -71,6 +74,7 @@ export const Project = ({
             height={300}
             src={imgSrc}
             alt={`Screenshot of the ${title} project.`}
+            sizes="(max-width: 768px) 90vw, 480px"
             className="absolute bottom-0 left-1/2 rounded-t-[0.4rem] shadow-[0_-8px_24px_-12px_rgb(3_8_6/0.8)] transition-[width,rotate] duration-300 ease-out [translate:-50%_18%]"
             style={{
               width: hovered ? "90%" : "85%",
@@ -99,7 +103,7 @@ export const Project = ({
 
               {hasLiveLink && (
                 <Link
-                  href={projectLink}
+                  href={liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Open the live ${title} project`}
@@ -128,17 +132,34 @@ export const Project = ({
               </button>
             </p>
           </Reveal>
+          {caseStudyHref && (
+            <Reveal>
+              <Link
+                href={caseStudyHref}
+                className="group mt-[1.6rem] inline-flex items-center gap-[0.8rem] rounded-[4px] border border-brand bg-brand-soft px-[1.6rem] py-[0.9rem] text-xs font-medium text-brand transition-[background-color,color,transform] duration-200 hover:-translate-y-px hover:bg-brand hover:text-background-dark active:translate-y-0 active:scale-[0.98]"
+              >
+                <PiBookOpenText size="1.8rem" aria-hidden />
+                Read the case study
+                <PiArrowRight
+                  aria-hidden
+                  className="transition-transform duration-200 group-hover:translate-x-[2px]"
+                />
+              </Link>
+            </Reveal>
+          )}
         </div>
       </motion.article>
-      <ProjectModal
-        modalContent={modalContent}
-        projectLink={hasLiveLink ? projectLink : ""}
+      <ProjectDialog
+        dialogContent={dialogContent}
+        liveUrl={hasLiveLink ? liveUrl : ""}
         setIsOpen={setIsOpen}
         isOpen={isOpen}
         imgSrc={imgSrc}
         title={title}
         code={code}
         tech={tech}
+        relatedRepositories={relatedRepositories}
+        caseStudyHref={caseStudyHref}
       />
     </>
   );
