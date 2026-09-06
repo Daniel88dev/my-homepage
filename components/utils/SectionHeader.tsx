@@ -2,24 +2,30 @@ import { Reveal } from "./Reveal";
 
 interface Props {
   title: string;
+  index: string;
   dir?: "l" | "r";
 }
 
-export const SectionHeader = ({ title, dir = "r" }: Props) => {
+export const SectionHeader = ({ title, index, dir = "r" }: Props) => {
   return (
     <div
-      className="mb-[2.4rem] flex items-center gap-[2.4rem]"
+      className="mb-[4rem] flex items-center gap-[2.4rem]"
       style={{ flexDirection: dir === "r" ? "row" : "row-reverse" }}
     >
-      <div className="h-px w-full bg-text opacity-30" />
-      <h3>
+      <div className="h-px w-full bg-border" />
+      <div className="shrink-0">
         <Reveal>
-          <span className="text-end text-xl font-black max-md:text-lg">
-            {title}
-            <span className="text-brand">.</span>
-          </span>
+          <h2 className="flex items-baseline gap-[1.2rem] whitespace-nowrap pr-[0.1em] text-xl font-semibold max-md:text-lg">
+            <span className="font-mono text-2xs font-normal text-brand">
+              {index}
+            </span>
+            <span>
+              {title}
+              <span className="text-brand">.</span>
+            </span>
+          </h2>
         </Reveal>
-      </h3>
+      </div>
     </div>
   );
 };

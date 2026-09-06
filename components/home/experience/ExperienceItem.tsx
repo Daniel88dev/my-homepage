@@ -18,36 +18,40 @@ export const ExperienceItem = ({
   tech,
 }: Props) => {
   return (
-    <div className="mb-[2.4rem] border-b border-background-light px-[1.2rem] pb-[2.4rem]">
-      <div className="mb-[1.2rem] flex items-center justify-between">
+    <li className="grid grid-cols-[220px_minmax(0,1fr)] gap-[3.2rem] max-md:grid-cols-[minmax(0,1fr)] max-md:gap-[1.2rem]">
+      <div className="pt-[0.4rem] font-mono text-2xs text-text-muted">
         <Reveal>
-          <span className="text-md font-bold">{title}</span>
+          <p className="text-text">{time}</p>
         </Reveal>
         <Reveal>
-          <span>{time}</span>
+          <p className="mt-[0.4rem]">{location}</p>
         </Reveal>
       </div>
 
-      <div className="mb-[1.2rem] flex items-center justify-between">
+      <div className="relative border-l border-border pb-[4.8rem] pl-[3.2rem] before:absolute before:-left-[5px] before:top-[0.9rem] before:h-[9px] before:w-[9px] before:rounded-full before:bg-brand before:shadow-[0_0_0_4px_var(--background)] before:content-[''] max-md:pl-[2.4rem]">
         <Reveal>
-          <span className="font-bold text-brand">{position}</span>
+          <h3 className="text-md font-semibold">{title}</h3>
         </Reveal>
         <Reveal>
-          <span>{location}</span>
+          <p className="mt-[0.2rem] text-xs font-medium text-brand">
+            {position}
+          </p>
+        </Reveal>
+        <Reveal>
+          <p className="my-[1.6rem] max-w-[62ch] text-sm text-text-muted">
+            {description}
+          </p>
+        </Reveal>
+        <Reveal>
+          <ul className="flex flex-wrap gap-[0.8rem]">
+            {tech.map((item) => (
+              <li key={item} className="chip">
+                {item}
+              </li>
+            ))}
+          </ul>
         </Reveal>
       </div>
-      <Reveal>
-        <p className="mb-[1.8rem] font-extralight">{description}</p>
-      </Reveal>
-      <Reveal>
-        <div className="flex flex-wrap gap-[1.2rem]">
-          {tech.map((item) => (
-            <span key={item} className="chip">
-              {item}
-            </span>
-          ))}
-        </div>
-      </Reveal>
-    </div>
+    </li>
   );
 };

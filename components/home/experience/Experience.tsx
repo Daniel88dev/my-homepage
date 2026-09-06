@@ -4,10 +4,12 @@ import { ExperienceItem } from "./ExperienceItem";
 export const Experience = () => {
   return (
     <section className="section-wrapper" id="experience">
-      <SectionHeader title="Experience" dir="l" />
-      {experience.map((item) => (
-        <ExperienceItem key={item.title} {...item} />
-      ))}
+      <SectionHeader title="Experience" index="03" dir="l" />
+      <ol className="list-none">
+        {experience.map((item) => (
+          <ExperienceItem key={item.title} {...item} />
+        ))}
+      </ol>
     </section>
   );
 };

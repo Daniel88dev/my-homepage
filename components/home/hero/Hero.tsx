@@ -2,23 +2,34 @@ import { StandardButton } from "@/components/buttons/StandardButton";
 import { Reveal } from "@/components/utils/Reveal";
 import { DotGrid } from "./DotGrid";
 import { ReactTyped } from "react-typed";
-// TODO count years of experience
+import { PiArrowDown, PiArrowRight } from "react-icons/pi";
+
 export const Hero = () => {
   return (
-    <section className="section-wrapper mb-[9.6rem] max-md:mb-[4.8rem]">
-      <div className="relative z-10 my-[4.8rem] w-fit">
+    <section className="section-wrapper min-h-[calc(100dvh_-_45px_-_3.6rem)] mb-[4.8rem] flex items-center max-md:mb-0">
+      {/* Ambient light behind the headline. Radial, not a linear AI fade. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -left-[20%] top-[10%] z-0 h-[60rem] w-[60rem] rounded-full bg-[radial-gradient(closest-side,rgb(46_229_157/0.09),transparent)] blur-2xl"
+      />
+      <div className="relative z-10 w-fit py-[4.8rem]">
         <Reveal>
-          <h1 className="text-2xl font-black leading-[1.1] max-md:text-xl">
+          <p className="eyebrow mb-[2rem]">
+            Full-stack developer · Brno, Czech Republic
+          </p>
+        </Reveal>
+        <Reveal>
+          <h1 className="text-2xl font-bold max-md:text-xl">
             Hey, I&apos;m Daniel<span className="text-brand">.</span>
           </h1>
         </Reveal>
         <Reveal>
-          <h2 className="mb-[1rem] mt-[1.6rem] text-lg font-extralight leading-[1.1] max-md:text-sm [&_span]:font-bold [&_span]:text-brand">
+          <p className="mb-[1rem] mt-[2rem] text-lg font-light text-text-muted max-md:text-md [&_span]:font-medium [&_span]:text-brand">
             I&apos;m a{" "}
             <ReactTyped
               strings={[
                 "Full Stack Developer",
-                "Full Stack Engineer",
+                "Back-end Developer",
                 "Manufacturing Engineer",
                 "Project Manager",
               ]}
@@ -28,36 +39,38 @@ export const Hero = () => {
               cursorChar="_"
               showCursor={true}
             />
-          </h2>
-        </Reveal>
-        <Reveal>
-          <p className="my-[2.4rem] max-w-[700px] font-extralight">
-            I’ve been passionate about web development since September 2021,
-            continuously learning and honing my skills in frontend, backend, and
-            full-stack development through various courses and hands-on
-            projects.
-            <br />
-            Currently, I work as a Manufacturing Engineer at Hyundai Motor
-            Manufacturing s.r.o., where I am responsible for equipment
-            preparation for new vehicle models, solving manufacturing
-            challenges, and implementing new models into production.
-            <br />
-            What started as a hobby soon turned into a valuable asset—outside of
-            my main role, I have developed several web applications that have
-            been successfully implemented within the company, receiving positive
-            feedback for improving efficiency and workflow.
-            <br />
-            Beyond development, I also have experience in project management,
-            leading initiatives aimed at optimizing processes, enhancing
-            productivity, and achieving long-term cost savings in manufacturing.
           </p>
         </Reveal>
         <Reveal>
-          <StandardButton
-            onClick={() => document.getElementById("contact")?.scrollIntoView()}
-          >
-            Contact me
-          </StandardButton>
+          <p className="my-[3.2rem] max-w-[58ch] text-sm text-text-muted">
+            I build web apps end to end, from Postgres schemas to the last
+            pixel. Since August 2025 I&apos;ve been a back-end developer at
+            Figure, working on Node.js microservices in AWS. Before that I
+            spent twelve years in automotive manufacturing at Hyundai, where
+            the tools I wrote on the side ended up running on the plant floor.
+          </p>
+        </Reveal>
+        <Reveal>
+          <div className="flex flex-wrap items-center gap-[2.4rem]">
+            <StandardButton
+              onClick={() =>
+                document.getElementById("contact")?.scrollIntoView()
+              }
+            >
+              Contact me
+              <PiArrowRight aria-hidden />
+            </StandardButton>
+            <a
+              href="#projects"
+              className="group inline-flex items-center gap-[0.8rem] text-sm text-text-muted transition-colors duration-200 hover:text-text"
+            >
+              See projects
+              <PiArrowDown
+                aria-hidden
+                className="transition-transform duration-200 group-hover:translate-y-[2px]"
+              />
+            </a>
+          </div>
         </Reveal>
       </div>
       <DotGrid />

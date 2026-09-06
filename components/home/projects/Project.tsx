@@ -3,7 +3,7 @@ import { useAnimation, useInView, motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState, ReactElement } from "react";
-import { AiFillGithub, AiOutlineExport } from "react-icons/ai";
+import { PiGithubLogo, PiArrowUpRight, PiCaretRight } from "react-icons/pi";
 import { ProjectModal } from "./ProjectModal";
 
 interface Props {
@@ -16,6 +16,9 @@ interface Props {
   code: string;
 }
 
+const iconLink =
+  "text-text-muted transition-[color,transform] duration-200 hover:-translate-y-px hover:text-text";
+
 export const Project = ({
   modalContent,
   projectLink,
@@ -26,7 +29,6 @@ export const Project = ({
   tech,
 }: Props) => {
   const [hovered, setHovered] = useState(false);
-
   const [isOpen, setIsOpen] = useState(false);
 
   const controls = useAnimation();
@@ -42,84 +44,95 @@ export const Project = ({
     }
   }, [isInView, controls]);
 
+  const hasLiveLink = projectLink !== "" && projectLink !== code;
+
   return (
     <>
-      <motion.div
+      <motion.article
         ref={ref}
         variants={{
-          hidden: { opacity: 0, y: 100 },
+          hidden: { opacity: 0, y: 64 },
           visible: { opacity: 1, y: 0 },
         }}
         initial="hidden"
         animate={controls}
-        transition={{ duration: 0.75 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div
+        <button
+          type="button"
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
           onClick={() => setIsOpen(true)}
-          className="relative aspect-[16/9] w-full cursor-pointer overflow-hidden rounded-[0.8rem] bg-background-light"
+          aria-label={`Open details for ${title}`}
+          className="group relative block aspect-[16/9] w-full cursor-pointer overflow-hidden rounded-[0.8rem] border border-border bg-background-light bg-[radial-gradient(120%_80%_at_50%_100%,rgb(46_229_157/0.12),transparent_60%)] transition-[border-color,box-shadow] duration-300 hover:border-[rgb(46_229_157/0.35)] hover:shadow-[0_24px_40px_-20px_rgb(3_8_6/0.9)]"
         >
           <Image
             width={400}
             height={300}
             src={imgSrc}
-            alt={`An image of the ${title} project.`}
-            className="absolute bottom-0 left-1/2 w-[85%] rounded-[0.4rem] transition-all duration-[250ms] [translate:-50%_20%]"
+            alt={`Screenshot of the ${title} project.`}
+            className="absolute bottom-0 left-1/2 rounded-t-[0.4rem] shadow-[0_-8px_24px_-12px_rgb(3_8_6/0.8)] transition-[width,rotate] duration-300 ease-out [translate:-50%_18%]"
             style={{
               width: hovered ? "90%" : "85%",
-              rotate: hovered ? "2deg" : "0deg",
+              height: "auto",
+              rotate: hovered ? "1.5deg" : "0deg",
             }}
           />
-        </div>
+        </button>
         <div className="my-[1.6rem]">
           <Reveal width="100%">
             <div className="flex items-center gap-[1.2rem]">
-              <h4 className="max-w-[calc(100%_-_150px)] shrink-0 text-md font-bold">
+              <h3 className="max-w-[calc(100%_-_120px)] shrink-0 text-md font-semibold">
                 {title}
-              </h4>
-              <div className="h-px w-full bg-text opacity-30" />
+              </h3>
+              <div className="h-px w-full bg-border" />
 
               <Link
                 href={code}
                 target="_blank"
-                rel="nofollow"
-                className="opacity-75 transition-opacity duration-[250ms] hover:opacity-100"
+                rel="noopener noreferrer"
+                aria-label={`${title} source code on GitHub`}
+                className={iconLink}
               >
-                <AiFillGithub size="2.8rem" />
+                <PiGithubLogo size="2.4rem" aria-hidden />
               </Link>
 
-              <Link
-                href={projectLink}
-                target="_blank"
-                rel="nofollow"
-                className="opacity-75 transition-opacity duration-[250ms] hover:opacity-100"
-              >
-                <AiOutlineExport size="2.8rem" />
-              </Link>
+              {hasLiveLink && (
+                <Link
+                  href={projectLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Open the live ${title} project`}
+                  className={iconLink}
+                >
+                  <PiArrowUpRight size="2.4rem" aria-hidden />
+                </Link>
+              )}
             </div>
           </Reveal>
           <Reveal>
-            <div className="my-[0.8rem] flex flex-wrap gap-[1.2rem] text-xs text-brand">
-              {tech.join(" - ")}
-            </div>
+            <p className="my-[0.8rem] font-mono text-2xs text-brand">
+              {tech.join(" · ")}
+            </p>
           </Reveal>
           <Reveal>
-            <p className="font-extralight">
+            <p className="text-sm text-text-muted">
               {description}{" "}
-              <span
+              <button
+                type="button"
                 onClick={() => setIsOpen(true)}
-                className="inline-block cursor-pointer text-xs font-normal text-brand hover:underline"
+                className="inline-flex cursor-pointer items-center gap-[0.2rem] align-baseline text-xs font-medium text-text transition-colors duration-200 hover:text-brand"
               >
-                Learn more {">"}
-              </span>
+                Read more
+                <PiCaretRight aria-hidden />
+              </button>
             </p>
           </Reveal>
         </div>
-      </motion.div>
+      </motion.article>
       <ProjectModal
         modalContent={modalContent}
-        projectLink={projectLink}
+        projectLink={hasLiveLink ? projectLink : ""}
         setIsOpen={setIsOpen}
         isOpen={isOpen}
         imgSrc={imgSrc}

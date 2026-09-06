@@ -1,14 +1,13 @@
-import { useEffect, ReactElement } from "react";
+import { useEffect, useRef, ReactElement, Dispatch, SetStateAction } from "react";
 import ReactDOM from "react-dom";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { AiFillGithub, AiOutlineExport } from "react-icons/ai";
-import { MdClose } from "react-icons/md";
 import Image from "next/image";
+import { PiGithubLogo, PiArrowUpRight, PiX } from "react-icons/pi";
 
 interface Props {
   isOpen: boolean;
-  setIsOpen: Function;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
   title: string;
   imgSrc: string;
   code: string;
@@ -16,6 +15,9 @@ interface Props {
   tech: string[];
   modalContent: ReactElement;
 }
+
+const modalLink =
+  "inline-flex items-center gap-[0.6rem] rounded-[4px] border border-border px-[1.4rem] py-[0.8rem] text-xs text-text transition-[border-color,color] duration-200 hover:border-brand hover:text-brand";
 
 export const ProjectModal = ({
   modalContent,
@@ -27,68 +29,99 @@ export const ProjectModal = ({
   code,
   tech,
 }: Props) => {
-  useEffect(() => {
-    const body = document.querySelector("body");
+  const closeRef = useRef<HTMLButtonElement>(null);
 
-    if (isOpen) {
-      body!.style.overflowY = "hidden";
-    } else {
-      body!.style.overflowY = "scroll";
-    }
-  }, [isOpen]);
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const previousOverflow = document.body.style.overflowY;
+    document.body.style.overflowY = "hidden";
+    closeRef.current?.focus();
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.style.overflowY = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [isOpen, setIsOpen]);
+
+  if (!isOpen) return null;
+
+  const root = document.getElementById("root");
+  if (!root) return null;
 
   const content = (
     <div
-      className="fixed left-0 right-0 top-0 z-[100000000] flex h-screen cursor-pointer justify-center overflow-y-scroll bg-bg-opaque px-[1.2rem] py-[4.8rem] backdrop-blur-md"
+      className="fixed inset-0 z-[var(--z-modal)] flex h-dvh cursor-pointer justify-center overflow-y-auto bg-bg-opaque px-[1.2rem] py-[4.8rem] backdrop-blur-md"
       onClick={() => setIsOpen(false)}
     >
-      <button className="absolute right-[1.2rem] top-[1.2rem] cursor-pointer border-none bg-none text-md text-text">
-        <MdClose />
+      <button
+        ref={closeRef}
+        type="button"
+        aria-label="Close project details"
+        onClick={() => setIsOpen(false)}
+        className="fixed right-[1.6rem] top-[1.6rem] flex h-[4rem] w-[4rem] cursor-pointer items-center justify-center rounded-[4px] border border-border bg-background text-md text-text transition-colors duration-200 hover:border-brand hover:text-brand"
+      >
+        <PiX aria-hidden />
       </button>
 
       <motion.div
-        initial={{ y: 100, opacity: 0 }}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="project-modal-title"
+        initial={{ y: 48, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
         onClick={(e) => e.stopPropagation()}
-        className="h-fit w-full max-w-[700px] cursor-auto overflow-hidden rounded-[1.2rem] bg-background-light shadow-[0px_5px_15px_rgba(0,0,0,0.1)]"
+        className="h-fit w-full max-w-[720px] cursor-auto overflow-hidden rounded-[1.2rem] bg-background-light shadow-[var(--shadow-lg)]"
       >
         <Image
           height={400}
-          width={700}
-          className="w-full"
+          width={720}
+          className="w-full border-b border-border"
           src={imgSrc}
-          alt={`An image of the ${title} project.`}
+          alt={`Screenshot of the ${title} project.`}
         />
-        <div className="p-[2.4rem]">
-          <h4 className="text-lg">{title}</h4>
-          <div className="mb-[2.4rem] mt-[0.2rem] flex flex-wrap gap-[1.2rem] text-xs text-brand">
-            {tech.join(" - ")}
-          </div>
+        <div className="p-[3.2rem] max-md:p-[2.4rem]">
+          <h3 id="project-modal-title" className="text-lg font-semibold">
+            {title}
+          </h3>
+          <p className="mb-[2.4rem] mt-[0.6rem] font-mono text-2xs text-brand">
+            {tech.join(" · ")}
+          </p>
 
-          <div className="flex flex-col gap-[1.2rem] text-xs">
+          <div className="flex max-w-[62ch] flex-col gap-[1.2rem] text-xs text-text-muted">
             {modalContent}
           </div>
 
-          <div className="mt-[2.4rem]">
-            <p className="mb-[0.8rem] text-md font-bold">
-              Project Links<span className="text-brand">.</span>
-            </p>
-            <div className="flex items-center gap-[1.2rem] [&_a:hover]:underline [&_a]:flex [&_a]:items-center [&_a]:gap-[0.4rem] [&_a]:text-xs [&_a]:text-brand">
-              <Link target="_blank" rel="nofollow" href={code}>
-                <AiFillGithub /> source code
+          <div className="mt-[3.2rem] flex flex-wrap items-center gap-[1.2rem]">
+            <Link
+              target="_blank"
+              rel="noopener noreferrer"
+              href={code}
+              className={modalLink}
+            >
+              <PiGithubLogo aria-hidden /> Source code
+            </Link>
+            {projectLink !== "" && (
+              <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                href={projectLink}
+                className={modalLink}
+              >
+                <PiArrowUpRight aria-hidden /> Live project
               </Link>
-              <Link target="_blank" rel="nofollow" href={projectLink}>
-                <AiOutlineExport /> live project
-              </Link>
-            </div>
+            )}
           </div>
         </div>
       </motion.div>
     </div>
   );
 
-  if (!isOpen) return <></>;
-
-  // @ts-ignore
-  return ReactDOM.createPortal(content, document.getElementById("root"));
+  return ReactDOM.createPortal(content, root);
 };

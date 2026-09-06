@@ -51,7 +51,7 @@ export const DotGrid = () => {
   return (
     <div
       style={{ gridTemplateColumns: `repeat(${GRID_WIDTH}, 1fr)` }}
-      className="absolute bottom-[12px] right-[3.6rem] top-[12px] z-0 grid max-w-[75%]"
+      className="absolute bottom-[12px] right-[3.6rem] top-[12px] z-0 grid max-w-[75%] max-md:opacity-40"
     >
       {dots.map((dot) => dot)}
     </div>
