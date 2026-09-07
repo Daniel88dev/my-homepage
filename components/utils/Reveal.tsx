@@ -1,10 +1,7 @@
-import React, { useEffect, useRef, ReactElement } from "react";
-import {
-  motion,
-  useInView,
-  useAnimation,
-  useReducedMotion,
-} from "framer-motion";
+"use client";
+
+import { ReactElement } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 
 interface Props {
   children: ReactElement;
@@ -12,36 +9,24 @@ interface Props {
 }
 
 export const Reveal = ({ children, width = "fit-content" }: Props) => {
-  const mainControls = useAnimation();
-  const slideControls = useAnimation();
   const reduceMotion = useReducedMotion();
-
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "0px 0px -10% 0px" });
-
-  useEffect(() => {
-    if (isInView) {
-      slideControls.start("visible");
-      mainControls.start("visible");
-    } else {
-      slideControls.start("hidden");
-      mainControls.start("hidden");
-    }
-  }, [isInView, mainControls, slideControls]);
 
   if (reduceMotion) {
     return <div style={{ width }}>{children}</div>;
   }
 
   return (
-    <div ref={ref} style={{ position: "relative", width, overflow: "hidden" }}>
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "0px 0px -10% 0px" }}
+      style={{ position: "relative", width, overflow: "hidden" }}
+    >
       <motion.div
         variants={{
           hidden: { opacity: 0, y: 48 },
           visible: { opacity: 1, y: 0 },
         }}
-        initial="hidden"
-        animate={mainControls}
         transition={{ duration: 0.5, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
       >
         {children}
@@ -52,8 +37,6 @@ export const Reveal = ({ children, width = "fit-content" }: Props) => {
           hidden: { x: "0%" },
           visible: { x: "101%" },
         }}
-        initial="hidden"
-        animate={slideControls}
         transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
         style={{
           position: "absolute",
@@ -66,6 +49,6 @@ export const Reveal = ({ children, width = "fit-content" }: Props) => {
           willChange: "transform",
         }}
       />
-    </div>
+    </motion.div>
   );
 };

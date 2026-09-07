@@ -1,0 +1,212 @@
+import { flexiDayCaseStudy } from "./flexi-day/case-study";
+import { FLEXI_DAY_REPOSITORIES } from "./flexi-day/repositories";
+import type { Project } from "./types";
+
+export type {
+  CaseStudy,
+  CaseStudyCopy,
+  CaseStudyImage,
+  CaseStudyNavItem,
+  Project,
+  ProjectCopy,
+  ProjectCopyBySlug,
+  RelatedRepository,
+} from "./types";
+
+export const projects: Project[] = [
+  {
+    slug: "flexi-day",
+    title: "flexiday",
+    imgSrc: "/project-imgs/flexi-day/calendar-card.webp",
+    code: "https://github.com/Daniel88dev/flexi-day",
+    liveUrl: "https://www.flexi-day.com",
+    tech: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind",
+      "shadcn/ui",
+      "TanStack Query",
+      "better-auth",
+      "Express 5",
+      "Drizzle ORM",
+      "PostgreSQL",
+      "react-email",
+      "AWS (App Runner, RDS, S3, SES, Lambda, CloudFront)",
+      "Terraform",
+      "Paddle",
+      "Sentry",
+      "Vitest",
+    ],
+    relatedRepositories: FLEXI_DAY_REPOSITORIES,
+    caseStudy: flexiDayCaseStudy,
+  },
+  {
+    slug: "grpc-swagger-case-study",
+    title: "gRPC_Swagger-case-study",
+    imgSrc: "/project-imgs/grpc_case_study.png",
+    code: "https://github.com/Daniel88dev/gRPC_Swagger-case-study",
+    liveUrl: "https://github.com/Daniel88dev/gRPC_Swagger-case-study",
+    tech: [
+      "Node.js",
+      "Express",
+      "Typescript",
+      "gRPC",
+      "Swagger",
+      "OpenAPI",
+      "json-server",
+      "axios",
+      "pug",
+    ],
+  },
+  {
+    slug: "task-master",
+    title: "Task Master",
+    imgSrc: "/project-imgs/task-master.png",
+    code: "https://github.com/Daniel88dev/next-task-list",
+    liveUrl: "https://www.task-master.cz/",
+    tech: [
+      "Next.js",
+      "React",
+      "Typescript",
+      "Tailwind",
+      "Postgres",
+      "Drizzle ORM",
+      "Clerk",
+      "Shadcn/ui",
+      "Tanstack/table",
+    ],
+  },
+  {
+    slug: "dtc-list",
+    title: "DTC List",
+    imgSrc: "/project-imgs/next-dtc-list.png",
+    code: "https://github.com/Daniel88dev/next-dtc-list",
+    liveUrl: "https://next-dtc-list.vercel.app",
+    tech: [
+      "React",
+      "Typescript",
+      "Tailwind",
+      "Next.js",
+      "Drizzle",
+      "Clerk",
+      "Postgres",
+      "Shadcn/ui",
+      "Sentry",
+    ],
+  },
+  {
+    slug: "new-web-ots",
+    title: "New WEB OTS",
+    imgSrc: "/project-imgs/new-ots.png",
+    code: "https://github.com/Daniel88dev/ots-next",
+    liveUrl: "https://github.com/Daniel88dev/ots-next",
+    tech: [
+      "Next.js",
+      "React",
+      "Typescript",
+      "Tailwind",
+      "Postgres",
+      "Shadcn/ui",
+      "Lucia auth",
+      "Node mailer",
+    ],
+  },
+  {
+    slug: "little-lemon-frontend-capstone-project",
+    title: "Little Lemon Frontend Capstone Project",
+    imgSrc: "/project-imgs/little-lemon.png",
+    code: "https://github.com/Daniel88dev/meta-frontend-capstone-project",
+    liveUrl: "https://meta-frontend-capstone-project-pi.vercel.app/",
+    tech: ["React", "SASS CSS", "Framer Motion", "Figma"],
+  },
+  {
+    slug: "web-ots-interface",
+    title: "Web OTS interface",
+    imgSrc: "/project-imgs/ots-project.png",
+    code: "https://github.com/Daniel88dev/HMMC_OTS_interface-main",
+    liveUrl: "",
+    tech: [
+      "React",
+      "Javascript",
+      "Node.js",
+      "Express",
+      "Postgres",
+      "Sequelize",
+    ],
+  },
+  {
+    slug: "cft-problem-list",
+    title: "CFT Problem List",
+    imgSrc: "/project-imgs/cft_problem_list.png",
+    code: "https://github.com/Daniel88dev/cft-next",
+    liveUrl: "https://cft-problem-lists.vercel.app/",
+    tech: [
+      "Next.js",
+      "React",
+      "Typescript",
+      "HTML",
+      "Tailwind CSS",
+      "Postgres",
+    ],
+  },
+  {
+    slug: "e-plant-shopping",
+    title: "E-Plant Shopping",
+    imgSrc: "/project-imgs/e-plant_shopping.png",
+    code: "https://github.com/Daniel88dev/e-plantShopping",
+    liveUrl: "https://github.com/Daniel88dev/e-plantShopping",
+    tech: ["React", "Javascript", "HTML", "CSS", "Redux"],
+  },
+  {
+    slug: "express-book-review",
+    title: "express book review",
+    imgSrc: "/project-imgs/express-book-review.png",
+    code: "https://github.com/Daniel88dev/expressBookReviews",
+    liveUrl: "https://github.com/Daniel88dev/expressBookReviews",
+    tech: ["Node.js", "Express", "Axios"],
+  },
+  {
+    slug: "gift-link",
+    title: "Gift Link",
+    imgSrc: "/project-imgs/gift-link.png",
+    code: "https://github.com/Daniel88dev/fullstack-capstone-project",
+    liveUrl: "https://github.com/Daniel88dev/fullstack-capstone-project",
+    tech: ["React", "Bootstrap", "Node.js", "Express", "MongoDB"],
+  },
+  {
+    slug: "node-file-server",
+    title: "Node File Server",
+    imgSrc: "/project-imgs/node-file-server.png",
+    code: "https://github.com/Daniel88dev/ots-node-file-server",
+    liveUrl: "https://github.com/Daniel88dev/ots-node-file-server",
+    tech: ["Node.js", "Express", "Multer"],
+  },
+  {
+    slug: "asteroids-python-game",
+    title: "Asteroids - Python Game",
+    imgSrc: "/project-imgs/asteroids-python.png",
+    code: "https://github.com/Daniel88dev/asteroids-python-game",
+    liveUrl: "https://github.com/Daniel88dev/asteroids-python-game",
+    tech: ["Python", "Pygame"],
+  },
+  {
+    slug: "maze-solver-python",
+    title: "Maze Solver - Python",
+    imgSrc: "/project-imgs/maze-solver.png",
+    code: "https://github.com/Daniel88dev/maze-solver",
+    liveUrl: "https://github.com/Daniel88dev/maze-solver",
+    tech: ["Python"],
+  },
+];
+
+export const liveHost = (project: Project): string =>
+  project.liveUrl === ""
+    ? ""
+    : new URL(project.liveUrl).host.replace(/^www\./, "");
+
+export const getProjectBySlug = (slug: string): Project | undefined =>
+  projects.find((project) => project.slug === slug);
+
+export const getCaseStudySlugs = (): string[] =>
+  projects.filter((project) => project.caseStudy !== undefined).map((project) => project.slug);

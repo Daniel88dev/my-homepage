@@ -1,20 +1,19 @@
+import type { Language } from "@/lib/language";
+import type { Dictionary } from "@/content/dictionary";
 import { MyLinks } from "./components/MyLinks";
 import { HeaderShell } from "./HeaderShell";
-import { OutlineButton } from "../buttons/OutlineButton";
+import { HeaderActions } from "./HeaderActions";
 
-export const Heading = () => {
+interface Props {
+  lang: Language;
+  dict: Dictionary;
+}
+
+export const Heading = ({ lang, dict }: Props) => {
   return (
     <HeaderShell
       left={<MyLinks />}
-      right={
-        <OutlineButton
-          href="/Resume_DanielHrynusiw.pdf"
-          target="_blank"
-          rel="noopener"
-        >
-          Resume
-        </OutlineButton>
-      }
+      right={<HeaderActions lang={lang} path="/" dict={dict} />}
     />
   );
 };

@@ -1,15 +1,15 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import type { CaseStudyNavItem } from "@/content/projects/types";
 
 interface Props {
   sections: CaseStudyNavItem[];
+
+  label: string;
 }
 
-/**
- * The Case Study's sections, from the medium breakpoint up. Highlights the
- * section currently in view, in the same spirit as the homepage sidebar.
- */
-export const SectionNav = ({ sections }: Props) => {
+export const SectionNav = ({ sections, label }: Props) => {
   const [active, setActive] = useState<string>(sections[0]?.id ?? "");
 
   useEffect(() => {
@@ -19,8 +19,6 @@ export const SectionNav = ({ sections }: Props) => {
 
     if (elements.length === 0) return;
 
-    // A band across the upper third of the viewport decides which section is
-    // "current", so a long section stays highlighted while it is being read.
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
@@ -36,7 +34,7 @@ export const SectionNav = ({ sections }: Props) => {
   }, [sections]);
 
   return (
-    <nav aria-label="On this page" className="max-md:hidden">
+    <nav aria-label={label} className="max-md:hidden">
       <ol className="flex flex-col border-l border-border">
         {sections.map((section) => {
           const isActive = section.id === active;

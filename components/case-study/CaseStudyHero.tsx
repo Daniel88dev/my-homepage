@@ -1,33 +1,41 @@
+"use client";
+
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { PiArrowUpRight, PiGithubLogo } from "react-icons/pi";
 import { Reveal } from "@/components/utils/Reveal";
-import type { CaseStudy, CaseStudyNavItem, Project } from "@/content/projects/types";
+import type { CaseStudyImage, Project } from "@/content/projects/types";
 import { repositoryName } from "@/content/projects/repository";
 import { StandardButton } from "@/components/buttons/StandardButton";
 import { Zoomable } from "./Media";
 
 interface Props {
   project: Project;
-  caseStudy: CaseStudy;
-  /** The hero's own navigation entry, so it anchors like every other section. */
-  nav: CaseStudyNavItem;
+
+  labels: {
+    eyebrow: string;
+
+    openLive: string;
+    sourceOnGitHub: string;
+  };
+
+  heroImage: CaseStudyImage;
+
+  pitch: string;
+
+  sectionId: string;
 }
 
 const ctaSecondary =
   "group inline-flex items-center gap-[0.8rem] rounded-[4px] text-sm text-text-muted transition-colors duration-200 hover:text-text";
 
-/**
- * Split hero: the pitch and the way into the product on the left, the hero
- * screenshot on the right. Stacks under 768px.
- */
-export const CaseStudyHero = ({ project, caseStudy, nav }: Props) => {
+export const CaseStudyHero = ({ project, labels, heroImage, pitch, sectionId }: Props) => {
   const reduceMotion = useReducedMotion();
   const repositories = project.relatedRepositories ?? [];
 
   return (
     <section
-      id={nav.id}
+      id={sectionId}
       aria-labelledby="case-study-title"
       className="relative scroll-mt-[calc(45px_+_3.6rem)] overflow-hidden"
     >
@@ -38,7 +46,7 @@ export const CaseStudyHero = ({ project, caseStudy, nav }: Props) => {
       <div className="relative z-10 mx-auto grid max-w-[1150px] items-center gap-x-[6.4rem] gap-y-[4rem] px-[9.6rem] pb-[8rem] pt-[8rem] max-md:px-[2.4rem] max-md:pb-[5.6rem] max-md:pt-[4.8rem] md:grid-cols-[5fr_7fr]">
         <div>
           <Reveal>
-            <p className="eyebrow mb-[2rem]">Case study</p>
+            <p className="eyebrow mb-[2rem]">{labels.eyebrow}</p>
           </Reveal>
           <Reveal>
             <h1 id="case-study-title" className="text-xl font-bold max-md:text-lg">
@@ -48,7 +56,7 @@ export const CaseStudyHero = ({ project, caseStudy, nav }: Props) => {
           </Reveal>
           <Reveal>
             <p className="mt-[2rem] max-w-[38ch] text-md font-light text-text-muted max-md:text-sm">
-              {caseStudy.pitch}
+              {pitch}
             </p>
           </Reveal>
           <Reveal>
@@ -59,7 +67,7 @@ export const CaseStudyHero = ({ project, caseStudy, nav }: Props) => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Open flexi-day.com
+                  {labels.openLive}
                   <PiArrowUpRight aria-hidden />
                 </StandardButton>
               )}
@@ -70,7 +78,7 @@ export const CaseStudyHero = ({ project, caseStudy, nav }: Props) => {
                 className={ctaSecondary}
               >
                 <PiGithubLogo size="2rem" aria-hidden />
-                Source on GitHub
+                {labels.sourceOnGitHub}
                 <PiArrowUpRight
                   aria-hidden
                   className="transition-transform duration-200 group-hover:-translate-y-px group-hover:translate-x-px"
@@ -87,8 +95,8 @@ export const CaseStudyHero = ({ project, caseStudy, nav }: Props) => {
           className="rounded-[0.8rem] shadow-[0_40px_80px_-40px_rgb(3_8_6/0.95)]"
         >
           <Zoomable
-            shot={caseStudy.heroImage}
-            caption={caseStudy.heroImage.alt}
+            shot={heroImage}
+            caption={heroImage.alt}
             preload
             sizes="(max-width: 768px) 100vw, 660px"
           />

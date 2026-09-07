@@ -9,26 +9,59 @@ import {
 } from "@/components/case-study/Lists";
 import { ArchitectureDiagram } from "@/components/case-study/ArchitectureDiagram";
 import { FLEXI_DAY_REPOSITORIES } from "./repositories";
-import { SECTIONS, shots } from "./case-study";
+import type { CaseStudyNavItem } from "@/content/projects/types";
+import { SECTION_IDS, withAlt } from "./case-study";
 
-/**
- * The long-form content of the flexiday Case Study. Loaded only by the Case
- * Study route, so none of it reaches the homepage bundle.
- */
+const SHOT_ALT = {
+  calendar:
+    "The flexiday team calendar for one month, with vacation, home office and sick days for four people shown as colour-coded chips.",
+  dashboard:
+    "The flexiday dashboard: pending approvals, who is out today, upcoming leave, the month calendar and a balance summary.",
+  requests:
+    "The requests page listing each request with its type, dates, state and the approve and decline actions.",
+  groups:
+    "A group's member list with each person's view, admin and approver permissions, and tabs for quotas, invites, settings and mirroring.",
+  report:
+    "The report page with per-person balances for the year and an Excel export.",
+  calendarSync:
+    "The new calendar feed dialog: choose whose records and which leave types to include, with a live month preview.",
+  holidays:
+    "A group's settings: the working days of the week, and public holidays set to the Czech Republic.",
+  localisation:
+    "The same dashboard in Czech, with the Czech state holiday marked on 28 September.",
+  landing:
+    "The public flexiday landing page in dark mode.",
+  mobile:
+    "The new request form on a phone: leave type, date range and a note.",
+};
+
+const shots = withAlt(SHOT_ALT);
+
+export const sections: CaseStudyNavItem[] = [
+  { id: SECTION_IDS.hero, label: "Overview" },
+  { id: SECTION_IDS.problem, label: "The problem" },
+  { id: SECTION_IDS.features, label: "What it does" },
+  { id: SECTION_IDS.architecture, label: "Architecture" },
+  { id: SECTION_IDS.stack, label: "Tech list" },
+  { id: SECTION_IDS.status, label: "Status" },
+  { id: SECTION_IDS.learnings, label: "What I learned" },
+];
+
 const FlexiDayCaseStudyContent = () => (
   <>
     <CaseStudySection
-      nav={SECTIONS.problem}
+      id={SECTION_IDS.problem}
       title="A spreadsheet that kept breaking"
       lede="Every small team I have worked in tracked time off in a shared sheet. It answered nobody's real question."
     >
       <Prose>
         <p>
           The question is always the same: <strong>who is off next week?</strong> A
-          spreadsheet answers it badly. Rows go stale, formulas break when
-          someone inserts a column, approvals happen in chat and never make it
-          back into the sheet, and the one person who understands the file is
-          the one on holiday.
+          spreadsheet is not enough to answer it. The data in it is static: it
+          holds the days somebody booked and does nothing with them — no
+          request, no approval, no reminder, no check that two people are not
+          away in the same week. Every day off has to be agreed in person, and
+          that costs both people time.
         </p>
         <p>
           The tools that solve this properly are built for HR departments. They
@@ -53,7 +86,7 @@ const FlexiDayCaseStudyContent = () => (
     </CaseStudySection>
 
     <CaseStudySection
-      nav={SECTIONS.features}
+      id={SECTION_IDS.features}
       title="What it does"
       lede="Everything hangs off one calendar. The rest exists so that calendar is always right."
     >
@@ -207,12 +240,14 @@ const FlexiDayCaseStudyContent = () => (
     </CaseStudySection>
 
     <CaseStudySection
-      nav={SECTIONS.architecture}
+      id={SECTION_IDS.architecture}
       title="Three repositories, one product"
       lede="The web app, the API and the email templates version and deploy on their own schedules."
     >
       <div className="flex flex-col gap-[4.8rem]">
-        <ArchitectureDiagram />
+        <ArchitectureDiagram
+          caption="Solid lines are runtime traffic. Dashed lines happen at build or deploy time. The web app never runs a server: every dynamic thing goes through the API."
+        />
         <Prose>
           <p>
             <strong>The web app is a static export.</strong> Next.js builds it
@@ -259,7 +294,7 @@ const FlexiDayCaseStudyContent = () => (
       </div>
     </CaseStudySection>
 
-    <CaseStudySection nav={SECTIONS.stack} title="Tech list, by repository">
+    <CaseStudySection id={SECTION_IDS.stack} title="Tech list, by repository">
       <TechListGroups
         groups={[
           {
@@ -326,7 +361,7 @@ const FlexiDayCaseStudyContent = () => (
     </CaseStudySection>
 
     <CaseStudySection
-      nav={SECTIONS.status}
+      id={SECTION_IDS.status}
       title="Where it stands"
       lede="Live, in production, and free for early adopters."
     >
@@ -377,7 +412,7 @@ const FlexiDayCaseStudyContent = () => (
       </div>
     </CaseStudySection>
 
-    <CaseStudySection nav={SECTIONS.learnings} title="What I learned">
+    <CaseStudySection id={SECTION_IDS.learnings} title="What I learned">
       <LessonList
         items={[
           {

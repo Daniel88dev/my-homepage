@@ -1,18 +1,32 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-const links = [
-  { id: "about", label: "About" },
-  { id: "projects", label: "Projects" },
-  { id: "experience", label: "Exp." },
-  { id: "contact", label: "Contact" },
-];
+interface Props {
+  labels: {
+    about: string;
+    projects: string;
+    experience: string;
+    contact: string;
+  };
+
+  navLabel: string;
+
+  backToTop: string;
+}
 
 const linkBase =
   "flex h-[100px] w-full shrink-0 items-center justify-center border-r border-transparent font-mono text-2xs uppercase text-text-muted transition-[color,border-color,background-color] duration-200 [writing-mode:vertical-lr] hover:border-brand hover:bg-background hover:text-text focus-visible:outline-offset-[-4px]";
 const linkSelected = "border-brand bg-background text-text";
 
-export const SideBar = () => {
+export const SideBar = ({ labels, navLabel, backToTop }: Props) => {
+  const links = [
+    { id: "about", label: labels.about },
+    { id: "projects", label: labels.projects },
+    { id: "experience", label: labels.experience },
+    { id: "contact", label: labels.contact },
+  ];
   const [selected, setSelected] = useState("");
 
   useEffect(() => {
@@ -36,7 +50,7 @@ export const SideBar = () => {
 
   return (
     <motion.nav
-      aria-label="Sections"
+      aria-label={navLabel}
       initial={{ x: -70 }}
       animate={{ x: 0 }}
       transition={{ duration: 0.5 }}
@@ -44,7 +58,7 @@ export const SideBar = () => {
     >
       <a
         href="#main"
-        aria-label="Back to top"
+        aria-label={backToTop}
         className="my-[1.8rem] flex h-[45px] w-[45px] shrink-0 items-center justify-center rounded-[4px] bg-background text-md font-bold leading-none tracking-[-0.04em] transition-colors duration-200 hover:bg-background-light"
       >
         DH<span className="text-brand">.</span>

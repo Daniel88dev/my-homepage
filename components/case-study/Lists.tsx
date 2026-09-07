@@ -47,7 +47,6 @@ export interface TechListGroup {
   items: string[];
 }
 
-/** The Tech List of a Case Study, grouped by Related Repository. */
 export const TechListGroups = ({ groups }: { groups: TechListGroup[] }) => (
   <div className="grid gap-x-[4.8rem] gap-y-[4rem] md:grid-cols-2">
     {groups.map((group) => (
@@ -70,7 +69,6 @@ interface NumberedItem {
   body: ReactNode;
 }
 
-/** Learnings and roadmap items. Under six entries, so a plain list is right. */
 export const LessonList = ({ items }: { items: NumberedItem[] }) => (
   <ol className="flex max-w-[72ch] flex-col">
     {items.map((item, i) => (

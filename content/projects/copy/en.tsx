@@ -1,41 +1,7 @@
-import { flexiDayCaseStudy } from "./flexi-day/case-study";
-import { FLEXI_DAY_REPOSITORIES } from "./flexi-day/repositories";
-import type { Project } from "./types";
+import type { ProjectCopyBySlug } from "../types";
 
-export type {
-  CaseStudy,
-  CaseStudyImage,
-  CaseStudyNavItem,
-  Project,
-  RelatedRepository,
-} from "./types";
-
-/** Display order is array order. */
-export const projects: Project[] = [
-  {
-    slug: "flexi-day",
-    title: "flexiday",
-    imgSrc: "/project-imgs/flexi-day/calendar-card.webp",
-    code: "https://github.com/Daniel88dev/flexi-day",
-    liveUrl: "https://www.flexi-day.com",
-    tech: [
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Tailwind",
-      "shadcn/ui",
-      "TanStack Query",
-      "better-auth",
-      "Express 5",
-      "Drizzle ORM",
-      "PostgreSQL",
-      "react-email",
-      "AWS (App Runner, RDS, S3, SES, Lambda, CloudFront)",
-      "Terraform",
-      "Paddle",
-      "Sentry",
-      "Vitest",
-    ],
+export const EN_PROJECT_COPY: ProjectCopyBySlug = {
+  "flexi-day": {
     description:
       "A live vacation and day-off management product for teams: shared calendar, one-click approvals, balances and calendar sync, free for early adopters.",
     dialogContent: (
@@ -53,26 +19,17 @@ export const projects: Project[] = [
         </p>
       </>
     ),
-    relatedRepositories: FLEXI_DAY_REPOSITORIES,
-    caseStudy: flexiDayCaseStudy,
+    caseStudy: {
+      title: "flexiday, a calm calendar for team time off",
+      pitch:
+        "The shared calendar for team time off. Request in seconds, approve in a click, and always know who is in and who is away.",
+      description:
+        "How I built and run flexiday: a vacation and day-off product for teams, shipped as a static Next.js app, an Express API and an email pipeline on AWS.",
+      heroImageAlt:
+        "The flexiday team calendar for one month, with vacation, home office and sick days for four people shown as colour-coded chips.",
+    },
   },
-  {
-    slug: "grpc-swagger-case-study",
-    title: "gRPC_Swagger-case-study",
-    imgSrc: "/project-imgs/grpc_case_study.png",
-    code: "https://github.com/Daniel88dev/gRPC_Swagger-case-study",
-    liveUrl: "https://github.com/Daniel88dev/gRPC_Swagger-case-study",
-    tech: [
-      "Node.js",
-      "Express",
-      "Typescript",
-      "gRPC",
-      "Swagger",
-      "OpenAPI",
-      "json-server",
-      "axios",
-      "pug",
-    ],
+  "grpc-swagger-case-study": {
     description:
       "Case study project with using new technologies with focus to learn them (gRPC, Swagger, OpenAPI). ",
     dialogContent: (
@@ -95,23 +52,7 @@ export const projects: Project[] = [
       </>
     ),
   },
-  {
-    slug: "task-master",
-    title: "Task Master",
-    imgSrc: "/project-imgs/task-master.png",
-    code: "https://github.com/Daniel88dev/next-task-list",
-    liveUrl: "https://www.task-master.cz/",
-    tech: [
-      "Next.js",
-      "React",
-      "Typescript",
-      "Tailwind",
-      "Postgres",
-      "Drizzle ORM",
-      "Clerk",
-      "Shadcn/ui",
-      "Tanstack/table",
-    ],
+  "task-master": {
     description:
       "IN DEVELOPMENT - Fullstack web application for managing tasks of authenticated user",
     dialogContent: (
@@ -122,29 +63,13 @@ export const projects: Project[] = [
           for future shopping event.
         </p>
         <p>
-          Purpose of project is to learn more closely work with Tanstack data
+          Purpose of project is to learn more closely work with TanStack data
           tables, which i find very useful for future projects.
         </p>
       </>
     ),
   },
-  {
-    slug: "dtc-list",
-    title: "DTC List",
-    imgSrc: "/project-imgs/next-dtc-list.png",
-    code: "https://github.com/Daniel88dev/next-dtc-list",
-    liveUrl: "https://next-dtc-list.vercel.app",
-    tech: [
-      "React",
-      "Typescript",
-      "Tailwind",
-      "Next.js",
-      "Drizzle",
-      "Clerk",
-      "Postgres",
-      "Shadcn/ui",
-      "Sentry",
-    ],
+  "dtc-list": {
     description:
       "Fullstack Web app to search, and display DTC codes for vehicle problems",
     dialogContent: (
@@ -154,7 +79,7 @@ export const projects: Project[] = [
           code.
         </p>
         <p>
-          DTC means Diagnosis Trouble Code, which are codes displaying some type
+          DTC means Diagnostic Trouble Code, which are codes displaying some type
           of Vehicle unit error.
         </p>
         <p>
@@ -169,22 +94,7 @@ export const projects: Project[] = [
       </>
     ),
   },
-  {
-    slug: "new-web-ots",
-    title: "New WEB OTS",
-    imgSrc: "/project-imgs/new-ots.png",
-    code: "https://github.com/Daniel88dev/ots-next",
-    liveUrl: "https://github.com/Daniel88dev/ots-next",
-    tech: [
-      "Next.js",
-      "React",
-      "Typescript",
-      "Tailwind",
-      "Postgres",
-      "Shadcn/ui",
-      "Lucia auth",
-      "Node mailer",
-    ],
+  "new-web-ots": {
     description:
       "Fullstack web application for managing vehicle assembly processes, Job Allocation, Manpower, Efficiency, and Tightening Management",
     dialogContent: (
@@ -240,13 +150,7 @@ export const projects: Project[] = [
       </>
     ),
   },
-  {
-    slug: "little-lemon-frontend-capstone-project",
-    title: "Little Lemon Frontend Capstone Project",
-    imgSrc: "/project-imgs/little-lemon.png",
-    code: "https://github.com/Daniel88dev/meta-frontend-capstone-project",
-    liveUrl: "https://meta-frontend-capstone-project-pi.vercel.app/",
-    tech: ["React", "SASS CSS", "Framer Motion", "Figma"],
+  "little-lemon-frontend-capstone-project": {
     description:
       "Frontend Capstone project of Meta Frontend Course for building Little Lemon - static website to reserve table in restaurant",
     dialogContent: (
@@ -272,20 +176,7 @@ export const projects: Project[] = [
       </>
     ),
   },
-  {
-    slug: "web-ots-interface",
-    title: "Web OTS interface",
-    imgSrc: "/project-imgs/ots-project.png",
-    code: "https://github.com/Daniel88dev/HMMC_OTS_interface-main",
-    liveUrl: "",
-    tech: [
-      "React",
-      "Javascript",
-      "Node.js",
-      "Express",
-      "Postgres",
-      "Sequelize",
-    ],
+  "web-ots-interface": {
     description:
       "A interface for job allocation of HMMC Assembly hall processes, job allocation, Manpower, and efficiency.",
     dialogContent: (
@@ -318,20 +209,7 @@ export const projects: Project[] = [
       </>
     ),
   },
-  {
-    slug: "cft-problem-list",
-    title: "CFT Problem List",
-    imgSrc: "/project-imgs/cft_problem_list.png",
-    code: "https://github.com/Daniel88dev/cft-next",
-    liveUrl: "https://cft-problem-lists.vercel.app/",
-    tech: [
-      "Next.js",
-      "React",
-      "Typescript",
-      "HTML",
-      "Tailwind CSS",
-      "Postgres",
-    ],
+  "cft-problem-list": {
     description:
       "Project to manage CFT (Cross Functional Team) Problems on new Vehicle model Development",
     dialogContent: (
@@ -352,13 +230,7 @@ export const projects: Project[] = [
       </>
     ),
   },
-  {
-    slug: "e-plant-shopping",
-    title: "E-Plant Shopping",
-    imgSrc: "/project-imgs/e-plant_shopping.png",
-    code: "https://github.com/Daniel88dev/e-plantShopping",
-    liveUrl: "https://github.com/Daniel88dev/e-plantShopping",
-    tech: ["React", "Javascript", "HTML", "CSS", "Redux"],
+  "e-plant-shopping": {
     description:
       "Forked Project from IBM Fullstack course, to make React App using Redux",
     dialogContent: (
@@ -374,13 +246,7 @@ export const projects: Project[] = [
       </>
     ),
   },
-  {
-    slug: "express-book-review",
-    title: "express book review",
-    imgSrc: "/project-imgs/express-book-review.png",
-    code: "https://github.com/Daniel88dev/expressBookReviews",
-    liveUrl: "https://github.com/Daniel88dev/expressBookReviews",
-    tech: ["Node.js", "Express", "Axios"],
+  "express-book-review": {
     description:
       "Project for IBM Fullstack course to manage Book Reviews, and also to display reviews of other users",
     dialogContent: (
@@ -396,18 +262,12 @@ export const projects: Project[] = [
         </p>
         <p>
           Its just simple CRUD API service with no HTML front end. Can be tested
-          using Postman, CRUD or by any other API testing tool.
+          using Postman, cURL or by any other API testing tool.
         </p>
       </>
     ),
   },
-  {
-    slug: "gift-link",
-    title: "Gift Link",
-    imgSrc: "/project-imgs/gift-link.png",
-    code: "https://github.com/Daniel88dev/fullstack-capstone-project",
-    liveUrl: "https://github.com/Daniel88dev/fullstack-capstone-project",
-    tech: ["React", "Bootstrap", "Node.js", "Express", "MongoDB"],
+  "gift-link": {
     description:
       "Fullstack IBM Final Capstone Project for building Gift Link - application to share gifts, and to share posts for each item for other users.",
     dialogContent: (
@@ -436,13 +296,7 @@ export const projects: Project[] = [
       </>
     ),
   },
-  {
-    slug: "node-file-server",
-    title: "Node File Server",
-    imgSrc: "/project-imgs/node-file-server.png",
-    code: "https://github.com/Daniel88dev/ots-node-file-server",
-    liveUrl: "https://github.com/Daniel88dev/ots-node-file-server",
-    tech: ["Node.js", "Express", "Multer"],
+  "node-file-server": {
     description: "Very simple Node.js File Server microservice",
     dialogContent: (
       <>
@@ -462,13 +316,7 @@ export const projects: Project[] = [
       </>
     ),
   },
-  {
-    slug: "asteroids-python-game",
-    title: "Asteroids - Python Game",
-    imgSrc: "/project-imgs/asteroids-python.png",
-    code: "https://github.com/Daniel88dev/asteroids-python-game",
-    liveUrl: "https://github.com/Daniel88dev/asteroids-python-game",
-    tech: ["Python", "Pygame"],
+  "asteroids-python-game": {
     description: "Very simple Python Game - Asteroids",
     dialogContent: (
       <>
@@ -483,13 +331,7 @@ export const projects: Project[] = [
       </>
     ),
   },
-  {
-    slug: "maze-solver-python",
-    title: "Maze Solver - Python",
-    imgSrc: "/project-imgs/maze-solver.png",
-    code: "https://github.com/Daniel88dev/maze-solver",
-    liveUrl: "https://github.com/Daniel88dev/maze-solver",
-    tech: ["Python"],
+  "maze-solver-python": {
     description:
       "Python application, which generates Maze labyrinth, and then attempts to solve it, by searching way through labyrinth",
     dialogContent: (
@@ -509,11 +351,4 @@ export const projects: Project[] = [
       </>
     ),
   },
-];
-
-export const getProjectBySlug = (slug: string): Project | undefined =>
-  projects.find((project) => project.slug === slug);
-
-/** Slugs of every Project that has a Case Study, in display order. */
-export const getCaseStudySlugs = (): string[] =>
-  projects.filter((project) => project.caseStudy !== undefined).map((project) => project.slug);
+};

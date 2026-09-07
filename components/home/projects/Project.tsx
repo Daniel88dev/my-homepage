@@ -1,9 +1,11 @@
+"use client";
+
 import { Reveal } from "@/components/utils/Reveal";
-import type { Project as ProjectData } from "@/content/projects";
+import type { RelatedRepository } from "@/content/projects/types";
 import { useAnimation, useInView, motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactElement } from "react";
 import {
   PiGithubLogo,
   PiArrowUpRight,
@@ -13,13 +15,39 @@ import {
 } from "react-icons/pi";
 import { ProjectDialog } from "./ProjectDialog";
 
-type Props = ProjectData;
+export interface ProjectLabels {
+  openDetails: string;
+  screenshotAlt: string;
+  sourceOnGitHub: string;
+  openLive: string;
+  readMore: string;
+  readCaseStudy: string;
+  closeDialog: string;
+  sourceCode: string;
+  liveProject: string;
+  repositories: string;
+}
+
+interface Props {
+  labels: ProjectLabels;
+  title: string;
+  description: string;
+  imgSrc: string;
+  code: string;
+  liveUrl: string;
+  tech: string[];
+
+  dialogContent: ReactElement;
+  relatedRepositories?: RelatedRepository[];
+
+  caseStudyHref?: string;
+}
 
 const iconLink =
   "text-text-muted transition-[color,transform] duration-200 hover:-translate-y-px hover:text-text";
 
 export const Project = ({
-  slug,
+  labels,
   dialogContent,
   liveUrl,
   description,
@@ -28,7 +56,7 @@ export const Project = ({
   code,
   tech,
   relatedRepositories,
-  caseStudy,
+  caseStudyHref,
 }: Props) => {
   const [hovered, setHovered] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -47,7 +75,6 @@ export const Project = ({
   }, [isInView, controls]);
 
   const hasLiveLink = liveUrl !== "" && liveUrl !== code;
-  const caseStudyHref = caseStudy ? `/projects/${slug}` : undefined;
 
   return (
     <>
@@ -66,14 +93,14 @@ export const Project = ({
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
           onClick={() => setIsOpen(true)}
-          aria-label={`Open details for ${title}`}
+          aria-label={labels.openDetails}
           className="group relative block aspect-[16/9] w-full cursor-pointer overflow-hidden rounded-[0.8rem] border border-border bg-background-light bg-[radial-gradient(120%_80%_at_50%_100%,rgb(46_229_157/0.12),transparent_60%)] transition-[border-color,box-shadow] duration-300 hover:border-[rgb(46_229_157/0.35)] hover:shadow-[0_24px_40px_-20px_rgb(3_8_6/0.9)]"
         >
           <Image
             width={400}
             height={300}
             src={imgSrc}
-            alt={`Screenshot of the ${title} project.`}
+            alt={labels.screenshotAlt}
             sizes="(max-width: 768px) 90vw, 480px"
             className="absolute bottom-0 left-1/2 rounded-t-[0.4rem] shadow-[0_-8px_24px_-12px_rgb(3_8_6/0.8)] transition-[width,rotate] duration-300 ease-out [translate:-50%_18%]"
             style={{
@@ -95,7 +122,7 @@ export const Project = ({
                 href={code}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`${title} source code on GitHub`}
+                aria-label={labels.sourceOnGitHub}
                 className={iconLink}
               >
                 <PiGithubLogo size="2.4rem" aria-hidden />
@@ -106,7 +133,7 @@ export const Project = ({
                   href={liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`Open the live ${title} project`}
+                  aria-label={labels.openLive}
                   className={iconLink}
                 >
                   <PiArrowUpRight size="2.4rem" aria-hidden />
@@ -127,7 +154,7 @@ export const Project = ({
                 onClick={() => setIsOpen(true)}
                 className="inline-flex cursor-pointer items-center gap-[0.2rem] align-baseline text-xs font-medium text-text transition-colors duration-200 hover:text-brand"
               >
-                Read more
+                {labels.readMore}
                 <PiCaretRight aria-hidden />
               </button>
             </p>
@@ -139,7 +166,7 @@ export const Project = ({
                 className="group mt-[1.6rem] inline-flex items-center gap-[0.8rem] rounded-[4px] border border-brand bg-brand-soft px-[1.6rem] py-[0.9rem] text-xs font-medium text-brand transition-[background-color,color,transform] duration-200 hover:-translate-y-px hover:bg-brand hover:text-background-dark active:translate-y-0 active:scale-[0.98]"
               >
                 <PiBookOpenText size="1.8rem" aria-hidden />
-                Read the case study
+                {labels.readCaseStudy}
                 <PiArrowRight
                   aria-hidden
                   className="transition-transform duration-200 group-hover:translate-x-[2px]"
@@ -150,6 +177,7 @@ export const Project = ({
         </div>
       </motion.article>
       <ProjectDialog
+        labels={labels}
         dialogContent={dialogContent}
         liveUrl={hasLiveLink ? liveUrl : ""}
         setIsOpen={setIsOpen}

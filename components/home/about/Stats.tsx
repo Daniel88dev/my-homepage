@@ -1,16 +1,20 @@
 import { Reveal } from "@/components/utils/Reveal";
 import { PiBrowsers, PiHardDrives, PiCode, PiSmiley } from "react-icons/pi";
 import type { IconType } from "react-icons";
+import type { Dictionary } from "@/content/dictionary";
 
 interface Group {
-  title: string;
+  key: keyof Dictionary["stats"];
   Icon: IconType;
+
   items: string[];
+
+  extra?: "spokenLanguages" | "hobbies";
 }
 
 const groups: Group[] = [
   {
-    title: "Frontend",
+    key: "frontend",
     Icon: PiBrowsers,
     items: [
       "JavaScript",
@@ -27,7 +31,7 @@ const groups: Group[] = [
     ],
   },
   {
-    title: "Backend",
+    key: "backend",
     Icon: PiHardDrives,
     items: [
       "Node.js",
@@ -47,7 +51,8 @@ const groups: Group[] = [
     ],
   },
   {
-    title: "Tooling",
+    key: "tooling",
+    extra: "spokenLanguages",
     Icon: PiCode,
     items: [
       "GitHub",
@@ -58,36 +63,33 @@ const groups: Group[] = [
       "Jira",
       "Office 365",
       "MS Excel + VBA",
-      "English",
     ],
   },
   {
-    title: "Off the clock",
+    key: "offTheClock",
+    extra: "hobbies",
     Icon: PiSmiley,
-    items: [
-      "Hiking",
-      "Board games",
-      "Gym",
-      "Electric cars",
-      "New technology",
-      "Shisha",
-      "Learning",
-    ],
+    items: [],
   },
 ];
 
-export const Stats = () => {
+const chipsFor = (group: Group, dict: Dictionary["stats"]): string[] => [
+  ...group.items,
+  ...(group.extra ? dict[group.extra] : []),
+];
+
+export const Stats = ({ dict }: { dict: Dictionary["stats"] }) => {
   return (
     <aside className="relative">
-      {groups.map(({ title, Icon, items }) => (
-        <Reveal key={title} width="100%">
+      {groups.map((group) => (
+        <Reveal key={group.key} width="100%">
           <div className="mb-[4rem]">
             <h3 className="mb-[1.6rem] flex items-center gap-[1rem] text-xs font-semibold">
-              <Icon size="2rem" className="text-brand" aria-hidden />
-              <span>{title}</span>
+              <group.Icon size="2rem" className="text-brand" aria-hidden />
+              <span>{dict[group.key]}</span>
             </h3>
             <ul className="flex flex-wrap gap-[0.8rem]">
-              {items.map((item) => (
+              {chipsFor(group, dict).map((item) => (
                 <li key={item} className="chip">
                   {item}
                 </li>

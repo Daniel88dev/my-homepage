@@ -1,14 +1,10 @@
-import Head from "next/head";
 import Link from "next/link";
 import { PiArrowLeft } from "react-icons/pi";
 
 export default function NotFound() {
   return (
     <>
-      <Head>
-        <title>Page not found | Daniel Hrynusiw</title>
-        <meta name="robots" content="noindex" />
-      </Head>
+      <title>Page not found | Daniel Hrynusiw</title>
       <main className="relative flex min-h-dvh items-center overflow-hidden px-[9.6rem] max-md:px-[2.4rem]">
         <div
           aria-hidden

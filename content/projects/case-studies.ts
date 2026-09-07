@@ -1,12 +1,28 @@
-import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
+import type { Language } from "@/lib/language";
+import type { CaseStudyNavItem } from "./types";
 
-/**
- * The long-form content of each Case Study, by slug. Adding a Case Study is a
- * content change: write the content module, add the line here. The Case Study
- * route is the only importer, and each module is a chunk of its own, so the
- * homepage bundle never pulls a case study or its building blocks.
- */
-export const CASE_STUDY_CONTENT: Record<string, ComponentType> = {
-  "flexi-day": dynamic(() => import("./flexi-day/case-study-content")),
+export interface CaseStudyContentModule {
+  default: ComponentType;
+
+  sections: CaseStudyNavItem[];
+}
+
+export type CaseStudyContentLoader = () => Promise<CaseStudyContentModule>;
+
+export const CASE_STUDY_CONTENT: Record<
+  string,
+  Record<Language, CaseStudyContentLoader>
+> = {
+  "flexi-day": {
+    en: () => import("./flexi-day/case-study-content"),
+    cs: () => import("./flexi-day/case-study-content.cs"),
+  },
 };
+
+export const CASE_STUDIES_AWAITING_TRANSLATION: readonly Language[] = [];
+
+export const loadCaseStudyContent = (
+  lang: Language,
+  slug: string
+): CaseStudyContentLoader | undefined => CASE_STUDY_CONTENT[slug]?.[lang];

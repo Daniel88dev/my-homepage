@@ -1,3 +1,5 @@
+"use client";
+
 import { animate, stagger } from "animejs";
 
 export const DotGrid = () => {

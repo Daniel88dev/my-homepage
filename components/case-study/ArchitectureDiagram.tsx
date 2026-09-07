@@ -1,21 +1,4 @@
-/**
- * How the flexiday repositories fit together. Drawn in the page's own tokens
- * so it follows the theme; not an external image.
- *
- * Layout (viewBox 960 x 530). The browser sits outside the AWS boundary;
- * the left column inside it is the three repositories plus the attachment
- * bucket, the right column is the managed services they talk to.
- *
- *   [Browser] --loads app--> [Web app on S3 + CloudFront]
- *       |
- *       +--JSON over HTTPS--> [API on App Runner] --SQL--> [PostgreSQL on RDS]
- *       |                          |
- *       |                          +--send by template--> [SES]
- *       |                                                   ^
- *       |                     [Emails repo] --publishes templates (build time)
- *       |
- *       +--presigned upload--> [S3 attachments] --S3 event--> [Lambda]
- */
+import type { ReactNode } from "react";
 
 interface NodeProps {
   x: number;
@@ -95,7 +78,7 @@ const Edge = ({ d, label, lx, ly, dashed }: EdgeProps) => (
   </g>
 );
 
-export const ArchitectureDiagram = () => {
+export const ArchitectureDiagram = ({ caption }: { caption: ReactNode }) => {
   return (
     <figure>
       <div className="overflow-x-auto rounded-[0.8rem] border border-border bg-[radial-gradient(120%_80%_at_50%_100%,rgb(46_229_157/0.06),transparent_60%)] p-[2.4rem] max-md:p-[1.2rem]">
@@ -128,7 +111,6 @@ export const ArchitectureDiagram = () => {
             </marker>
           </defs>
 
-          {/* Terraform boundary: everything except the visitor's browser */}
           <rect
             x={260}
             y={20}
@@ -150,10 +132,8 @@ export const ArchitectureDiagram = () => {
             AWS eu-central-1, managed with Terraform
           </text>
 
-          {/* The visitor */}
           <Node x={20} y={200} w={180} h={72} title="Browser" subtitle="visitor or team member" />
 
-          {/* Left column: the three repositories and the attachment bucket */}
           <Node
             x={300}
             y={60}
@@ -175,12 +155,10 @@ export const ArchitectureDiagram = () => {
           />
           <Node x={300} y={430} w={240} h={60} title="S3 attachments" subtitle="presigned upload" />
 
-          {/* Right column: managed services */}
           <Node x={640} y={200} w={240} h={72} title="PostgreSQL" subtitle="RDS, Drizzle ORM" />
           <Node x={640} y={320} w={240} h={72} title="SES" subtitle="transactional email" />
           <Node x={640} y={430} w={240} h={60} title="Lambda" subtitle="image post-processing" />
 
-          {/* Runtime traffic */}
           <Edge d="M 200 218 L 300 100" label="loads app" lx={222} ly={140} />
           <Edge d="M 200 236 L 300 236" label="JSON" lx={250} ly={226} />
           <Edge d="M 110 272 L 110 460 L 300 460" label="upload" lx={140} ly={452} />
@@ -188,14 +166,11 @@ export const ArchitectureDiagram = () => {
           <Edge d="M 540 268 L 640 340" label="send by template" lx={618} ly={296} />
           <Edge d="M 540 460 L 640 460" label="S3 event" lx={590} ly={450} />
 
-          {/* Build and deploy time */}
           <Edge d="M 540 356 L 640 356" label="templates" lx={590} ly={346} dashed />
         </svg>
       </div>
       <figcaption className="mt-[1.2rem] max-w-[62ch] font-mono text-2xs text-text-muted">
-        Solid lines are runtime traffic. Dashed lines happen at build or deploy
-        time. The web app never runs a server: every dynamic thing goes through
-        the API.
+        {caption}
       </figcaption>
     </figure>
   );
