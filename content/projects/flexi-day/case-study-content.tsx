@@ -73,10 +73,11 @@ const FlexiDayCaseStudyContent = () => (
       <Prose>
         <p>
           The question is always the same: <strong>who is off next week?</strong> A
-          spreadsheet answers it badly. Rows go stale, formulas break when
-          someone inserts a column, approvals happen in chat and never make it
-          back into the sheet, and the one person who understands the file is
-          the one on holiday.
+          spreadsheet is not enough to answer it. The data in it is static: it
+          holds the days somebody booked and does nothing with them — no
+          request, no approval, no reminder, no check that two people are not
+          away in the same week. Every day off has to be agreed in person, and
+          that costs both people time.
         </p>
         <p>
           The tools that solve this properly are built for HR departments. They

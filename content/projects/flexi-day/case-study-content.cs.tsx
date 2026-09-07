@@ -96,10 +96,11 @@ const FlexiDayCaseStudyContentCs = () => (
       <Prose>
         <p>
           Ta otázka je vždycky stejná: <strong>kdo má příští týden volno?</strong>{" "}
-          Tabulka na ni odpovídá špatně. Řádky zastarávají, vzorce se rozbijí,
-          jakmile někdo vloží sloupec, schvaluje se v chatu a zpátky do tabulky
-          se to už nedostane — a jediný člověk, který tomu souboru rozumí, je
-          zrovna na dovolené.
+          Na její zodpovězení tabulka nestačí. Data v ní jsou statická: drží
+          dny, které si někdo zapsal, a nic s nimi nedělá — žádná žádost, žádné
+          schválení, žádná připomínka, žádná kontrola, že nejsou dva lidé pryč
+          ve stejném týdnu. Každé volno se musí domluvit osobně, a to stojí čas
+          oba dva.
         </p>
         <p>
           Nástroje, které tohle řeší pořádně, jsou stavěné pro HR oddělení.
