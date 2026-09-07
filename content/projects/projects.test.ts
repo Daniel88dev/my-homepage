@@ -276,6 +276,30 @@ describe("the invariant/Project Copy split", () => {
     }
   });
 
+  /**
+   * Alt text is read prose, not a fallback nobody sees — the Case Study hero
+   * shows its own alt text as a visible caption. So it has to be translated
+   * like the rest, and a Language that borrowed English alt text would leave
+   * screen readers on the Czech page hearing English.
+   */
+  it("writes the hero screenshot's alt text anew in every translated Language", () => {
+    const translated = LANGUAGES.filter(
+      (lang) => lang !== "en" && !PROJECT_COPY_AWAITING_TRANSLATION.includes(lang)
+    );
+    for (const lang of translated) {
+      for (const project of projects) {
+        if (!project.caseStudy) continue;
+        const copy = getProjectCopy(lang, project.slug)?.caseStudy;
+        const english = getProjectCopy("en", project.slug)?.caseStudy;
+        expect(copy?.heroImageAlt, `${lang}: ${project.slug} hero alt is missing`).toBeTruthy();
+        expect(
+          copy?.heroImageAlt,
+          `${lang}: ${project.slug} hero alt is still English`
+        ).not.toBe(english?.heroImageAlt);
+      }
+    }
+  });
+
   it("has Case Study Copy for exactly the Projects that have a Case Study", () => {
     for (const lang of LANGUAGES) {
       for (const project of projects) {

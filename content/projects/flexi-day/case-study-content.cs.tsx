@@ -8,9 +8,9 @@ import {
   TechListGroups,
 } from "@/components/case-study/Lists";
 import { ArchitectureDiagram } from "@/components/case-study/ArchitectureDiagram";
-import { FLEXI_DAY_REPOSITORIES } from "./repositories";
+import { withNotes } from "./repositories";
 import type { CaseStudyNavItem } from "@/content/projects/types";
-import { SECTION_IDS, shots } from "./case-study";
+import { SECTION_IDS, withAlt } from "./case-study";
 
 /**
  * The Czech flexiday Case Study: a whole content module rather than a
@@ -32,6 +32,50 @@ import { SECTION_IDS, shots } from "./case-study";
  * leave types, the same three repositories, the same plans. Only the wording
  * is this module's own.
  */
+/**
+ * Czech alt text for every screenshot. The figures themselves are
+ * invariant; this is the half a visitor reads, and the hero shows its
+ * own alt text as a visible caption.
+ */
+const SHOT_ALT = {
+  calendar:
+    "Týmový kalendář flexiday: přehled jednoho měsíce s dovolenými, home office a sick days pro čtyři lidi, zobrazenými v různých barvách.",
+  dashboard:
+    "Úvodní stránka flexiday: žádosti na schválení, kdo je dnes mimo práci, nadcházející absence, kalendář měsíce a stav kvóty.",
+  requests:
+    "Stránka žádostí dovolených zobrazuje typ každé žádosti, datum, stav a zda je žádost schválená.",
+  groups:
+    "Členové skupiny s náhledem na oprávnění každé osoby a záložky pro kvóty, pozvánky, nastavení a zrcadlení skupin.",
+  report:
+    "Report stránka s přehledem čerpání členů v daném roce a Excel export dat.",
+  calendarSync:
+    "Nový dialog pro správu kalendáře: vyberte, které záznamy a jaké typy dovolených chcete zahrnout, s živým náhledem měsíce.",
+  holidays:
+    "Nastavení skupiny: pracovní dny, státní svátky nastavené na Českou republiku.",
+  localisation:
+    "Stejná úvodní stránka v češtině, se státním svátkem v České republice k datu 28. září.",
+  landing:
+    "Veřejná úvodní stránka flexiday v tmavém režimu.",
+  mobile:
+    "Formulář žádosti o volno na telefonu: typ absence, výběr data a poznámka.",
+};
+
+const shots = withAlt(SHOT_ALT);
+
+/** What each repository is for, in Czech. The URLs and labels are invariant. */
+const REPOSITORY_NOTES = {
+  "Web app":
+    "Next.js SPA se statickým exportem: úvodní stránka a přihlášená část produktu.",
+  Backend:
+    "Express 5 API, úlohy na pozadí a Terraform pro AWS.",
+  Emails:
+    "Šablony react-email vykreslené při buildu a synchronizované do AWS SES.",
+  Workspace:
+    "Shell pro tři repozitáře: sdílené dovednosti agentů AI, lokální vývojářské CLI, MCP server a dokumentace napříč repozitáři, takže testy a nástroje běží z jednoho místa. Jednoduché sourozenecké klony spíše než submoduly, takže každý repozitář je stále vydáván podle vlastního plánu.",
+};
+
+const repositories = withNotes(REPOSITORY_NOTES);
+
 export const sections: CaseStudyNavItem[] = [
   { id: SECTION_IDS.hero, label: "Přehled" },
   { id: SECTION_IDS.problem, label: "Problém" },
@@ -39,14 +83,14 @@ export const sections: CaseStudyNavItem[] = [
   { id: SECTION_IDS.architecture, label: "Architektura" },
   { id: SECTION_IDS.stack, label: "Technologie" },
   { id: SECTION_IDS.status, label: "Stav" },
-  { id: SECTION_IDS.learnings, label: "Poučení" },
+  { id: SECTION_IDS.learnings, label: "Co jsem se naučil" },
 ];
 
 const FlexiDayCaseStudyContentCs = () => (
   <>
     <CaseStudySection
       id={SECTION_IDS.problem}
-      title="Tabulka, která se pořád rozbíjela"
+      title="Excelová tabulka, která potřebovala více života"
       lede="V každém malém týmu, ve kterém jsem pracoval, se volno evidovalo ve sdílené tabulce. Žádná z nich ale nikdy neodpověděla na otázku, která lidi opravdu zajímá."
     >
       <Prose>
@@ -177,8 +221,8 @@ const FlexiDayCaseStudyContentCs = () => (
           </FeatureTile>
           <FeatureTile title="Žije ve vašem vlastním kalendáři" shot={shots.calendarSync}>
             <p>
-              Soukromý ICS feed dostane nepřítomnosti týmu do Google Calendaru,
-              Outlooku nebo Apple Calendaru hned vedle vašich schůzek. Žádný
+              Soukromý ICS feed dostane nepřítomnosti týmu do Google kalendáře,
+              Outlooku nebo Apple kalendáře hned vedle vašich schůzek. Žádný
               plugin, žádné potvrzování OAuth; jednou se přihlásíte k odběru a
               dál se to udržuje samo.
             </p>
@@ -254,7 +298,7 @@ const FlexiDayCaseStudyContentCs = () => (
             levný a útočná plocha malá.
           </p>
           <p>
-            <strong>API je obyčejná Express 5 služba</strong> na App Runneru s
+            <strong>API používá Express 5</strong> na App Runneru s
             přísně jednosměrným vrstvením: routy volají controllery, controllery
             volají services a services sahají do databáze přes Drizzle.
             Kontroly oprávnění bydlí ve vrstvě services, takže na ně routa
@@ -276,7 +320,7 @@ const FlexiDayCaseStudyContentCs = () => (
         </Prose>
         <div>
           <h3 className="mb-[1.6rem] text-md font-semibold">Repozitáře</h3>
-          <RepositoryList repositories={FLEXI_DAY_REPOSITORIES} />
+          <RepositoryList repositories={repositories} />
           <p className="mt-[2.4rem] max-w-[62ch] text-sm text-text-muted">
             Repozitář workspace existuje proto, že tři nezávislé repozitáře se
             stejně musí vyvíjet společně. Drží agent skills, které používám s
@@ -417,7 +461,7 @@ const FlexiDayCaseStudyContentCs = () => (
             body: (
               <p>
                 Odstranění serveru z webové aplikace donutilo všechnu logiku
-                bydlet na jednom místě, v API. Frontend je díky tomu směšně
+                bydlet na jednom místě, v API. Frontend je díky tomu
                 levný na hosting a nemá odkud vynést tajemství, a poctivější je
                 i lokální vývoj: co funguje proti localhost:8080, funguje i v
                 produkci.

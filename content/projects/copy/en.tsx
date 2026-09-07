@@ -33,6 +33,8 @@ export const EN_PROJECT_COPY: ProjectCopyBySlug = {
         "The shared calendar for team time off. Request in seconds, approve in a click, and always know who is in and who is away.",
       description:
         "How I built and run flexiday: a vacation and day-off product for teams, shipped as a static Next.js app, an Express API and an email pipeline on AWS.",
+      heroImageAlt:
+        "The flexiday team calendar for one month, with vacation, home office and sick days for four people shown as colour-coded chips.",
     },
   },
   "grpc-swagger-case-study": {

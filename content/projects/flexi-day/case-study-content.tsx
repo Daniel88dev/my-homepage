@@ -10,7 +10,7 @@ import {
 import { ArchitectureDiagram } from "@/components/case-study/ArchitectureDiagram";
 import { FLEXI_DAY_REPOSITORIES } from "./repositories";
 import type { CaseStudyNavItem } from "@/content/projects/types";
-import { SECTION_IDS, shots } from "./case-study";
+import { SECTION_IDS, withAlt } from "./case-study";
 
 /**
  * The section navigation, in page order, in this module's Language. The ids
@@ -18,6 +18,37 @@ import { SECTION_IDS, shots } from "./case-study";
  * module labels a different set, or the same set in a different order, is a
  * test failure rather than a navigation that silently stops tracking.
  */
+/**
+ * English alt text for every screenshot. The figures themselves are
+ * invariant; this is the half a visitor reads, and the hero shows its
+ * own alt text as a visible caption.
+ */
+const SHOT_ALT = {
+  calendar:
+    "The flexiday team calendar for one month, with vacation, home office and sick days for four people shown as colour-coded chips.",
+  dashboard:
+    "The flexiday dashboard: pending approvals, who is out today, upcoming leave, the month calendar and a balance summary.",
+  requests:
+    "The requests page listing each request with its type, dates, state and the approve and decline actions.",
+  groups:
+    "A group's member list with each person's view, admin and approver permissions, and tabs for quotas, invites, settings and mirroring.",
+  report:
+    "The report page with per-person balances for the year and an Excel export.",
+  calendarSync:
+    "The new calendar feed dialog: choose whose records and which leave types to include, with a live month preview.",
+  holidays:
+    "A group's settings: the working days of the week, and public holidays set to the Czech Republic.",
+  localisation:
+    "The same dashboard in Czech, with the Czech state holiday marked on 28 September.",
+  landing:
+    "The public flexiday landing page in dark mode.",
+  mobile:
+    "The new request form on a phone: leave type, date range and a note.",
+};
+
+const shots = withAlt(SHOT_ALT);
+
+
 export const sections: CaseStudyNavItem[] = [
   { id: SECTION_IDS.hero, label: "Overview" },
   { id: SECTION_IDS.problem, label: "The problem" },

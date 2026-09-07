@@ -37,11 +37,13 @@ export const CS_PROJECT_COPY: ProjectCopyBySlug = {
       </>
     ),
     caseStudy: {
-      title: "flexiday, klidný kalendář pro týmové volno",
+      title: "flexiday, kalendář pro týmové volno",
       pitch:
         "Sdílený kalendář pro týmové volno. Žádost během pár vteřin, schválení jedním kliknutím a stálý přehled o tom, kdo je v práci a kdo je pryč.",
       description:
         "Jak jsem postavil a provozuji flexiday: produkt pro správu volna v týmech – statická Next.js aplikace, Express API a e-mailová pipeline na AWS.",
+      heroImageAlt:
+        "Týmový kalendář flexiday: přehled jednoho měsíce s dovolenými, home office a sick days pro čtyři lidi, zobrazenými v různých barvách.",
     },
   },
   "grpc-swagger-case-study": {

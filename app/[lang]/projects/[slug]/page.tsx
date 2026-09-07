@@ -108,7 +108,7 @@ export default async function CaseStudyPage({ params }: Props) {
             openLive: dict.caseStudy.openLive(liveHost(project)),
             sourceOnGitHub: dict.caseStudy.sourceOnGitHub,
           }}
-          heroImage={caseStudy.heroImage}
+          heroImage={{ ...caseStudy.heroImage, alt: copy.heroImageAlt }}
           pitch={copy.pitch}
           sectionId={heroSection.id}
         />

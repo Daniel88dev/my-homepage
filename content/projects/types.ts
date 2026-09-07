@@ -19,11 +19,19 @@ export interface CaseStudyNavItem {
   label: string;
 }
 
-export interface CaseStudyImage {
+/**
+ * A screenshot's invariant half: where the file is and how big it is. The
+ * alt text is prose a visitor reads, so it belongs to a Language, not here.
+ */
+export interface CaseStudyFigure {
   src: string;
-  alt: string;
   width: number;
   height: number;
+}
+
+/** A figure with the alt text of the Language being rendered. */
+export interface CaseStudyImage extends CaseStudyFigure {
+  alt: string;
 }
 
 /**
@@ -33,8 +41,8 @@ export interface CaseStudyImage {
  * this without pulling either into the homepage bundle.
  */
 export interface CaseStudy {
-  /** Screenshot beside the pitch in the hero. */
-  heroImage: CaseStudyImage;
+  /** Screenshot beside the pitch in the hero. Its alt text is Case Study Copy. */
+  heroImage: CaseStudyFigure;
   /** Open Graph image, at least 1200x630, path under /public. */
   ogImage: string;
   /** Every screenshot path the content renders, so a test can check they exist. */
@@ -75,6 +83,11 @@ export interface CaseStudyCopy {
   pitch: string;
   /** Meta description, under 160 characters. */
   description: string;
+  /**
+   * Alt text for the hero screenshot, which the hero also shows as its
+   * caption — so it is read prose, not a fallback nobody sees.
+   */
+  heroImageAlt: string;
 }
 
 /**

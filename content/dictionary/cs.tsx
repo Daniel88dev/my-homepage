@@ -53,8 +53,8 @@ export const CS_DICTIONARY: Dictionary = {
       "Project Manager",
     ],
     intro:
-      "Stavím webové aplikace od začátku do konce, od schémat v Postgresu až po poslední pixel. Od srpna 2025 pracuji jako back-end developer ve firmě Figure, kde dělám na Node.js mikroslužbách v AWS. Předtím jsem strávil dvanáct let v automobilové výrobě v Hyundai, kde nástroje, které jsem psal ve volném čase, nakonec běžely přímo ve výrobní hale.",
-    contact: "Napište mi",
+      "Vytvářím webové aplikace od začátku do konce, od schémat v Postgres až po poslední pixel. Od srpna 2025 pracuji jako back-end developer ve firmě Figure, kde dělám na Node.js mikroslužbách v AWS. Předtím jsem strávil dvanáct let v automobilové výrobě v Hyundai, kde nástroje, které jsem psal ve volném čase, nakonec běžely přímo ve výrobní hale.",
+    contact: "Kontaktujte mě",
     seeProjects: "Prohlédnout projekty",
   },
 
@@ -144,12 +144,12 @@ export const CS_DICTIONARY: Dictionary = {
     heading: "Pojďme něco vytvořit",
     body: (linkedIn: ReactNode, facebook: ReactNode): ReactNode => (
       <>
-        Nejrychleji mě zastihnete e-mailem. Najdete mě ale i na {linkedIn} nebo{" "}
-        {facebook}, pokud je vám to bližší.
+        Nejrychleji mě zastihnete e-mailem. Pokud je vám bližší sociální síť,
+        najdete mě i tady: {linkedIn} nebo {facebook}.
       </>
     ),
-    linkedIn: "LinkedInu",
-    facebook: "Facebooku",
+    linkedIn: "LinkedIn",
+    facebook: "Facebook",
   },
 
   footer: {
