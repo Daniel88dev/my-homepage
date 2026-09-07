@@ -3,6 +3,7 @@ import {
   DEFAULT_LANGUAGE,
   LANGUAGES,
   isLanguage,
+  languageAlternates,
   languagePath,
   languageRewriteTarget,
   languageSwitchTarget,
@@ -52,6 +53,40 @@ describe("languagePath", () => {
     expect(languagePath("cs", "/projects/flexi-day")).toBe(
       "/cs/projects/flexi-day",
     );
+  });
+});
+
+describe("languageAlternates", () => {
+  it("names every Language a page is published in", () => {
+    expect(languageAlternates("/projects/flexi-day", LANGUAGES)).toEqual({
+      en: "/projects/flexi-day",
+      cs: "/cs/projects/flexi-day",
+      "x-default": "/projects/flexi-day",
+    });
+  });
+
+  // English is what a searcher whose language matches neither is served.
+  it("defaults an unmatched language to English", () => {
+    expect(languageAlternates("/", LANGUAGES)["x-default"]).toBe("/");
+    expect(languageAlternates("/", ["cs"])["x-default"]).toBe("/");
+  });
+
+  // A page only one Language publishes must not point a crawler at a 404.
+  it("names only the Languages it is given", () => {
+    expect(languageAlternates("/resume", ["en"])).toEqual({
+      en: "/resume",
+      "x-default": "/resume",
+    });
+  });
+
+  it("renders each alternate with the URL builder it is given", () => {
+    expect(
+      languageAlternates("/", LANGUAGES, (path) => `https://example.com${path}`)
+    ).toEqual({
+      en: "https://example.com/",
+      cs: "https://example.com/cs",
+      "x-default": "https://example.com/",
+    });
   });
 });
 

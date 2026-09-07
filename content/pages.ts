@@ -1,4 +1,9 @@
-import type { Language } from "@/lib/language";
+import {
+  LANGUAGES,
+  languageAlternates,
+  type Language,
+  type LanguageAlternates,
+} from "@/lib/language";
 import { getCaseStudySlugs } from "./projects";
 import { getProjectCopy } from "./projects/copy";
 import { loadCaseStudyContent } from "./projects/case-studies";
@@ -23,3 +28,43 @@ export const publishedPaths = (lang: Language): string[] => [
     )
     .map((slug) => `/projects/${slug}`),
 ];
+
+/** One page of the site, and every Language it is published in. */
+export interface PublishedPage {
+  /** The path the page is written at, without a Language prefix. */
+  path: string;
+  languages: Language[];
+}
+
+/**
+ * Every page the site publishes, once per page rather than once per URL, each
+ * carrying the Languages it exists in — which is what a sitemap entry needs to
+ * declare its own translations.
+ *
+ * Pages appear in the order the default Language publishes them, so the list
+ * reads the way the site is written; a page some other Language publishes and
+ * English does not would follow, rather than be dropped.
+ */
+export const publishedPages = (): PublishedPage[] => {
+  const pages = new Map<string, Language[]>();
+  for (const lang of LANGUAGES) {
+    for (const path of publishedPaths(lang)) {
+      const languages = pages.get(path);
+      if (languages) languages.push(lang);
+      else pages.set(path, [lang]);
+    }
+  }
+  return [...pages].map(([path, languages]) => ({ path, languages }));
+};
+
+/**
+ * The translations one page declares, as paths — a page's own
+ * `alternates.languages`. Paths rather than absolute URLs, because the root
+ * layout's `metadataBase` absolutises them; the sitemap, which has no metadata
+ * base, calls `languageAlternates` itself with a URL builder.
+ */
+export const pageAlternates = (path: string): LanguageAlternates =>
+  languageAlternates(
+    path,
+    publishedPages().find((page) => page.path === path)?.languages ?? []
+  );

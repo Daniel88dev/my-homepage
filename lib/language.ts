@@ -1,3 +1,5 @@
+import { TUNNEL_ROUTE } from "./site";
+
 /**
  * The Languages the site is published in. Adding one here publishes it: the
  * root layout generates a static param for it, and the Dictionary and Project
@@ -49,6 +51,47 @@ export const languagePath = (lang: Language, path: string): string => {
 };
 
 /**
+ * The hreflang a crawler is told to serve when it can match none of the
+ * Languages the site publishes.
+ */
+const X_DEFAULT = "x-default";
+
+/**
+ * One page's translations, by hreflang: an entry per Language the page is
+ * published in, plus `x-default`.
+ */
+export type LanguageAlternates = Partial<
+  Record<Language | typeof X_DEFAULT, string>
+>;
+
+/**
+ * The translations one page declares, for a sitemap entry or a page's own
+ * `alternates.languages`. `publishedIn` is the Languages the page actually
+ * exists in — see `publishedPages` in content/pages.ts — so a Language that
+ * does not publish the page is not named, and a crawler is not sent to a 404.
+ *
+ * `x-default` is always the English URL, whatever `publishedIn` says. English
+ * is the Language every page is written in first, so it is the one a searcher
+ * the site cannot match is served. See docs/adr/0001-unprefixed-english-urls.md.
+ *
+ * `toUrl` renders each path. A page leaves it out and writes paths, which the
+ * root layout's `metadataBase` absolutises; the sitemap is generated with no
+ * metadata base in scope, so it passes `siteUrl`.
+ */
+export const languageAlternates = (
+  path: string,
+  publishedIn: readonly Language[],
+  toUrl: (path: string) => string = (p) => p
+): LanguageAlternates => {
+  const alternates: LanguageAlternates = {};
+  for (const lang of publishedIn) {
+    alternates[lang] = toUrl(languagePath(lang, path));
+  }
+  alternates[X_DEFAULT] = toUrl(languagePath(DEFAULT_LANGUAGE, path));
+  return alternates;
+};
+
+/**
  * The path beneath any Language prefix — the path as it is written, which is
  * what the two Languages have in common. English is reachable both unprefixed
  * and at `/en`, so both forms answer the same.
@@ -76,9 +119,6 @@ export const languageSwitchTarget = (
   const path = unprefixedPath(pathname);
   return languagePath(target, counterparts.includes(path) ? path : "/");
 };
-
-/** The Sentry tunnel, which serves no page. */
-const TUNNEL_ROUTE = "/monitoring";
 
 /**
  * The routing half of the rewrite that keeps English URLs unprefixed: given a

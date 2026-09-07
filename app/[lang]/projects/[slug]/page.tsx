@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { languagePath, toLanguage, type Language } from "@/lib/language";
+import { pageAlternates } from "@/content/pages";
 import { getCaseStudySlugs, getProjectBySlug, liveHost } from "@/content/projects";
 import { getProjectCopy } from "@/content/projects/copy";
 import { loadCaseStudyContent } from "@/content/projects/case-studies";
@@ -51,12 +52,16 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
   // absolute here. English stays unprefixed, so the English canonical is
   // byte-identical to the one that has been published all along; Czech
   // declares its own. See docs/adr/0001-unprefixed-english-urls.md.
-  const url = languagePath(language, `/projects/${slug}`);
+  const path = `/projects/${slug}`;
+  const url = languagePath(language, path);
 
   return {
     title,
     description: copy.description,
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      languages: pageAlternates(path),
+    },
     openGraph: {
       type: "article",
       siteName: "Daniel Hrynusiw",

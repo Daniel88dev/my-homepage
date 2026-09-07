@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { languagePath, toLanguage } from "@/lib/language";
+import { pageAlternates } from "@/content/pages";
 import { getDictionary } from "@/content/dictionary";
 import { Home } from "@/components/home/Home";
 
@@ -24,8 +25,13 @@ export const generateMetadata = async ({
     description,
     // English is reachable both unprefixed and at /en, and the unprefixed form
     // is the one that is published; every other Language declares its own
-    // prefixed URL. See docs/adr/0001-unprefixed-english-urls.md.
-    alternates: { canonical: languagePath(language, "/") },
+    // prefixed URL. See docs/adr/0001-unprefixed-english-urls.md. Both it and
+    // the hreflang set below are paths, absolutised by the layout's metadata
+    // base.
+    alternates: {
+      canonical: languagePath(language, "/"),
+      languages: pageAlternates("/"),
+    },
     openGraph: {
       type: "website",
       siteName: "Daniel Hrynusiw",

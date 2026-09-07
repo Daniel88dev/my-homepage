@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import { withSentryConfig } from "@sentry/nextjs/config";
+import { TUNNEL_ROUTE } from "./lib/site";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -23,7 +24,7 @@ export default withSentryConfig(nextConfig, {
   widenClientFileUpload: true,
 
   // Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
-  tunnelRoute: "/monitoring",
+  tunnelRoute: TUNNEL_ROUTE,
 
   // Hides source maps from generated client bundles
   sourcemaps: {
