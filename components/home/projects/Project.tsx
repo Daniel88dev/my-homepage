@@ -15,12 +15,6 @@ import {
 } from "react-icons/pi";
 import { ProjectDialog } from "./ProjectDialog";
 
-/**
- * This Project's labels, in the Language being read and already resolved to
- * strings. Resolved by the Server Component above, because the Dictionary
- * entries that name a Project are functions and a function cannot be handed
- * to a Client Component.
- */
 export interface ProjectLabels {
   openDetails: string;
   screenshotAlt: string;
@@ -42,10 +36,10 @@ interface Props {
   code: string;
   liveUrl: string;
   tech: string[];
-  /** Short content for the Project Dialog. */
+
   dialogContent: ReactElement;
   relatedRepositories?: RelatedRepository[];
-  /** Where this Project's Case Study lives, when it has one. */
+
   caseStudyHref?: string;
 }
 

@@ -6,7 +6,6 @@ import type { Dictionary } from "@/content/dictionary";
 import { Project } from "./Project";
 
 interface Props {
-  /** The Language whose Project Copy each Project Card is written from. */
   lang: Language;
   dict: Dictionary["projects"];
 }
@@ -20,9 +19,6 @@ export const Projects = ({ lang, dict }: Props) => {
         {projects.map((project) => {
           const copy = getProjectCopy(lang, project.slug);
           if (!copy) {
-            // Every Project has Copy in every published Language, and
-            // projects.test.ts asserts it. Failing the static build is louder
-            // than shipping a Project Card with no description on it.
             throw new Error(`No ${lang} Project Copy for "${project.slug}"`);
           }
 

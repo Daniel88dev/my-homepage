@@ -2,10 +2,9 @@ import { ReactNode } from "react";
 import { Reveal } from "@/components/utils/Reveal";
 
 interface SectionProps {
-  /** The invariant section id the section navigation links to. */
   id: string;
   title: string;
-  /** One short paragraph under the heading. Keep it under 30 words. */
+
   lede?: ReactNode;
   children: ReactNode;
 }
@@ -31,7 +30,6 @@ export const CaseStudySection = ({ id, title, lede, children }: SectionProps) =>
   );
 };
 
-/** Running text. Constrained to a reading measure. */
 export const Prose = ({ children }: { children: ReactNode }) => (
   <div className="flex max-w-[62ch] flex-col gap-[1.6rem] text-sm text-text-muted [&_strong]:font-medium [&_strong]:text-text">
     {children}

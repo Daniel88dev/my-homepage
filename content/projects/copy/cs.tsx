@@ -1,22 +1,5 @@
 import type { ProjectCopyBySlug } from "../types";
 
-/**
- * The Czech Project Copy. A translation of `./en.tsx`, keyed by the same
- * Project slugs; the facts each entry describes live on the Project itself,
- * in `../index.ts`, and are not repeated here in either Language.
- *
- * Written to the same two rules as `content/dictionary/cs.tsx`, so the whole
- * site reads as one voice:
- *
- * 1. **Vykání.** Where the copy addresses the visitor at all it does so
- *    formally. Most of it is Daniel writing about his own work in the first
- *    person, as the English does.
- * 2. **Technical vocabulary stays English.** Technologies, frameworks,
- *    product names, repository names and plant terms of art — full-stack,
- *    backend, frontend, APS, DTC, TRQ — are left as they are, because that is
- *    how people in this industry speak here. Everything else is idiomatic
- *    Czech rather than English word order in Czech words.
- */
 export const CS_PROJECT_COPY: ProjectCopyBySlug = {
   "flexi-day": {
     description:

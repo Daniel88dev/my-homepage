@@ -2,7 +2,6 @@
 
 import { ReactTyped } from "react-typed";
 
-/** The role that types itself out inside the hero headline. */
 export const TypedRoles = ({ roles }: { roles: string[] }) => (
   <ReactTyped
     strings={roles}

@@ -8,7 +8,7 @@ import type { Dictionary } from "@/content/dictionary";
 export const Hero = ({ dict }: { dict: Dictionary["hero"] }) => {
   return (
     <section className="section-wrapper min-h-[calc(100dvh_-_45px_-_3.6rem)] mb-[4.8rem] flex items-center max-md:mb-0">
-      {/* Ambient light behind the headline. Radial, not a linear AI fade. */}
+
       <div
         aria-hidden
         className="pointer-events-none absolute -left-[20%] top-[10%] z-0 h-[60rem] w-[60rem] rounded-full bg-[radial-gradient(closest-side,rgb(46_229_157/0.09),transparent)] blur-2xl"

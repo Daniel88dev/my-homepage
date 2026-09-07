@@ -9,7 +9,6 @@ interface Props {
   dict: Dictionary;
 }
 
-/** The homepage's header. Its path is the home page's, in every Language. */
 export const Heading = ({ lang, dict }: Props) => {
   return (
     <HeaderShell

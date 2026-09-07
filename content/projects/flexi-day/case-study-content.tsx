@@ -12,17 +12,6 @@ import { FLEXI_DAY_REPOSITORIES } from "./repositories";
 import type { CaseStudyNavItem } from "@/content/projects/types";
 import { SECTION_IDS, withAlt } from "./case-study";
 
-/**
- * The section navigation, in page order, in this module's Language. The ids
- * are the invariant ones; only the labels are prose. A Language whose content
- * module labels a different set, or the same set in a different order, is a
- * test failure rather than a navigation that silently stops tracking.
- */
-/**
- * English alt text for every screenshot. The figures themselves are
- * invariant; this is the half a visitor reads, and the hero shows its
- * own alt text as a visible caption.
- */
 const SHOT_ALT = {
   calendar:
     "The flexiday team calendar for one month, with vacation, home office and sick days for four people shown as colour-coded chips.",
@@ -48,7 +37,6 @@ const SHOT_ALT = {
 
 const shots = withAlt(SHOT_ALT);
 
-
 export const sections: CaseStudyNavItem[] = [
   { id: SECTION_IDS.hero, label: "Overview" },
   { id: SECTION_IDS.problem, label: "The problem" },
@@ -59,10 +47,6 @@ export const sections: CaseStudyNavItem[] = [
   { id: SECTION_IDS.learnings, label: "What I learned" },
 ];
 
-/**
- * The long-form content of the flexiday Case Study. Loaded only by the Case
- * Study route, so none of it reaches the homepage bundle.
- */
 const FlexiDayCaseStudyContent = () => (
   <>
     <CaseStudySection

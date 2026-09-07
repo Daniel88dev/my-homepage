@@ -1,24 +1,5 @@
 import type { ReactNode } from "react";
 
-/**
- * How the flexiday repositories fit together. Drawn in the page's own tokens
- * so it follows the theme; not an external image.
- *
- * Layout (viewBox 960 x 530). The browser sits outside the AWS boundary;
- * the left column inside it is the three repositories plus the attachment
- * bucket, the right column is the managed services they talk to.
- *
- *   [Browser] --loads app--> [Web app on S3 + CloudFront]
- *       |
- *       +--JSON over HTTPS--> [API on App Runner] --SQL--> [PostgreSQL on RDS]
- *       |                          |
- *       |                          +--send by template--> [SES]
- *       |                                                   ^
- *       |                     [Emails repo] --publishes templates (build time)
- *       |
- *       +--presigned upload--> [S3 attachments] --S3 event--> [Lambda]
- */
-
 interface NodeProps {
   x: number;
   y: number;
@@ -97,15 +78,6 @@ const Edge = ({ d, label, lx, ly, dashed }: EdgeProps) => (
   </g>
 );
 
-/**
- * The diagram itself is invariant: its node and edge labels are the names of
- * the services and repositories, which are not translated, and its `<desc>` is
- * the drawing's alt text, which stays English for the same reason a
- * screenshot's does. The caption below it is running prose in the page's own
- * flow, so it comes from the Case Study content module in that module's
- * Language, exactly as a `Figure`'s caption does — and it is typed the same
- * way, so a caption can carry emphasis or a link the day one needs to.
- */
 export const ArchitectureDiagram = ({ caption }: { caption: ReactNode }) => {
   return (
     <figure>
@@ -139,7 +111,6 @@ export const ArchitectureDiagram = ({ caption }: { caption: ReactNode }) => {
             </marker>
           </defs>
 
-          {/* Terraform boundary: everything except the visitor's browser */}
           <rect
             x={260}
             y={20}
@@ -161,10 +132,8 @@ export const ArchitectureDiagram = ({ caption }: { caption: ReactNode }) => {
             AWS eu-central-1, managed with Terraform
           </text>
 
-          {/* The visitor */}
           <Node x={20} y={200} w={180} h={72} title="Browser" subtitle="visitor or team member" />
 
-          {/* Left column: the three repositories and the attachment bucket */}
           <Node
             x={300}
             y={60}
@@ -186,12 +155,10 @@ export const ArchitectureDiagram = ({ caption }: { caption: ReactNode }) => {
           />
           <Node x={300} y={430} w={240} h={60} title="S3 attachments" subtitle="presigned upload" />
 
-          {/* Right column: managed services */}
           <Node x={640} y={200} w={240} h={72} title="PostgreSQL" subtitle="RDS, Drizzle ORM" />
           <Node x={640} y={320} w={240} h={72} title="SES" subtitle="transactional email" />
           <Node x={640} y={430} w={240} h={60} title="Lambda" subtitle="image post-processing" />
 
-          {/* Runtime traffic */}
           <Edge d="M 200 218 L 300 100" label="loads app" lx={222} ly={140} />
           <Edge d="M 200 236 L 300 236" label="JSON" lx={250} ly={226} />
           <Edge d="M 110 272 L 110 460 L 300 460" label="upload" lx={140} ly={452} />
@@ -199,7 +166,6 @@ export const ArchitectureDiagram = ({ caption }: { caption: ReactNode }) => {
           <Edge d="M 540 268 L 640 340" label="send by template" lx={618} ly={296} />
           <Edge d="M 540 460 L 640 460" label="S3 event" lx={590} ly={450} />
 
-          {/* Build and deploy time */}
           <Edge d="M 540 356 L 640 356" label="templates" lx={590} ly={346} dashed />
         </svg>
       </div>

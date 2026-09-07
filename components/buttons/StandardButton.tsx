@@ -1,10 +1,6 @@
 import Link from "next/link";
 import { AnchorHTMLAttributes, ReactNode } from "react";
 
-/**
- * The site's filled brand button, in the two sizes it is used at: the page
- * size for heroes, and a compact one for actions inside a Project Dialog.
- */
 const sizes = {
   md: "px-[2.4rem] py-[1.2rem] text-sm",
   sm: "px-[1.6rem] py-[0.9rem] text-xs",

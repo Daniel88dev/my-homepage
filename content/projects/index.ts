@@ -13,13 +13,6 @@ export type {
   RelatedRepository,
 } from "./types";
 
-/**
- * The invariant half of every Project: the facts, which do not change with the
- * Language the site is read in. The prose is Project Copy, in `./copy`, keyed
- * by the same slug.
- *
- * Display order is array order.
- */
 export const projects: Project[] = [
   {
     slug: "flexi-day",
@@ -207,10 +200,6 @@ export const projects: Project[] = [
   },
 ];
 
-/**
- * A Project's Live URL as a label: its host, without the www. nobody reads.
- * Empty when the Project is not deployed.
- */
 export const liveHost = (project: Project): string =>
   project.liveUrl === ""
     ? ""
@@ -219,6 +208,5 @@ export const liveHost = (project: Project): string =>
 export const getProjectBySlug = (slug: string): Project | undefined =>
   projects.find((project) => project.slug === slug);
 
-/** Slugs of every Project that has a Case Study, in display order. */
 export const getCaseStudySlugs = (): string[] =>
   projects.filter((project) => project.caseStudy !== undefined).map((project) => project.slug);

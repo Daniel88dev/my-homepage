@@ -15,11 +15,6 @@ export const Experience = ({ dict }: { dict: Dictionary["experience"] }) => {
   );
 };
 
-/**
- * The invariant half of the timeline: which roles it lists, in which order,
- * and the technologies each one used. The prose — title, position, dates and
- * description — is in the Dictionary, keyed by the same `key`.
- */
 const roles: { key: keyof Dictionary["experience"]["roles"]; tech: string[] }[] = [
   {
     key: "figure",

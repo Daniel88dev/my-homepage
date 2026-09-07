@@ -4,16 +4,15 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 interface Props {
-  /** The section anchors' labels, keyed by the invariant section id. */
   labels: {
     about: string;
     projects: string;
     experience: string;
     contact: string;
   };
-  /** Accessible name of the sidebar itself. */
+
   navLabel: string;
-  /** Accessible name of the monogram, which scrolls back to the top. */
+
   backToTop: string;
 }
 
@@ -22,7 +21,6 @@ const linkBase =
 const linkSelected = "border-brand bg-background text-text";
 
 export const SideBar = ({ labels, navLabel, backToTop }: Props) => {
-  // Section ids are invariant; only the labels change with the Language.
   const links = [
     { id: "about", label: labels.about },
     { id: "projects", label: labels.projects },

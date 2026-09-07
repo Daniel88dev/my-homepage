@@ -11,32 +11,24 @@ import { Zoomable } from "./Media";
 
 interface Props {
   project: Project;
-  /**
-   * This Language's labels for the hero, already resolved to strings: this is
-   * a Client Component, and a Dictionary entry that takes an argument is a
-   * function, which cannot cross the boundary.
-   */
+
   labels: {
     eyebrow: string;
-    /** Names the Live URL's host, so the button says where it goes. */
+
     openLive: string;
     sourceOnGitHub: string;
   };
-  /** Screenshot beside the pitch. Invariant, like every other Case Study image. */
+
   heroImage: CaseStudyImage;
-  /** The one-line pitch, from this Language's Project Copy. */
+
   pitch: string;
-  /** The hero's own section id, so it anchors like every other section. */
+
   sectionId: string;
 }
 
 const ctaSecondary =
   "group inline-flex items-center gap-[0.8rem] rounded-[4px] text-sm text-text-muted transition-colors duration-200 hover:text-text";
 
-/**
- * Split hero: the pitch and the way into the product on the left, the hero
- * screenshot on the right. Stacks under 768px.
- */
 export const CaseStudyHero = ({ project, labels, heroImage, pitch, sectionId }: Props) => {
   const reduceMotion = useReducedMotion();
   const repositories = project.relatedRepositories ?? [];

@@ -8,14 +8,6 @@ interface Props {
   width?: "fit-content" | "100%";
 }
 
-/**
- * The outer box is what watches the viewport, and it drives both halves
- * through variants: the content rises into place while the brand bar wipes
- * off to the right. The watcher has to be the outer box, because the content
- * starts translated down inside an overflow-hidden parent — on anything
- * shorter than that offset it would otherwise be clipped out of view and
- * never trigger.
- */
 export const Reveal = ({ children, width = "fit-content" }: Props) => {
   const reduceMotion = useReducedMotion();
 

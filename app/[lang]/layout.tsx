@@ -18,10 +18,6 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-/**
- * Every URL-valued metadata field below this layout is written as a path and
- * resolved against this base, so no page builds an absolute URL itself.
- */
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
 };
@@ -33,7 +29,6 @@ export const viewport: Viewport = {
 export const generateStaticParams = () =>
   LANGUAGES.map((lang) => ({ lang }));
 
-/** Only a published Language is a page; anything else is a 404, not a render. */
 export const dynamicParams = false;
 
 export default async function RootLayout({
@@ -41,18 +36,12 @@ export default async function RootLayout({
   params,
 }: {
   children: ReactNode;
-  // Written out rather than taken from the generated `LayoutProps` helper,
-  // because typecheck runs in CI without a build and the generated types are
-  // not there. `string` rather than `Language` because the framework's own
-  // route validator requires the wider type; `dynamicParams` is what narrows
-  // the values that actually reach here.
+
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
 
   return (
-    // The declared page language is the Language being rendered, so a screen
-    // reader pronounces the page the way it is written.
     <html lang={toLanguage(lang)}>
       <body>
         <div id="root" className={`${geist.variable} ${geistMono.variable}`}>

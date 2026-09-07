@@ -8,10 +8,6 @@ import { PiX } from "react-icons/pi";
 import type { CaseStudyImage } from "@/content/projects/types";
 import { useScreenshotLabels } from "./screenshot-labels";
 
-/**
- * Screenshots are dense UI text, so they are optimised above the site default
- * of 75. Allowed by `images.qualities` in next.config.ts.
- */
 export const SHOT_QUALITY = 90;
 
 interface Props {
@@ -20,10 +16,6 @@ interface Props {
   onClose: () => void;
 }
 
-/**
- * Enlarged view of one screenshot. Same portal, scroll lock, focus and Escape
- * handling as the Project Dialog, so the two feel like one system.
- */
 export const Lightbox = ({ shot, caption, onClose }: Props) => {
   const labels = useScreenshotLabels();
   const closeRef = useRef<HTMLButtonElement>(null);

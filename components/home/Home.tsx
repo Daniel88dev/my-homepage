@@ -11,10 +11,6 @@ import { Experience } from "./experience/Experience";
 import { Contact } from "./contact/Contact";
 
 interface Props {
-  /**
-   * The Language being rendered. The whole page is written from it: its
-   * Dictionary for the interface, and its Project Copy for the Projects.
-   */
   lang: Language;
 }
 

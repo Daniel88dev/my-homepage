@@ -1,13 +1,5 @@
 import type { ProjectCopyBySlug } from "../types";
 
-/**
- * The English Project Copy. One module per Language, keyed by Project slug;
- * the facts each entry describes live on the Project itself, in `../index.ts`.
- *
- * Adding a Language is a copy of this file with the prose translated. Nothing
- * here is a URL, a repository or a technology, so nothing here can disagree
- * with another Language about what a Project actually is.
- */
 export const EN_PROJECT_COPY: ProjectCopyBySlug = {
   "flexi-day": {
     description:

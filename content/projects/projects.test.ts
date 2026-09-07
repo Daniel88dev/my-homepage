@@ -68,11 +68,7 @@ describe("project content", () => {
         const load = loadCaseStudyContent(lang, slug);
         expect(load, `no ${lang} content module for ${slug}`).toBeDefined();
         const { default: Content } = await load!();
-        // What this guards is that the module resolves at all, which the
-        // `next/dynamic` wrapper used to hide until render time. It says
-        // nothing about the component's shape — `caseStudySectionText` below
-        // is the one that requires a plain function component, because it
-        // calls one.
+
         expect(Content, `${slug} has no default export`).toBeDefined();
       }
     }
@@ -118,12 +114,8 @@ describe("project content", () => {
   });
 
   it("renders every flexiday screenshot it declares, in every Language", () => {
-    // Every Language's module, not just English: a translation that dropped a
-    // figure would leave a screenshot declared and never shown, in that
-    // Language only, and nothing else would notice.
     const dir = join(__dirname, "flexi-day");
-    // `case-study-content.tsx` and `case-study-content.<lang>.tsx`, and
-    // nothing else that happens to start the same way.
+
     const modules = readdirSync(dir).filter((file) =>
       /^case-study-content(\.[a-z]{2})?\.tsx$/.test(file)
     );
@@ -145,13 +137,6 @@ describe("project content", () => {
   });
 });
 
-/**
- * Props that carry layout, identity or invariant data rather than prose, and
- * so say nothing about whether a module has been translated. Everything else a
- * prop holds is words somebody wrote — a section `title`, a figure `caption`,
- * a feature's `lede` — and a Case Study keeps most of its prose there rather
- * than in children.
- */
 const NON_PROSE_PROPS = new Set([
   "alt",
   "className",
@@ -171,13 +156,6 @@ const NON_PROSE_PROPS = new Set([
   "width",
 ]);
 
-/**
- * Every string in an element tree, in order: children, prose props, and the
- * plain objects a prop hands a component. Comparing this rather than the
- * element itself is what lets a test tell a translation from a copied module —
- * both build a fresh tree, so any identity check passes on an untranslated
- * file. Walks the tree instead of rendering it, so the test needs no DOM.
- */
 const elementText = (node: unknown): string => {
   if (typeof node === "string") return node;
   if (typeof node === "number") return String(node);
@@ -192,16 +170,7 @@ const elementText = (node: unknown): string => {
   return "";
 };
 
-/**
- * The text a Case Study content module renders, keyed by the section anchor it
- * sits under. Calling the module rather than rendering it: the default export
- * is a plain component over the section components, so invoking it yields the
- * element tree without a DOM, a renderer or any of the client leaves running.
- */
 const caseStudySectionText = (Content: ComponentType): Map<string, string> => {
-  // Content modules are plain function components, which is what makes calling
-  // one legal here; a class component or a memo would not survive it. Asserted
-  // rather than assumed, so a module that changed shape fails by saying so.
   expect(typeof Content, "the content module is not a function component").toBe(
     "function"
   );
@@ -213,8 +182,7 @@ const caseStudySectionText = (Content: ComponentType): Map<string, string> => {
     }
     if (!isValidElement(node)) return;
     const props = node.props as { id?: unknown; children?: ReactNode };
-    // The outermost element carrying an anchor id is a section; everything
-    // below it is that section's text.
+
     if (typeof props.id === "string") {
       found.set(props.id, elementText(node));
       return;
@@ -225,12 +193,6 @@ const caseStudySectionText = (Content: ComponentType): Map<string, string> => {
   return found;
 };
 
-/**
- * The invariant half of a Project is the half that is the same in every
- * Language. These are the guarantees that make a second Language a content
- * change rather than a restructuring: nothing translatable is left in the
- * shared data, and nothing invariant is duplicated per Language.
- */
 describe("the invariant/Project Copy split", () => {
   it("has Project Copy for every Project in every published Language", () => {
     for (const lang of LANGUAGES) {
@@ -243,19 +205,6 @@ describe("the invariant/Project Copy split", () => {
     }
   });
 
-  /**
-   * The half-translated guard. The test above passes as soon as a Language has
-   * *some* Copy for every Project, which an alias to English satisfies — so it
-   * cannot tell a translation from a placeholder. This one can: once a
-   * Language has left `PROJECT_COPY_AWAITING_TRANSLATION`, every Project it
-   * carries must be written in that Language rather than borrowed from
-   * English. A Project added to `index.ts` and described in `copy/en.tsx`
-   * alone therefore fails here, per Language, by name.
-   *
-   * The Dialog is compared by its text rather than by identity: it is JSX, so
-   * a copied module builds a fresh element tree every time and any identity
-   * check would pass on a file that has not been translated at all.
-   */
   it("writes every Project's prose anew in every translated Language", () => {
     const translated = LANGUAGES.filter(
       (lang) => lang !== "en" && !PROJECT_COPY_AWAITING_TRANSLATION.includes(lang)
@@ -276,12 +225,6 @@ describe("the invariant/Project Copy split", () => {
     }
   });
 
-  /**
-   * Alt text is read prose, not a fallback nobody sees — the Case Study hero
-   * shows its own alt text as a visible caption. So it has to be translated
-   * like the rest, and a Language that borrowed English alt text would leave
-   * screen readers on the Czech page hearing English.
-   */
   it("writes the hero screenshot's alt text anew in every translated Language", () => {
     const translated = LANGUAGES.filter(
       (lang) => lang !== "en" && !PROJECT_COPY_AWAITING_TRANSLATION.includes(lang)
@@ -318,16 +261,12 @@ describe("the invariant/Project Copy split", () => {
         expect(caseStudy?.title.length, `${lang}: ${slug} title`).toBeGreaterThan(0);
         expect(caseStudy?.pitch.length, `${lang}: ${slug} pitch`).toBeGreaterThan(0);
         expect(caseStudy?.description.length, `${lang}: ${slug} description`).toBeGreaterThan(0);
-        // The meta description is the one with a hard limit.
+
         expect(caseStudy?.description.length, `${lang}: ${slug} description`).toBeLessThan(160);
       }
     }
   });
 
-  // The drift guard for per-Language Case Study content. Section ids are
-  // invariant and the navigation links to them; a Language whose content
-  // labels a different set, or the same set in a different order, would leave
-  // the sticky section navigation pointing at anchors that are not there.
   it("labels exactly the invariant section ids, in page order, in every Language", async () => {
     for (const slug of getCaseStudySlugs()) {
       const sectionIds = getProjectBySlug(slug)?.caseStudy?.sectionIds;
@@ -344,23 +283,6 @@ describe("the invariant/Project Copy split", () => {
     }
   });
 
-  /**
-   * The second half of the drift guard. The test above compares the section
-   * navigation each Language *declares*; this one compares the anchors each
-   * Language actually *renders*, which is what the navigation scrolls to. A
-   * translation that declared all seven labels but forgot to write one of the
-   * sections would pass the first and fail here.
-   *
-   * It also holds a translated Language's prose to being its own — precisely,
-   * that no section's text is byte-identical to English's, and that the
-   * navigation as a whole is not English's. The text is walked out of the
-   * element tree rather than compared by identity, because a copied module
-   * builds a fresh tree every time: `cp` the English module to a new Language
-   * and every identity check still passes. Compared per section, so
-   * translating six sections of seven fails by name rather than passing on the
-   * total. It cannot see a section translated word for word except one
-   * sentence; that is review's job, not this test's.
-   */
   it("renders the same anchors in every Language, in that Language's words", async () => {
     const translated = LANGUAGES.filter(
       (lang) => lang !== "en" && !CASE_STUDIES_AWAITING_TRANSLATION.includes(lang)
@@ -388,9 +310,7 @@ describe("the invariant/Project Copy split", () => {
             englishText.get(id)
           );
         }
-        // The navigation as a whole, not label by label: a Language may
-        // legitimately share one label with English ("Status", "Dashboard"),
-        // but not the whole list.
+
         expect(
           content.sections.map((navItem) => navItem.label).join("|"),
           `${lang}: ${slug} navigates in English`
@@ -399,18 +319,6 @@ describe("the invariant/Project Copy split", () => {
     }
   });
 
-  /**
-   * A Language may be published before its prose is written, by pointing its
-   * registry entry at English. Nothing about a total `Record<Language, ...>`
-   * can tell that apart from a real translation — English under a Czech flag
-   * renders perfectly — so each registry declares which Languages are still
-   * reading English, and these two tests hold the declaration to the truth.
-   *
-   * That makes the placeholder impossible to forget in either direction: a
-   * translation that lands without its Language leaving the list fails here,
-   * and so does a list entry for a Language that is already translated. Both
-   * lists are empty: every published Language reads its own prose.
-   */
   it("declares exactly the Languages whose Project Copy is still English", () => {
     const aliased = LANGUAGES.filter(
       (lang) => lang !== "en" && PROJECT_COPY[lang] === PROJECT_COPY.en
@@ -422,8 +330,7 @@ describe("the invariant/Project Copy split", () => {
     const aliased: Language[] = [];
     for (const lang of LANGUAGES) {
       if (lang === "en") continue;
-      // Module identity, not loader identity: two `import()` calls for the
-      // same specifier resolve to the same module, however they are written.
+
       const readsEnglish = await Promise.all(
         getCaseStudySlugs().map(async (slug) => {
           const [translated, english] = await Promise.all([
@@ -445,10 +352,6 @@ describe("the invariant/Project Copy split", () => {
   });
 
   it("defines a Tech List, a Live URL and Related Repositories exactly once", () => {
-    // Not per Language: they live on the Project, and there is one Project.
-    // Every Copy module is held to this, not just English — a Tech List or a
-    // repository URL retyped into a translation is exactly how the facts start
-    // disagreeing between Languages.
     const copyDir = join(__dirname, "copy");
     const copyModules = readdirSync(copyDir).filter((file) => file.endsWith(".tsx"));
     expect(copyModules.length, "no Project Copy modules found").toBeGreaterThan(0);

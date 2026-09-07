@@ -3,21 +3,6 @@
 import * as Sentry from "@sentry/nextjs";
 import { useEffect } from "react";
 
-/**
- * The last line of defence: React render errors that escape every other
- * boundary, including one thrown by the root layout itself. It replaces the
- * root layout when active, so it declares its own `html` and `body`.
- *
- * This is what reports React render errors to Sentry. It replaces the Pages
- * Router `_error` page deleted in #33, whose `captureUnderscoreErrorException`
- * was the only thing reporting them before. The Sentry SDK's warning about a
- * missing global error handler is emitted from its webpack plugin, and this
- * project builds with Turbopack, so nothing would have told us it was missing.
- *
- * Everything here is deliberately self-contained — no stylesheet import, no
- * font, no shared component. The root layout has already failed by the time
- * this renders, so anything it depends on is suspect.
- */
 export default function GlobalError({
   error,
   retry,
@@ -31,8 +16,7 @@ export default function GlobalError({
 
   return (
     <html lang="en">
-      {/* An error boundary is a Client Component, so it cannot export
-          `metadata`; a React `<title>` is the documented substitute. */}
+
       <title>Something went wrong | Daniel Hrynusiw</title>
       <body
         style={{

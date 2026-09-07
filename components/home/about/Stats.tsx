@@ -3,18 +3,12 @@ import { PiBrowsers, PiHardDrives, PiCode, PiSmiley } from "react-icons/pi";
 import type { IconType } from "react-icons";
 import type { Dictionary } from "@/content/dictionary";
 
-/**
- * The invariant half of each chip group: which icon it carries and which
- * technologies it lists. The headings, the languages spoken and the whole of
- * the Off the clock group are prose and come from the Dictionary, so a new
- * technology is one edit here rather than one per Language.
- */
 interface Group {
   key: keyof Dictionary["stats"];
   Icon: IconType;
-  /** The technologies, which are the same in every Language. */
+
   items: string[];
-  /** A Dictionary list appended after them, for chips that are prose. */
+
   extra?: "spokenLanguages" | "hobbies";
 }
 
@@ -79,7 +73,6 @@ const groups: Group[] = [
   },
 ];
 
-/** The chips of one group: its technologies, then the ones that are prose. */
 const chipsFor = (group: Group, dict: Dictionary["stats"]): string[] => [
   ...group.items,
   ...(group.extra ? dict[group.extra] : []),

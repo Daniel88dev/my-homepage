@@ -1,21 +1,6 @@
 import type { ReactNode } from "react";
 import type { Dictionary } from "./en";
 
-/**
- * The Czech Dictionary. Typed against the English one, so a missing or
- * misspelled key fails the typecheck rather than leaving a gap on the page.
- *
- * Two rules held throughout, so the whole site reads as one voice:
- *
- * 1. **Vykání.** The visitor is addressed formally — "napište mi", "najdete
- *    mě" — as a professional site aimed at employers and clients in Brno
- *    would. Never switches to tykání, including in the greeting.
- * 2. **Technical vocabulary stays English.** Job titles (full-stack developer,
- *    Back end developer, Manufacturing Engineer), technologies, frameworks,
- *    product names and repository names are left as they are, because that is
- *    how people in this industry speak here. Everything else is Czech, and
- *    idiomatic Czech rather than English word order in Czech words.
- */
 export const CS_DICTIONARY: Dictionary = {
   meta: {
     title: "Daniel Hrynusiw | Web Developer",

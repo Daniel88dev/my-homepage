@@ -14,20 +14,14 @@ import { SectionNav } from "./SectionNav";
 interface Props {
   lang: Language;
   dict: Dictionary;
-  /** This Case Study's own path, so the Language Picker can preserve it. */
+
   path: string;
   sections: CaseStudyNavItem[];
-  /** Full-width hero rendered above the two-column body. */
+
   hero: ReactNode;
   children: ReactNode;
 }
 
-/**
- * Page chrome for a Case Study: the shared header carrying the way back to the
- * homepage, a section list from the medium breakpoint up, and the shared
- * footer. The homepage sidebar is deliberately absent; its anchors only exist
- * on the homepage.
- */
 export const CaseStudyLayout = ({
   lang,
   dict,
@@ -36,8 +30,6 @@ export const CaseStudyLayout = ({
   hero,
   children,
 }: Props) => {
-  // Both ways back stay in the Language being read; leaving them unprefixed
-  // would drop a Czech reader onto the English homepage.
   const home = languagePath(lang, "/");
 
   return (
@@ -64,9 +56,7 @@ export const CaseStudyLayout = ({
                 aria-hidden
                 className="transition-transform duration-200 group-hover:-translate-x-[2px]"
               />
-              {/* First thing to go on a phone, along with the social links
-                  below: this header carries a monogram and a way back that the
-                  homepage's does not, and the Language Picker has to fit. */}
+
               <span className="max-md:hidden">
                 {dict.caseStudy.allProjects}
               </span>
@@ -75,9 +65,7 @@ export const CaseStudyLayout = ({
         }
         right={
           <div className="flex items-center gap-[2.4rem] max-md:gap-[1.6rem]">
-            {/* Hidden on a phone: monogram, back link, social links, Language
-                Picker and Resume do not fit in 390px, and the social links are
-                the only one of those the footer repeats. */}
+
             <div className="max-md:hidden">
               <MyLinks />
             </div>

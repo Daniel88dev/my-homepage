@@ -11,20 +11,15 @@ import { useScreenshotLabels } from "./screenshot-labels";
 const frame =
   "overflow-hidden rounded-[0.8rem] border border-border bg-background-light shadow-[0_32px_64px_-32px_rgb(3_8_6/0.9),0_0_0_1px_rgb(3_8_6/0.4)]";
 
-/** Everything needed to place one screenshot on the page. */
 interface ShotProps {
   shot: CaseStudyImage;
   caption?: ReactNode;
-  /** Preload this image. Only for the one above-the-fold hero screenshot. */
+
   preload?: boolean;
   sizes: string;
   className?: string;
 }
 
-/**
- * A framed screenshot that opens enlarged on click. The whole frame is the
- * button; a small corner glyph appears on hover and focus as the affordance.
- */
 export const Zoomable = ({ shot, caption, preload, sizes, className }: ShotProps) => {
   const labels = useScreenshotLabels();
   const [open, setOpen] = useState(false);
@@ -60,10 +55,8 @@ export const Zoomable = ({ shot, caption, preload, sizes, className }: ShotProps
   );
 };
 
-/** As a Zoomable, but the layout picks the sizes when the caller does not. */
 type FigureProps = Omit<ShotProps, "sizes"> & { sizes?: string };
 
-/** A framed screenshot with an optional caption below it. Never on top of it. */
 export const Figure = ({ shot, caption, preload, sizes, className }: FigureProps) => {
   const reduceMotion = useReducedMotion();
   return (
@@ -94,11 +87,10 @@ interface FeatureSplitProps {
   children: ReactNode;
   shot: CaseStudyImage;
   caption?: ReactNode;
-  /** Image on the left instead of the right. Use at most twice in a row. */
+
   reverse?: boolean;
 }
 
-/** Text beside a screenshot. Collapses to text-then-image under 768px. */
 export const FeatureSplit = ({ title, children, shot, caption, reverse }: FeatureSplitProps) => {
   return (
     <div
@@ -123,7 +115,6 @@ interface FeatureTileProps {
   shot: CaseStudyImage;
 }
 
-/** A compact feature: screenshot on top, short text below. Use in a grid. */
 export const FeatureTile = ({ title, children, shot }: FeatureTileProps) => (
   <div className="flex flex-col gap-[2rem]">
     <Figure shot={shot} sizes="(max-width: 768px) 100vw, 560px" />

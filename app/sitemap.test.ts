@@ -6,9 +6,6 @@ import sitemap from "./sitemap";
 const SITE = SITE_URL;
 
 describe("sitemap", () => {
-  // The URLs are the ones the pages declare canonical, character for
-  // character — including the home page, which the framework resolves without
-  // a trailing slash.
   it("lists every published page in every Language", () => {
     expect(sitemap().map((entry) => entry.url)).toEqual([
       `${SITE}`,
@@ -39,9 +36,6 @@ describe("sitemap", () => {
     ]);
   });
 
-  // The AC that a hand-maintained list would fail the moment a Case Study is
-  // written: the URLs come from the Projects data, so a Project without a Case
-  // Study has no page and no entry, and one with a Case Study has both.
   it("takes its Case Study URLs from the Projects data", () => {
     const urls = sitemap().map((entry) => entry.url);
 

@@ -5,14 +5,10 @@ import type { CaseStudyNavItem } from "@/content/projects/types";
 
 interface Props {
   sections: CaseStudyNavItem[];
-  /** Accessible name of the section list, from the Dictionary. */
+
   label: string;
 }
 
-/**
- * The Case Study's sections, from the medium breakpoint up. Highlights the
- * section currently in view, in the same spirit as the homepage sidebar.
- */
 export const SectionNav = ({ sections, label }: Props) => {
   const [active, setActive] = useState<string>(sections[0]?.id ?? "");
 
@@ -23,8 +19,6 @@ export const SectionNav = ({ sections, label }: Props) => {
 
     if (elements.length === 0) return;
 
-    // A band across the upper third of the viewport decides which section is
-    // "current", so a long section stays highlighted while it is being read.
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries

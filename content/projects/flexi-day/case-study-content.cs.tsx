@@ -12,31 +12,6 @@ import { withNotes } from "./repositories";
 import type { CaseStudyNavItem } from "@/content/projects/types";
 import { SECTION_IDS, withAlt } from "./case-study";
 
-/**
- * The Czech flexiday Case Study: a whole content module rather than a
- * skeleton filled from a dictionary, because the prose and the layout are
- * inseparable here. See `docs/adr/0002-case-study-content-per-language.md`.
- *
- * Written to the same two rules as `content/dictionary/cs.tsx` and
- * `content/projects/copy/cs.tsx`, so the site reads as one voice:
- *
- * 1. **Vykání.** Where the text addresses the reader it does so formally
- *    ("vyberete", "přepnete"); the rest is Daniel writing about his own
- *    product, as the English does.
- * 2. **Technical vocabulary stays English.** Technologies, AWS services,
- *    repository role labels, the product's own UI terms (Group, sick day,
- *    home office, pending/approved/rejected) and the Tech List are left as
- *    they are, because that is how people in this industry speak here.
- *
- * The facts must be identical to `./case-study-content.tsx` — the same nine
- * leave types, the same three repositories, the same plans. Only the wording
- * is this module's own.
- */
-/**
- * Czech alt text for every screenshot. The figures themselves are
- * invariant; this is the half a visitor reads, and the hero shows its
- * own alt text as a visible caption.
- */
 const SHOT_ALT = {
   calendar:
     "Týmový kalendář flexiday: přehled jednoho měsíce s dovolenými, home office a sick days pro čtyři lidi, zobrazenými v různých barvách.",
@@ -62,7 +37,6 @@ const SHOT_ALT = {
 
 const shots = withAlt(SHOT_ALT);
 
-/** What each repository is for, in Czech. The URLs and labels are invariant. */
 const REPOSITORY_NOTES = {
   "Web app":
     "Next.js SPA se statickým exportem: úvodní stránka a přihlášená část produktu.",
