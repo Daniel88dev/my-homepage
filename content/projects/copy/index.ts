@@ -1,5 +1,6 @@
 import type { Language } from "@/lib/language";
 import type { ProjectCopy, ProjectCopyBySlug } from "../types";
+import { CS_PROJECT_COPY } from "./cs";
 import { EN_PROJECT_COPY } from "./en";
 
 /**
@@ -14,9 +15,7 @@ import { EN_PROJECT_COPY } from "./en";
  */
 export const PROJECT_COPY: Record<Language, ProjectCopyBySlug> = {
   en: EN_PROJECT_COPY,
-  // Czech is published, its Project Copy is not yet written. #37 replaces this
-  // with `cs: CS_PROJECT_COPY` and removes "cs" below, in the same commit.
-  cs: EN_PROJECT_COPY,
+  cs: CS_PROJECT_COPY,
 };
 
 /**
@@ -26,8 +25,10 @@ export const PROJECT_COPY: Record<Language, ProjectCopyBySlug> = {
  * translation. `projects.test.ts` holds this list to what the registry
  * actually does, in both directions — which is what makes the alias
  * impossible to forget and impossible to leave declared once it is gone.
+ *
+ * Empty: every published Language reads its own prose.
  */
-export const PROJECT_COPY_AWAITING_TRANSLATION: readonly Language[] = ["cs"];
+export const PROJECT_COPY_AWAITING_TRANSLATION: readonly Language[] = [];
 
 /**
  * One Project's Copy in one Language. Every Project has Copy in every

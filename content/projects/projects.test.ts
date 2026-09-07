@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { existsSync, readFileSync } from "node:fs";
+import { isValidElement, type ReactNode } from "react";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { LANGUAGES, type Language } from "@/lib/language";
 import { getCaseStudySlugs, getProjectBySlug, projects } from "./index";
@@ -138,6 +139,22 @@ describe("project content", () => {
  * change rather than a restructuring: nothing translatable is left in the
  * shared data, and nothing invariant is duplicated per Language.
  */
+/**
+ * Every string in a Project Dialog's element tree, in order. Comparing this
+ * rather than the element itself is what lets a test tell a translation from a
+ * copied module. Walks the tree instead of rendering it, so the test needs no
+ * DOM.
+ */
+const dialogText = (node: ReactNode): string => {
+  if (typeof node === "string") return node;
+  if (typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(dialogText).join("");
+  if (isValidElement(node)) {
+    return dialogText((node.props as { children?: ReactNode }).children);
+  }
+  return "";
+};
+
 describe("the invariant/Project Copy split", () => {
   it("has Project Copy for every Project in every published Language", () => {
     for (const lang of LANGUAGES) {
@@ -146,6 +163,39 @@ describe("the invariant/Project Copy split", () => {
         expect(copy, `${lang}: ${project.slug}`).toBeDefined();
         expect(copy?.description.length, `${lang}: ${project.slug}`).toBeGreaterThan(0);
         expect(copy?.dialogContent, `${lang}: ${project.slug}`).toBeDefined();
+      }
+    }
+  });
+
+  /**
+   * The half-translated guard. The test above passes as soon as a Language has
+   * *some* Copy for every Project, which an alias to English satisfies — so it
+   * cannot tell a translation from a placeholder. This one can: once a
+   * Language has left `PROJECT_COPY_AWAITING_TRANSLATION`, every Project it
+   * carries must be written in that Language rather than borrowed from
+   * English. A Project added to `index.ts` and described in `copy/en.tsx`
+   * alone therefore fails here, per Language, by name.
+   *
+   * The Dialog is compared by its text rather than by identity: it is JSX, so
+   * a copied module builds a fresh element tree every time and any identity
+   * check would pass on a file that has not been translated at all.
+   */
+  it("writes every Project's prose anew in every translated Language", () => {
+    const translated = LANGUAGES.filter(
+      (lang) => lang !== "en" && !PROJECT_COPY_AWAITING_TRANSLATION.includes(lang)
+    );
+    for (const lang of translated) {
+      for (const project of projects) {
+        const copy = getProjectCopy(lang, project.slug);
+        const english = getProjectCopy("en", project.slug);
+        expect(copy, `${lang}: ${project.slug} has no Project Copy`).toBeDefined();
+        expect(copy?.description, `${lang}: ${project.slug} is still English`).not.toBe(
+          english?.description
+        );
+        expect(
+          dialogText(copy?.dialogContent),
+          `${lang}: ${project.slug}'s Project Dialog is still English`
+        ).not.toBe(dialogText(english?.dialogContent));
       }
     }
   });
@@ -241,9 +291,17 @@ describe("the invariant/Project Copy split", () => {
 
   it("defines a Tech List, a Live URL and Related Repositories exactly once", () => {
     // Not per Language: they live on the Project, and there is one Project.
-    const copyModule = readFileSync(join(__dirname, "copy", "en.tsx"), "utf8");
-    for (const invariant of ["tech:", "liveUrl", "relatedRepositories", "https://github.com/"]) {
-      expect(copyModule, `Project Copy must not carry ${invariant}`).not.toContain(invariant);
+    // Every Copy module is held to this, not just English — a Tech List or a
+    // repository URL retyped into a translation is exactly how the facts start
+    // disagreeing between Languages.
+    const copyDir = join(__dirname, "copy");
+    const copyModules = readdirSync(copyDir).filter((file) => file.endsWith(".tsx"));
+    expect(copyModules.length, "no Project Copy modules found").toBeGreaterThan(0);
+    for (const file of copyModules) {
+      const copyModule = readFileSync(join(copyDir, file), "utf8");
+      for (const invariant of ["tech:", "liveUrl", "relatedRepositories", "https://github.com/"]) {
+        expect(copyModule, `copy/${file} must not carry ${invariant}`).not.toContain(invariant);
+      }
     }
   });
 });

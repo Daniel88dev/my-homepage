@@ -69,7 +69,7 @@ export const EN_PROJECT_COPY: ProjectCopyBySlug = {
           for future shopping event.
         </p>
         <p>
-          Purpose of project is to learn more closely work with Tanstack data
+          Purpose of project is to learn more closely work with TanStack data
           tables, which i find very useful for future projects.
         </p>
       </>
@@ -85,7 +85,7 @@ export const EN_PROJECT_COPY: ProjectCopyBySlug = {
           code.
         </p>
         <p>
-          DTC means Diagnosis Trouble Code, which are codes displaying some type
+          DTC means Diagnostic Trouble Code, which are codes displaying some type
           of Vehicle unit error.
         </p>
         <p>
@@ -268,7 +268,7 @@ export const EN_PROJECT_COPY: ProjectCopyBySlug = {
         </p>
         <p>
           Its just simple CRUD API service with no HTML front end. Can be tested
-          using Postman, CRUD or by any other API testing tool.
+          using Postman, cURL or by any other API testing tool.
         </p>
       </>
     ),
