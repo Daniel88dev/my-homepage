@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 /**
  * How the flexiday repositories fit together. Drawn in the page's own tokens
  * so it follows the theme; not an external image.
@@ -95,7 +97,16 @@ const Edge = ({ d, label, lx, ly, dashed }: EdgeProps) => (
   </g>
 );
 
-export const ArchitectureDiagram = () => {
+/**
+ * The diagram itself is invariant: its node and edge labels are the names of
+ * the services and repositories, which are not translated, and its `<desc>` is
+ * the drawing's alt text, which stays English for the same reason a
+ * screenshot's does. The caption below it is running prose in the page's own
+ * flow, so it comes from the Case Study content module in that module's
+ * Language, exactly as a `Figure`'s caption does — and it is typed the same
+ * way, so a caption can carry emphasis or a link the day one needs to.
+ */
+export const ArchitectureDiagram = ({ caption }: { caption: ReactNode }) => {
   return (
     <figure>
       <div className="overflow-x-auto rounded-[0.8rem] border border-border bg-[radial-gradient(120%_80%_at_50%_100%,rgb(46_229_157/0.06),transparent_60%)] p-[2.4rem] max-md:p-[1.2rem]">
@@ -193,9 +204,7 @@ export const ArchitectureDiagram = () => {
         </svg>
       </div>
       <figcaption className="mt-[1.2rem] max-w-[62ch] font-mono text-2xs text-text-muted">
-        Solid lines are runtime traffic. Dashed lines happen at build or deploy
-        time. The web app never runs a server: every dynamic thing goes through
-        the API.
+        {caption}
       </figcaption>
     </figure>
   );

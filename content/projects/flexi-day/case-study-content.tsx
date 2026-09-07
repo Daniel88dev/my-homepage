@@ -229,7 +229,9 @@ const FlexiDayCaseStudyContent = () => (
       lede="The web app, the API and the email templates version and deploy on their own schedules."
     >
       <div className="flex flex-col gap-[4.8rem]">
-        <ArchitectureDiagram />
+        <ArchitectureDiagram
+          caption="Solid lines are runtime traffic. Dashed lines happen at build or deploy time. The web app never runs a server: every dynamic thing goes through the API."
+        />
         <Prose>
           <p>
             <strong>The web app is a static export.</strong> Next.js builds it

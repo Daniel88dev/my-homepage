@@ -37,10 +37,7 @@ export const CASE_STUDY_CONTENT: Record<
 > = {
   "flexi-day": {
     en: () => import("./flexi-day/case-study-content"),
-    // Czech is published, its Case Study is not yet written. #38 replaces this
-    // with `() => import("./flexi-day/case-study-content.cs")` and removes
-    // "cs" below, in the same commit.
-    cs: () => import("./flexi-day/case-study-content"),
+    cs: () => import("./flexi-day/case-study-content.cs"),
   },
 };
 
@@ -50,8 +47,10 @@ export const CASE_STUDY_CONTENT: Record<
  * Case Study read in English under a Czech flag renders perfectly.
  * `projects.test.ts` holds this list to what the registry actually loads, in
  * both directions.
+ *
+ * Empty: every published Language reads its own content module.
  */
-export const CASE_STUDIES_AWAITING_TRANSLATION: readonly Language[] = ["cs"];
+export const CASE_STUDIES_AWAITING_TRANSLATION: readonly Language[] = [];
 
 /**
  * One Case Study's content in one Language, or `undefined` when there is none
