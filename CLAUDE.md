@@ -65,3 +65,9 @@ the invariant figures; repository notes are keyed off the invariant labels. A
 missing or misspelled key is a compile error rather than a blank space on the
 live site. `content/projects/projects.test.ts` covers what types cannot: that a
 translation is not a copy of the English.
+
+**`body::after` is not dead code.** It covers the strip above the layout
+viewport that iPhone Safari paints the page into once its toolbar collapses on
+scroll. Nothing anchored at `top: 0` reaches that strip, and
+`env(safe-area-inset-top)` is `0px` there in portrait even with
+`viewport-fit=cover`, so the usual safe-area recipe does nothing. See issue #43.
