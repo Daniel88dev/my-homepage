@@ -74,6 +74,7 @@ export const ProjectDialog = ({
 
   const content = (
     <div
+      role="presentation"
       className="fixed inset-0 z-[var(--z-modal)] flex h-dvh cursor-pointer justify-center overflow-y-auto bg-bg-opaque px-[1.2rem] py-[4.8rem] backdrop-blur-md"
       onClick={() => setIsOpen(false)}
     >

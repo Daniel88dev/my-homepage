@@ -71,3 +71,12 @@ viewport that iPhone Safari paints the page into once its toolbar collapses on
 scroll. Nothing anchored at `top: 0` reaches that strip, and
 `env(safe-area-inset-top)` is `0px` there in portrait even with
 `viewport-fit=cover`, so the usual safe-area recipe does nothing. See issue #43.
+
+**`eslint-config-next` is left out on purpose.** It pins eslint-plugin-react,
+eslint-plugin-import and eslint-plugin-jsx-a11y, none of which run on ESLint 10,
+so the flat config is composed by hand from `@next/eslint-plugin-next`,
+`eslint-plugin-react-hooks`, `@eslint-react/eslint-plugin` and
+`eslint-plugin-jsx-a11y-x`. Do not re-add it. Keep `@next/eslint-plugin-next`
+on the same exact version as `next`. Inline `eslint-disable` directives are
+comments and fall under the rule above; turn a rule off per file in the config
+instead. See issue #22.

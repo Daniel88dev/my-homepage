@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, type ReactNode } from "react";
+import { createContext, use, type ReactNode } from "react";
 
 export interface ScreenshotLabels {
   enlargeScreenshot: string;
@@ -18,13 +18,11 @@ export const ScreenshotLabelsProvider = ({
   labels: ScreenshotLabels;
   children: ReactNode;
 }) => (
-  <ScreenshotLabelsContext.Provider value={labels}>
-    {children}
-  </ScreenshotLabelsContext.Provider>
+  <ScreenshotLabelsContext value={labels}>{children}</ScreenshotLabelsContext>
 );
 
 export const useScreenshotLabels = (): ScreenshotLabels => {
-  const labels = useContext(ScreenshotLabelsContext);
+  const labels = use(ScreenshotLabelsContext);
   if (!labels) {
     throw new Error(
       "Screenshot labels are missing. Render this inside CaseStudyLayout."

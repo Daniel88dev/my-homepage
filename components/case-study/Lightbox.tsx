@@ -44,6 +44,7 @@ export const Lightbox = ({ shot, caption, onClose }: Props) => {
 
   const content = (
     <div
+      role="presentation"
       className="fixed inset-0 z-[var(--z-modal)] flex h-dvh cursor-zoom-out flex-col items-center justify-center bg-bg-opaque px-[2.4rem] py-[6.4rem] backdrop-blur-md max-md:px-[1.2rem]"
       onClick={onClose}
     >

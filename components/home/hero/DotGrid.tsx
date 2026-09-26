@@ -8,7 +8,11 @@ export const DotGrid = () => {
 
   const dots = [];
 
-  const handleDotClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleGridClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!(e.target instanceof Element)) return;
+    const dot = e.target.closest<HTMLElement>("[data-index]");
+    if (!dot) return;
+
     animate(".dot-point", {
       scale: [
         { to: 1.35, ease: "outSine", duration: 250 },
@@ -24,7 +28,7 @@ export const DotGrid = () => {
       ],
       delay: stagger(100, {
         grid: [GRID_WIDTH, GRID_HEIGHT],
-        from: Number(e.currentTarget.dataset.index),
+        from: Number(dot.dataset.index),
       }),
     });
   };
@@ -35,7 +39,6 @@ export const DotGrid = () => {
     for (let j = 0; j < GRID_HEIGHT; j++) {
       dots.push(
         <div
-          onClick={handleDotClick}
           className="group cursor-crosshair rounded-[8px] p-[0.8rem] transition-[background] duration-[250ms] hover:bg-[rgba(255,255,255,0.15)]"
           data-index={index}
           key={`${i}-${j}`}
@@ -52,6 +55,8 @@ export const DotGrid = () => {
 
   return (
     <div
+      aria-hidden="true"
+      onClick={handleGridClick}
       style={{ gridTemplateColumns: `repeat(${GRID_WIDTH}, 1fr)` }}
       className="absolute bottom-[12px] right-[3.6rem] top-[12px] z-0 grid max-w-[75%] max-md:opacity-40"
     >
