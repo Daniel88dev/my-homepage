@@ -164,6 +164,23 @@ export const EN_DICTIONARY = {
     enlargeScreenshot: "Enlarge screenshot",
     closeEnlargedScreenshot: "Close enlarged screenshot",
   },
+
+  resume: {
+    metaDescription:
+      "Resume of Daniel Hrynusiw, backend developer in Brno: experience, skills, courses and awards.",
+    downloadPdf: "Download PDF",
+    present: "Present",
+    summary: "Profile",
+    employment: "Experience",
+    education: "Education",
+    skills: "Skills",
+    languages: "Languages",
+    courses: "Courses",
+    awards: "Awards",
+    links: "Links",
+    hobbies: "Hobbies",
+    proficiency: (level: number) => `${level} of 5`,
+  },
 };
 
 export type Dictionary = typeof EN_DICTIONARY;

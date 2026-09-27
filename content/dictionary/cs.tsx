@@ -152,4 +152,21 @@ export const CS_DICTIONARY: Dictionary = {
     enlargeScreenshot: "Zvětšit snímek obrazovky",
     closeEnlargedScreenshot: "Zavřít zvětšený snímek obrazovky",
   },
+  resume: {
+    metaDescription:
+      "Životopis Daniela Hrynusiwa, backend vývojáře z Brna: praxe, dovednosti, kurzy a ocenění.",
+    downloadPdf: "Stáhnout PDF",
+    present: "Současnost",
+    summary: "Profil",
+    employment: "Praxe",
+    education: "Vzdělání",
+    skills: "Dovednosti",
+    languages: "Jazyky",
+    courses: "Kurzy",
+    awards: "Ocenění",
+    links: "Odkazy",
+    hobbies: "Koníčky",
+    proficiency: (level: number) => `${level} z 5`,
+  },
 };
+
