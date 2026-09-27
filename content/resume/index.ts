@@ -1,20 +1,15 @@
 import type { Language } from "@/lib/language";
+import { getResumeCopy } from "./copy";
+import { RESUME_FACTS } from "./resume";
 import type { Resume } from "./types";
-import { EN_RESUME } from "./en";
-import { CS_RESUME } from "./cs";
 
-export type { Resume } from "./types";
-
-export const RESUME_PATH = "/resume";
-
-export const RESUME_PDF_PATH = "/resume/pdf";
-
-export const RESUMES: Record<Language, Resume> = {
-  en: EN_RESUME,
-  cs: CS_RESUME,
-};
-
-export const getResume = (lang: Language): Resume => RESUMES[lang];
+export { RESUME_PATH, RESUME_PDF_PATH } from "./resume";
+export type * from "./types";
 
 export const resumePdfFilename = (lang: Language): string =>
   `Resume_DanielHrynusiw_${lang}.pdf`;
+
+export const getResume = (lang: Language): Resume => ({
+  facts: RESUME_FACTS,
+  copy: getResumeCopy(lang),
+});

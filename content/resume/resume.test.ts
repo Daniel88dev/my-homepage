@@ -1,92 +1,91 @@
 import { describe, expect, it } from "vitest";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { LANGUAGES } from "@/lib/language";
-import { publishedPaths } from "@/content/pages";
-import { RESUME_PATH, RESUMES, getResume } from "./index";
-import { formatPeriod, formatResumeDate, resumeDateTime } from "./format";
-import type { Resume } from "./types";
+import { getResume } from "./index";
+import { RESUME_FACTS, RESUME_PDF_PATH } from "./resume";
+import { isValidYearMonth, monthIndex } from "./timeline";
+import { ROLE_IDS } from "./types";
 
-const toMonths = (year: number, month: number | undefined, fallback: number) =>
-  year * 12 + (month ?? fallback);
+const publicDir = join(__dirname, "..", "..", "public");
 
-const invariants = (resume: Resume) => ({
-  links: resume.links.map((link) => link.url),
-  employment: resume.employment.map(({ employer, period }) => ({ employer, period })),
-  education: resume.education.map(({ period }) => period),
-  awards: resume.awards.map(({ issuer, date }) => ({ issuer, date })),
-  courses: resume.courses.map(({ provider, date }) => ({ provider, date })),
-  skillLevels: resume.skills.map(({ level }) => level),
-  languageLevels: resume.languages.map(({ level }) => level),
-});
+describe("resume facts", () => {
+  it("lists roles newest first", () => {
+    const starts = RESUME_FACTS.roles.map((role) => monthIndex(role.start));
+    expect(starts).toEqual([...starts].sort((a, b) => b - a));
+  });
 
-describe("resume content", () => {
-  it("publishes the resume route in every Language", () => {
-    for (const lang of LANGUAGES) {
-      expect(publishedPaths(lang), lang).toContain(RESUME_PATH);
+  it("has one role per role id, in the declared order", () => {
+    expect(RESUME_FACTS.roles.map((role) => role.id)).toEqual([...ROLE_IDS]);
+  });
+
+  it("uses valid dates that end after they start", () => {
+    for (const role of RESUME_FACTS.roles) {
+      expect(isValidYearMonth(role.start), role.id).toBe(true);
+      if (role.end) {
+        expect(isValidYearMonth(role.end), role.id).toBe(true);
+        expect(monthIndex(role.end)).toBeGreaterThanOrEqual(
+          monthIndex(role.start),
+        );
+      }
+    }
+    for (const entry of [...RESUME_FACTS.awards, ...RESUME_FACTS.courses]) {
+      expect(isValidYearMonth(entry.date), entry.id).toBe(true);
     }
   });
 
-  it("lists employment newest first, with every closed period ending after it starts", () => {
-    for (const lang of LANGUAGES) {
-      const employment = getResume(lang).employment;
-      const starts = employment.map(({ period: { start } }) => toMonths(start.year, start.month, 1));
-      expect(starts, lang).toEqual([...starts].sort((a, b) => b - a));
-      for (const { period } of employment) {
-        if (!period.end) continue;
-        expect(toMonths(period.end.year, period.end.month, 12)).toBeGreaterThanOrEqual(
-          toMonths(period.start.year, period.start.month, 1)
+  it("references a portrait that exists under /public", () => {
+    expect(existsSync(join(publicDir, RESUME_FACTS.portrait.src))).toBe(true);
+  });
+
+  it("serves the PDF from a route with no dot, so the proxy rewrites it", () => {
+    expect(RESUME_PDF_PATH).toBe("/resume/pdf");
+    expect(RESUME_PDF_PATH.split("/").pop()).not.toContain(".");
+  });
+
+  it("keeps courses and awards newest first", () => {
+    for (const list of [RESUME_FACTS.courses, RESUME_FACTS.awards]) {
+      const dates = list.map((entry) => monthIndex(entry.date));
+      expect(dates).toEqual([...dates].sort((a, b) => b - a));
+    }
+  });
+});
+
+describe("resume copy", () => {
+  it("is translated, not copied, for every role", () => {
+    const english = getResume("en").copy;
+    for (const lang of LANGUAGES.filter((l) => l !== "en")) {
+      const copy = getResume(lang).copy;
+      expect(copy.summary).not.toBe(english.summary);
+      for (const id of ROLE_IDS) {
+        expect(copy.roles[id].summary, `${lang} ${id}`).not.toBe(
+          english.roles[id].summary,
+        );
+        expect(copy.roles[id].highlights, `${lang} ${id}`).not.toEqual(
+          english.roles[id].highlights,
         );
       }
     }
   });
 
-  it("uses absolute https links and unique skill names", () => {
+  it("keeps every highlight short enough to scan", () => {
     for (const lang of LANGUAGES) {
-      const resume = getResume(lang);
-      for (const { url } of resume.links) expect(url).toMatch(/^https:\/\//);
-      const names = [...resume.skills, ...resume.languages].map((s) => s.name);
-      expect(new Set(names).size, lang).toBe(names.length);
+      for (const id of ROLE_IDS) {
+        const { highlights } = getResume(lang).copy.roles[id];
+        expect(highlights.length, `${lang} ${id}`).toBeLessThanOrEqual(4);
+        for (const highlight of highlights) {
+          expect(
+            highlight.length,
+            `${lang} ${id}: ${highlight}`,
+          ).toBeLessThanOrEqual(140);
+        }
+      }
     }
   });
 
-  it("keeps dates, employers, links and levels identical across Languages", () => {
+  it("uses no dash characters the page design forbids", () => {
     for (const lang of LANGUAGES) {
-      expect(invariants(RESUMES[lang]), lang).toEqual(invariants(RESUMES.en));
+      expect(JSON.stringify(getResume(lang).copy)).not.toMatch(/[–—]/);
     }
-  });
-
-  it("translates the prose rather than copying the English", () => {
-    for (const lang of LANGUAGES) {
-      if (lang === "en") continue;
-      const resume = getResume(lang);
-      expect(resume.summary).not.toBe(RESUMES.en.summary);
-      expect(resume.headline).not.toBe(RESUMES.en.headline);
-      resume.employment.forEach((position, i) => {
-        expect(position.description, `${lang} employment ${i}`).not.toBe(
-          RESUMES.en.employment[i]?.description
-        );
-      });
-    }
-  });
-});
-
-describe("resume dates", () => {
-  it("shows a bare year when no month is known", () => {
-    expect(formatResumeDate("en", { year: 2011 })).toBe("2011");
-    expect(resumeDateTime({ year: 2011 })).toBe("2011");
-  });
-
-  it("formats a month in the reader's Language", () => {
-    expect(formatResumeDate("en", { year: 2025, month: 8 })).toBe("Aug 2025");
-    expect(formatResumeDate("cs", { year: 2025, month: 8 })).not.toBe("Aug 2025");
-    expect(resumeDateTime({ year: 2025, month: 8 })).toBe("2025-08");
-  });
-
-  it("labels an ongoing period with the present label", () => {
-    expect(formatPeriod("en", { start: { year: 2021, month: 9 } }, "Present")).toBe(
-      "Sep 2021 – Present"
-    );
-    expect(
-      formatPeriod("en", { start: { year: 2004 }, end: { year: 2008 } }, "Present")
-    ).toBe("2004 – 2008");
   });
 });

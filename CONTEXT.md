@@ -49,12 +49,24 @@ _Avoid_: Stack tags, badges, skills
 ### Resume
 
 **Resume**:
-Daniel's CV as typed content, one per Language, rendered twice: as the Resume page at `/resume` and as the Resume PDF. Dates, employers, links and skill levels are the same in every Language; the prose is written anew in each.
-_Avoid_: CV, résumé, curriculum
+The page that presents Daniel's work history, skills, courses and awards, published in every Language, and the PDF generated from the same content. Its facts (employers, dates, tech, links) are the same in every Language; its words are Resume Copy.
+_Avoid_: CV, resume PDF, resume file
+
+**Resume Copy**:
+The half of the Resume written anew in each Language: the headline and summary, each role's title and highlights, award titles and skill group names. Keyed off the invariant ids of the facts, so every Language must translate every entry.
+_Avoid_: Resume translation, resume strings
 
 **Resume PDF**:
-The printable Resume at `/resume/pdf`, drawn by its own light-themed document rather than printed from the page, and written by `next build` itself. The old `/Resume_DanielHrynusiw.pdf` URL redirects to it.
-_Avoid_: Resume download, PDF export
+The printable Resume at `/resume/pdf` in each Language, drawn by its own light document from the same content rather than printed from the page, and written by `next build` itself. The old `/Resume_DanielHrynusiw.pdf` URL redirects to it.
+_Avoid_: Resume download, PDF export, resume file
+
+**Career timeline**:
+The figure under the Resume hero that lays every role on one time axis, one lane per Track, computed from the roles' dates.
+_Avoid_: Gantt, career chart, history bar
+
+**Track**:
+The lane a role belongs to on the Career timeline: software, freelance or manufacturing.
+_Avoid_: Category, career, lane
 
 ### Languages
 

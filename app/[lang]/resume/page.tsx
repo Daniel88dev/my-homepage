@@ -1,18 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { languagePath, toLanguage } from "@/lib/language";
 import { pageAlternates } from "@/content/pages";
-import { getDictionary } from "@/content/dictionary";
-import {
-  RESUME_PATH,
-  RESUME_PDF_PATH,
-  getResume,
-  resumePdfFilename,
-} from "@/content/resume";
-import { HeaderShell } from "@/components/nav/HeaderShell";
-import { HeaderActions } from "@/components/nav/HeaderActions";
-import { Footer } from "@/components/nav/Footer";
-import { ResumeDocument } from "@/components/resume/ResumeDocument";
+import { getResume, RESUME_PATH } from "@/content/resume";
+import { ResumePage } from "@/components/resume/ResumePage";
 
 interface Props {
   params: Promise<{ lang: string }>;
@@ -23,68 +13,32 @@ export const generateMetadata = async ({
 }: Props): Promise<Metadata> => {
   const { lang } = await params;
   const language = toLanguage(lang);
-  const resume = getResume(language);
-  const { chrome, resume: labels } = getDictionary(language);
-
-  const title = `${resume.name} | ${chrome.resume}`;
-  const url = languagePath(language, RESUME_PATH);
+  const { title, description } = getResume(language).copy.meta;
 
   return {
     title,
-    description: labels.metaDescription,
+    description,
     alternates: {
-      canonical: url,
+      canonical: languagePath(language, RESUME_PATH),
       languages: pageAlternates(RESUME_PATH),
     },
     openGraph: {
       type: "profile",
       siteName: "Daniel Hrynusiw",
-      url,
+      url: languagePath(language, RESUME_PATH),
       title,
-      description: labels.metaDescription,
+      description,
     },
     twitter: {
       card: "summary",
       title,
-      description: labels.metaDescription,
+      description,
     },
     icons: { icon: "/favicon.ico" },
   };
 };
 
-export default async function ResumePage({ params }: Props) {
+export default async function Page({ params }: Props) {
   const { lang } = await params;
-  const language = toLanguage(lang);
-  const resume = getResume(language);
-  const dict = getDictionary(language);
-
-  return (
-    <>
-      <a href="#main" className="skip-link">
-        {dict.chrome.skipToContent}
-      </a>
-      <HeaderShell
-        left={
-          <Link
-            href={languagePath(language, "/")}
-            aria-label={dict.chrome.homeLink}
-            className="flex h-[45px] w-[45px] shrink-0 items-center justify-center rounded-[4px] bg-background text-md font-bold leading-none tracking-[-0.04em] transition-colors duration-200 hover:bg-background-light"
-          >
-            DH<span className="text-brand">.</span>
-          </Link>
-        }
-        right={<HeaderActions lang={language} path={RESUME_PATH} dict={dict} />}
-      />
-      <main id="main" className="relative z-[var(--z-base)]">
-        <ResumeDocument
-          lang={language}
-          resume={resume}
-          labels={dict.resume}
-          pdfHref={languagePath(language, RESUME_PDF_PATH)}
-          pdfFilename={resumePdfFilename(language)}
-        />
-      </main>
-      <Footer dict={dict.footer} />
-    </>
-  );
+  return <ResumePage lang={toLanguage(lang)} />;
 }

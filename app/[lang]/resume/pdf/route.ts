@@ -1,5 +1,6 @@
 import { LANGUAGES, toLanguage } from "@/lib/language";
 import { resumePdfFilename } from "@/content/resume";
+import { currentMonth } from "@/content/resume/timeline";
 import { renderResumePdf } from "@/components/resume-pdf/render";
 
 export const dynamic = "force-static";
@@ -13,11 +14,7 @@ export async function GET(
   { params }: { params: Promise<{ lang: string }> }
 ) {
   const language = toLanguage((await params).lang);
-  const now = new Date();
-  const pdf = await renderResumePdf(language, {
-    year: now.getUTCFullYear(),
-    month: now.getUTCMonth() + 1,
-  });
+  const pdf = await renderResumePdf(language, currentMonth());
 
   return new Response(new Uint8Array(pdf), {
     headers: {
