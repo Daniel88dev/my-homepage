@@ -1,3 +1,4 @@
+import { PUBLIC_SITE_URL } from "@/lib/site";
 import type { ResumeFacts } from "./types";
 
 export const RESUME_PATH = "/resume";
@@ -10,7 +11,7 @@ export const RESUME_FACTS: ResumeFacts = {
   city: "Brno",
   portrait: { src: "/resume/portrait.webp", width: 400, height: 400 },
   links: [
-    { id: "site", url: "https://my-homepage-one.vercel.app" },
+    { id: "site", url: PUBLIC_SITE_URL },
     { id: "linkedIn", url: "https://www.linkedin.com/in/daniel-hrynusiw" },
     { id: "gitHub", url: "https://github.com/Daniel88dev" },
   ],
