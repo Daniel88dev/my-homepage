@@ -142,6 +142,40 @@ export const CS_DICTIONARY: Dictionary = {
     siteSource: "Zdrojový kód webu",
   },
 
+  resume: {
+    home: "Domů",
+    backToHome: "Zpět na úvodní stránku",
+    download: "Stáhnout PDF",
+    print: "Tisk",
+    emailMe: "Napište mi",
+    present: "Současnost",
+    now: "teď",
+    duration: (years: number, months: number) =>
+      [years > 0 && `${years} r`, months > 0 && `${months} měs`]
+        .filter(Boolean)
+        .join(" "),
+    timelineTitle: "Dvě kariéry, jedna časová osa",
+    timelineLede: (yearsWorked: number, yearsInSoftware: number) =>
+      `${yearsWorked} let práce, z toho posledních ${yearsInSoftware} v softwaru.`,
+    tracks: {
+      software: "Software",
+      freelance: "Vedlejší projekty",
+      manufacturing: "Výroba",
+    },
+    experience: "Praxe",
+    experienceLede:
+      "Od nejnovější. Dvě z pozic se překrývají, protože druhá kariéra začala po večerech a o víkendech.",
+    skills: "Dovednosti",
+    spokenLanguages: "Jazyky",
+    learning: "Vzdělání a kurzy",
+    courses: "Kurzy",
+    education: "Vzdělání",
+    awards: "Ocenění",
+    contactTitle: "Pojďme se spojit",
+    contactLede:
+      "Nejrychleji mě zastihnete e-mailem. PDF má stejný obsah jako tato stránka.",
+  },
+
   caseStudy: {
     eyebrow: "Případová studie",
     onThisPage: "Na této stránce",
@@ -153,3 +187,4 @@ export const CS_DICTIONARY: Dictionary = {
     closeEnlargedScreenshot: "Zavřít zvětšený snímek obrazovky",
   },
 };
+

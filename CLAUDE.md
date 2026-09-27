@@ -72,6 +72,32 @@ scroll. Nothing anchored at `top: 0` reaches that strip, and
 `env(safe-area-inset-top)` is `0px` there in portrait even with
 `viewport-fit=cover`, so the usual safe-area recipe does nothing. See issue #43.
 
+**The resume page prints from the same markup, and print CSS has to undo Motion.**
+`styles/resume.css` re-themes the tokens to paper under `@media print`, and it
+forces `opacity` and `transform` back on every `[data-rise]` element. Motion
+writes those as inline styles on anything that reveals on scroll, so without
+that override a printed or PDF-rendered page is blank below the fold. Anything
+animated on the resume page carries `data-rise`; anything that must not print
+carries `data-print-hide`. That is what the browser's own Print and Save as
+PDF use. A build-time PDF with its own renderer still reads `content/resume`
+rather than the page, so the two never disagree on content.
+
+**The Resume PDF is a route handler, not a file in `public/`.**
+`app/[lang]/resume/pdf/route.ts` is `force-static`, so `next build` renders it
+with `@react-pdf/renderer` once per Language. It lives at `/resume/pdf` rather
+than `/resume.pdf` because the proxy matcher skips any path with a dot, so the
+English URL would never be rewritten. react-pdf cannot read the CSS tokens or
+WOFF2, so the print palette is `components/resume-pdf/print-theme.ts` and the
+fonts are Geist TTFs read from `node_modules/geist`. CI never builds, so
+`components/resume-pdf/render.test.ts` renders every Language instead.
+
+**Resume content is two halves, like a Project.** `content/resume/resume.ts`
+holds the facts that are the same in every Language (employers, dates, tech,
+links) keyed by invariant ids, and `content/resume/copy/` holds one Resume Copy
+per Language typed against those ids, so a role without a translation is a
+compile error. Durations and the timeline are computed from the dates at build
+time; nothing in the copy states a number of years.
+
 **`eslint-config-next` is left out on purpose.** It pins eslint-plugin-react,
 eslint-plugin-import and eslint-plugin-jsx-a11y, none of which run on ESLint 10,
 so the flat config is composed by hand from `@next/eslint-plugin-next`,

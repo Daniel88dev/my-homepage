@@ -1,0 +1,58 @@
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm 14mm;
+  }
+
+  :root {
+    --background: #ffffff;
+    --bg-opaque: #ffffff;
+    --background-light: #eef3f0;
+    --background-dark: #e3eae6;
+    --border: rgb(20 26 23 / 0.16);
+
+    --text: #141a17;
+    --text-muted: #4b5751;
+    --brand: #0b7a52;
+    --brand-soft: rgb(11 122 82 / 0.1);
+
+    --shadow-lg: none;
+
+    font-size: 50%;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body::before,
+  body::after {
+    display: none;
+  }
+
+  body:has(.resume-page) header,
+  body:has(.resume-page) footer,
+  body:has(.resume-page) .skip-link {
+    display: none;
+  }
+
+  .resume-page [data-rise] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .resume-page [data-print-hide] {
+    display: none !important;
+  }
+
+  .resume-page [data-print-keep] {
+    break-inside: avoid;
+  }
+
+  .resume-page h2,
+  .resume-page h3 {
+    break-after: avoid;
+  }
+}
