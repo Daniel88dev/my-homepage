@@ -8,6 +8,7 @@ import { getCaseStudySlugs } from "./projects";
 import { getProjectCopy } from "./projects/copy";
 import { loadCaseStudyContent } from "./projects/case-studies";
 import { RESUME_PATH } from "./resume/resume";
+import { BLOG_PATH, POSTS, postPath } from "./blog/posts";
 
 export const publishedPaths = (lang: Language): string[] => [
   "/",
@@ -19,6 +20,8 @@ export const publishedPaths = (lang: Language): string[] => [
         loadCaseStudyContent(lang, slug) !== undefined
     )
     .map((slug) => `/projects/${slug}`),
+  BLOG_PATH,
+  ...POSTS.map((post) => postPath(post.slug)),
 ];
 
 export interface PublishedPage {
