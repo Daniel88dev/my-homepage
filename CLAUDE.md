@@ -78,8 +78,9 @@ forces `opacity` and `transform` back on every `[data-rise]` element. Motion
 writes those as inline styles on anything that reveals on scroll, so without
 that override a printed or PDF-rendered page is blank below the fold. Anything
 animated on the resume page carries `data-rise`; anything that must not print
-carries `data-print-hide`. The build-time PDF should render the route with
-print media emulated rather than with its own stylesheet.
+carries `data-print-hide`. That is what the browser's own Print and Save as
+PDF use. A build-time PDF with its own renderer still reads `content/resume`
+rather than the page, so the two never disagree on content.
 
 **Resume content is two halves, like a Project.** `content/resume/resume.ts`
 holds the facts that are the same in every Language (employers, dates, tech,
