@@ -26,24 +26,24 @@ const cellsById: Record<
 > = {
   backend: {
     Icon: PiHardDrives,
-    span: "md:col-span-4 print:col-span-4",
+    span: "md:col-span-4 lg:col-span-1 print:col-span-4",
     surface:
       "bg-brand-soft bg-[radial-gradient(color-mix(in_srgb,var(--brand)_28%,transparent)_1px,transparent_1px)] bg-[length:14px_14px]",
   },
   frontend: {
     Icon: PiBrowsers,
-    span: "md:col-span-2 print:col-span-2",
+    span: "md:col-span-2 lg:col-span-1 print:col-span-2",
     surface: "bg-background-light",
   },
   cloud: {
     Icon: PiCloud,
-    span: "md:col-span-2 print:col-span-2",
+    span: "md:col-span-2 lg:col-span-1 print:col-span-2",
     surface:
       "bg-[linear-gradient(160deg,var(--background-light),var(--background-dark))]",
   },
   engineering: {
     Icon: PiFactory,
-    span: "md:col-span-2 print:col-span-2",
+    span: "md:col-span-2 lg:col-span-1 print:col-span-2",
     surface: "bg-background",
   },
 };
@@ -59,12 +59,12 @@ export const ResumeSkills = ({ resume, labels }: Props) => {
   const { facts, copy } = resume;
 
   return (
-    <section
+    <aside
       aria-labelledby="resume-skills"
-      className="mx-auto max-w-[1150px] px-[9.6rem] pb-[8.8rem] max-md:px-[2.4rem] max-md:pb-[6.4rem] print:px-0 print:pb-[2.4rem]"
+      className="pb-[8.8rem] max-md:pb-[6.4rem] lg:pt-[8.8rem] print:pt-0 print:pb-[2.4rem]"
     >
       <ResumeHeading id="resume-skills" title={labels.skills} />
-      <div className="mt-[4rem] grid gap-[1.6rem] max-md:mt-[3.2rem] md:grid-cols-6 print:mt-[2rem] print:grid-cols-6 print:gap-[1.2rem]">
+      <div className="mt-[4rem] grid gap-[1.6rem] max-md:mt-[3.2rem] md:grid-cols-6 lg:grid-cols-1 print:mt-[2rem] print:grid-cols-6 print:gap-[1.2rem]">
         {facts.skillGroups.map((group, i) => {
           const { Icon, span, surface } = cellsById[group.id];
           return (
@@ -82,7 +82,10 @@ export const ResumeSkills = ({ resume, labels }: Props) => {
             </Rise>
           );
         })}
-        <Rise delay={0.32} className="md:col-span-2 print:col-span-2">
+        <Rise
+          delay={0.32}
+          className="md:col-span-2 lg:col-span-1 print:col-span-2"
+        >
           <div className={`${cell} bg-brand-soft`}>
             <CellHeading Icon={PiTranslate} title={labels.spokenLanguages} />
             <ul className="flex flex-col gap-[1.2rem]">
@@ -103,6 +106,6 @@ export const ResumeSkills = ({ resume, labels }: Props) => {
           </div>
         </Rise>
       </div>
-    </section>
+    </aside>
   );
 };

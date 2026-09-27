@@ -80,16 +80,14 @@ export const ResumeExperience = ({ lang, resume, labels, now }: Props) => {
   return (
     <section
       aria-labelledby="resume-experience"
-      className="mx-auto grid max-w-[1150px] gap-x-[6.4rem] gap-y-[4rem] px-[9.6rem] py-[8.8rem] max-md:px-[2.4rem] max-md:py-[6.4rem] lg:grid-cols-[18rem_minmax(0,1fr)] print:block print:px-0 print:py-[2.4rem]"
+      className="py-[8.8rem] max-md:py-[6.4rem] print:py-[2.4rem]"
     >
-      <div className="relative">
-        <div className="lg:sticky lg:top-[calc(45px_+_3.6rem_+_4rem)] print:static print:mb-[2rem]">
-          <ResumeHeading
-            id="resume-experience"
-            title={labels.experience}
-            lede={labels.experienceLede}
-          />
-        </div>
+      <div className="mb-[4rem] max-md:mb-[3.2rem] print:mb-[2rem]">
+        <ResumeHeading
+          id="resume-experience"
+          title={labels.experience}
+          lede={labels.experienceLede}
+        />
       </div>
       <ExperienceRail>
         <ol className="list-none">

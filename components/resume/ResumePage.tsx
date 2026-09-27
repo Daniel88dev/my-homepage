@@ -22,9 +22,18 @@ export const ResumePage = ({ lang }: { lang: Language }) => {
     <ResumeLayout lang={lang} dict={dict} pdfHref={pdfHref}>
       <ResumeHero resume={resume} labels={labels} pdfHref={pdfHref} />
       <CareerBand resume={resume} labels={labels} now={now} />
-      <ResumeExperience lang={lang} resume={resume} labels={labels} now={now} />
-      <ResumeSkills resume={resume} labels={labels} />
-      <ResumeLearning resume={resume} labels={labels} />
+      <div className="mx-auto max-w-[1150px] px-[9.6rem] max-md:px-[2.4rem] lg:grid lg:grid-cols-[minmax(0,1fr)_30rem] lg:gap-x-[6.4rem] print:block print:px-0">
+        <div className="min-w-0">
+          <ResumeExperience
+            lang={lang}
+            resume={resume}
+            labels={labels}
+            now={now}
+          />
+          <ResumeLearning resume={resume} labels={labels} />
+        </div>
+        <ResumeSkills resume={resume} labels={labels} />
+      </div>
       <ResumeContact resume={resume} labels={labels} />
     </ResumeLayout>
   );

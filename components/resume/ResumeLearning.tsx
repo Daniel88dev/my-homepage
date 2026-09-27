@@ -19,10 +19,10 @@ export const ResumeLearning = ({ resume, labels }: Props) => {
   return (
     <section
       aria-labelledby="resume-learning"
-      className="mx-auto max-w-[1150px] px-[9.6rem] pb-[8.8rem] max-md:px-[2.4rem] max-md:pb-[6.4rem] print:px-0 print:pb-[2.4rem]"
+      className="pb-[8.8rem] max-md:pb-[6.4rem] print:pb-[2.4rem]"
     >
       <ResumeHeading id="resume-learning" title={labels.learning} />
-      <div className="mt-[4rem] grid gap-x-[6.4rem] gap-y-[4.8rem] max-md:mt-[3.2rem] md:grid-cols-[3fr_2fr] print:mt-[2rem] print:grid-cols-[3fr_2fr] print:gap-x-[3.2rem]">
+      <div className="mt-[4rem] grid gap-x-[6.4rem] gap-y-[4.8rem] max-md:mt-[3.2rem] md:grid-cols-[3fr_2fr] lg:grid-cols-[1fr_1fr] print:mt-[2rem] print:grid-cols-[3fr_2fr] print:gap-x-[3.2rem]">
         <Rise>
           <h3 className={groupTitle}>
             <PiCertificate size="2rem" className="text-brand" aria-hidden />
