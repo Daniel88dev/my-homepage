@@ -11,6 +11,7 @@ export const CS_DICTIONARY: Dictionary = {
   chrome: {
     skipToContent: "Přeskočit na obsah",
     resume: "Životopis",
+    blog: "Blog",
     homeLink: "Daniel Hrynusiw, zpět na úvodní stránku",
     backToTop: "Zpět nahoru",
     sections: "Sekce",
@@ -185,6 +186,23 @@ export const CS_DICTIONARY: Dictionary = {
     sourceOnGitHub: "Zdrojový kód na GitHubu",
     enlargeScreenshot: "Zvětšit snímek obrazovky",
     closeEnlargedScreenshot: "Zavřít zvětšený snímek obrazovky",
+  },
+
+  blog: {
+    meta: {
+      title: "Daniel Hrynusiw | Blog",
+      description:
+        "Poznámky ze stavění a provozu softwaru: proč jsem postavil to, co jsem postavil, a co mě to naučilo.",
+    },
+    eyebrow: "Blog",
+    home: "Domů",
+    backToHome: "Zpět na úvodní stránku",
+    title: "Články",
+    lede: "Poznámky ze stavění a provozu softwaru: proč jsem postavil to, co jsem postavil, a co mě to naučilo.",
+    posts: "Články",
+    allPosts: "Všechny články",
+    backToAllPosts: "Zpět na všechny články",
+    publishedOn: "Publikováno",
   },
 };
 

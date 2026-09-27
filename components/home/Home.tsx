@@ -1,5 +1,6 @@
 import React from "react";
-import type { Language } from "@/lib/language";
+import { languagePath, type Language } from "@/lib/language";
+import { BLOG_PATH } from "@/content/blog/posts";
 import { getDictionary } from "@/content/dictionary";
 import { SideBar } from "../nav/SideBar";
 import { Hero } from "./hero/Hero";
@@ -27,6 +28,7 @@ export const Home = ({ lang }: Props) => {
           labels={dict.sidebar}
           navLabel={dict.chrome.sections}
           backToTop={dict.chrome.backToTop}
+          blog={{ href: languagePath(lang, BLOG_PATH), label: dict.chrome.blog }}
         />
         <div className="min-w-0">
           <Heading lang={lang} dict={dict} />

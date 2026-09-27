@@ -12,7 +12,13 @@ interface Props {
 export const Heading = ({ lang, dict }: Props) => {
   return (
     <HeaderShell
-      left={<MyLinks />}
+      left={
+        <div>
+          <div className="max-sm:hidden">
+            <MyLinks />
+          </div>
+        </div>
+      }
       right={<HeaderActions lang={lang} path="/" dict={dict} />}
     />
   );

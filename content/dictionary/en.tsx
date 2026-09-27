@@ -10,6 +10,7 @@ export const EN_DICTIONARY = {
   chrome: {
     skipToContent: "Skip to content",
     resume: "Resume",
+    blog: "Blog",
 
     homeLink: "Daniel Hrynusiw, back to the homepage",
     backToTop: "Back to top",
@@ -197,6 +198,23 @@ export const EN_DICTIONARY = {
 
     enlargeScreenshot: "Enlarge screenshot",
     closeEnlargedScreenshot: "Close enlarged screenshot",
+  },
+
+  blog: {
+    meta: {
+      title: "Daniel Hrynusiw | Blog",
+      description:
+        "Notes from building and running software: why I built what I built, and what it taught me.",
+    },
+    eyebrow: "Blog",
+    home: "Home",
+    backToHome: "Back to the homepage",
+    title: "Writing",
+    lede: "Notes from building and running software: why I built what I built, and what it taught me.",
+    posts: "Posts",
+    allPosts: "All posts",
+    backToAllPosts: "Back to all posts",
+    publishedOn: "Published",
   },
 };
 

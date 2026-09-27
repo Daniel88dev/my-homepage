@@ -1,6 +1,6 @@
 # Portfolio
 
-Daniel Hrynusiw's personal homepage: a single-page portfolio that presents projects, experience and contact details, plus long-form pages for selected projects.
+Daniel Hrynusiw's personal homepage: a single-page portfolio that presents projects, experience and contact details, plus long-form pages for selected projects and a Blog.
 
 ## Language
 
@@ -68,6 +68,24 @@ _Avoid_: Gantt, career chart, history bar
 The lane a role belongs to on the Career timeline: software, freelance or manufacturing.
 _Avoid_: Category, career, lane
 
+### Blog
+
+**Blog**:
+The dated writing on the site: an index at `/blog` listing every Post newest first, reached from the header on every page, and one page per Post beneath it.
+_Avoid_: Articles, news, journal
+
+**Post**:
+One dated piece of writing on the Blog. Its slug, its publication date and its Open Graph image are the same in every Language; its words are Post Copy and its Post content module. Every Post is published in every Language.
+_Avoid_: Article, blog post, entry
+
+**Post Copy**:
+The title and description of one Post in one Language, shown on the Blog index and in the Post's metadata. Keyed off the invariant slugs, so a Post without Post Copy in some Language is a compile error.
+_Avoid_: Post translation, post strings
+
+**Post content module**:
+The body of one Post in one Language: a component that renders plain prose elements inside the shared Post prose styles. One exists per Language, whole, in the same way as a Case Study content module.
+_Avoid_: Post body, post file, markdown
+
 ### Languages
 
 **Language**:
@@ -83,7 +101,7 @@ The control in the header that switches the Language being read. It shows which 
 _Avoid_: Language switcher, locale toggle, language selector
 
 **Dictionary**:
-The interface text of one Language: navigation, section headings, button labels, the homepage's own prose, and the accessible names that are never shown. A Project's own words are Project Copy, and a Case Study's are its content module, so neither is here.
+The interface text of one Language: navigation, section headings, button labels, the homepage's own prose, and the accessible names that are never shown. A Project's own words are Project Copy, a Case Study's are its content module, and a Post's are its Post Copy and Post content module, so none of them is here.
 _Avoid_: Translations, strings, messages, i18n file
 
 **Project Copy**:
