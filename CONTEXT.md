@@ -46,6 +46,24 @@ _Avoid_: Demo link, project link, preview
 The technologies shown for a Project, joined into one line on the Project Card and grouped by Related Repository in a Case Study.
 _Avoid_: Stack tags, badges, skills
 
+### Resume
+
+**Resume**:
+The page that presents Daniel's work history, skills, courses and awards, published in every Language, and the PDF generated from the same content. Its facts (employers, dates, tech, links) are the same in every Language; its words are Resume Copy.
+_Avoid_: CV, resume PDF, resume file
+
+**Resume Copy**:
+The half of the Resume written anew in each Language: the headline and summary, each role's title and highlights, award titles and skill group names. Keyed off the invariant ids of the facts, so every Language must translate every entry.
+_Avoid_: Resume translation, resume strings
+
+**Career timeline**:
+The figure under the Resume hero that lays every role on one time axis, one lane per Track, computed from the roles' dates.
+_Avoid_: Gantt, career chart, history bar
+
+**Track**:
+The lane a role belongs to on the Career timeline: software, freelance or manufacturing.
+_Avoid_: Category, career, lane
+
 ### Languages
 
 **Language**:

@@ -10,6 +10,8 @@ describe("sitemap", () => {
     expect(sitemap().map((entry) => entry.url)).toEqual([
       `${SITE}`,
       `${SITE}/cs`,
+      `${SITE}/resume`,
+      `${SITE}/cs/resume`,
       `${SITE}/projects/flexi-day`,
       `${SITE}/cs/projects/flexi-day`,
     ]);
@@ -22,7 +24,19 @@ describe("sitemap", () => {
       { en: `${SITE}`, cs: `${SITE}/cs`, "x-default": `${SITE}` },
       { en: `${SITE}`, cs: `${SITE}/cs`, "x-default": `${SITE}` },
     ]);
-    expect(alternates.slice(2)).toEqual([
+    expect(alternates.slice(2, 4)).toEqual([
+      {
+        en: `${SITE}/resume`,
+        cs: `${SITE}/cs/resume`,
+        "x-default": `${SITE}/resume`,
+      },
+      {
+        en: `${SITE}/resume`,
+        cs: `${SITE}/cs/resume`,
+        "x-default": `${SITE}/resume`,
+      },
+    ]);
+    expect(alternates.slice(4)).toEqual([
       {
         en: `${SITE}/projects/flexi-day`,
         cs: `${SITE}/cs/projects/flexi-day`,

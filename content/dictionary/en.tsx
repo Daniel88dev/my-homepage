@@ -151,6 +151,40 @@ export const EN_DICTIONARY = {
     siteSource: "Site source",
   },
 
+  resume: {
+    home: "Home",
+    backToHome: "Back to the homepage",
+    download: "Download PDF",
+    print: "Print",
+    emailMe: "Email me",
+    present: "Present",
+    now: "now",
+    duration: (years: number, months: number) =>
+      [years > 0 && `${years} yr`, months > 0 && `${months} mo`]
+        .filter(Boolean)
+        .join(" "),
+    timelineTitle: "Two careers, one timeline",
+    timelineLede: (yearsWorked: number, yearsInSoftware: number) =>
+      `${yearsWorked} years of work, the last ${yearsInSoftware} of them in software.`,
+    tracks: {
+      software: "Software",
+      freelance: "Side projects",
+      manufacturing: "Manufacturing",
+    },
+    experience: "Experience",
+    experienceLede:
+      "Newest first. Two of the roles overlap, because the second career started as evenings and weekends.",
+    skills: "Skills",
+    spokenLanguages: "Languages",
+    learning: "Education and courses",
+    courses: "Courses",
+    education: "Education",
+    awards: "Awards",
+    contactTitle: "Let's talk",
+    contactLede:
+      "Email is the fastest way to reach me. The PDF carries the same content as this page.",
+  },
+
   caseStudy: {
     eyebrow: "Case study",
 

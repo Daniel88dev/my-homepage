@@ -7,9 +7,11 @@ import {
 import { getCaseStudySlugs } from "./projects";
 import { getProjectCopy } from "./projects/copy";
 import { loadCaseStudyContent } from "./projects/case-studies";
+import { RESUME_PATH } from "./resume/resume";
 
 export const publishedPaths = (lang: Language): string[] => [
   "/",
+  RESUME_PATH,
   ...getCaseStudySlugs()
     .filter(
       (slug) =>
