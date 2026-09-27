@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
+import { PiArticle } from "react-icons/pi";
 
 interface Props {
   labels: {
@@ -14,13 +16,18 @@ interface Props {
   navLabel: string;
 
   backToTop: string;
+
+  blog: {
+    href: string;
+    label: string;
+  };
 }
 
 const linkBase =
   "flex h-[100px] w-full shrink-0 items-center justify-center border-r border-transparent font-mono text-2xs uppercase text-text-muted transition-[color,border-color,background-color] duration-200 [writing-mode:vertical-lr] hover:border-brand hover:bg-background hover:text-text focus-visible:outline-offset-[-4px]";
 const linkSelected = "border-brand bg-background text-text";
 
-export const SideBar = ({ labels, navLabel, backToTop }: Props) => {
+export const SideBar = ({ labels, navLabel, backToTop, blog }: Props) => {
   const links = [
     { id: "about", label: labels.about },
     { id: "projects", label: labels.projects },
@@ -77,6 +84,24 @@ export const SideBar = ({ labels, navLabel, backToTop }: Props) => {
           {link.label}
         </motion.a>
       ))}
+      <motion.div
+        initial={{ x: -70 }}
+        animate={{ x: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 * (links.length + 1) }}
+        className="mt-auto w-full shrink-0 border-t border-border"
+      >
+        <Link
+          href={blog.href}
+          className="group flex w-full flex-col items-center gap-[1.2rem] py-[2.4rem] font-mono text-2xs uppercase text-brand transition-colors duration-200 hover:bg-background hover:text-text focus-visible:outline-offset-[-4px]"
+        >
+          <PiArticle
+            aria-hidden
+            size="2rem"
+            className="transition-transform duration-200 group-hover:-translate-y-px"
+          />
+          <span className="[writing-mode:vertical-lr]">{blog.label}</span>
+        </Link>
+      </motion.div>
     </motion.nav>
   );
 };
