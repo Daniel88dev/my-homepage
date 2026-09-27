@@ -23,7 +23,7 @@ interface Props {
 }
 
 export const BlogLayout = ({ lang, dict, path, back, children }: Props) => (
-  <>
+  <div className="flex min-h-dvh flex-col">
     <a href="#main" className="skip-link">
       {dict.chrome.skipToContent}
     </a>
@@ -59,11 +59,11 @@ export const BlogLayout = ({ lang, dict, path, back, children }: Props) => (
         </div>
       }
     />
-    <main id="main" className="relative z-[var(--z-base)]">
+    <main id="main" className="relative z-[var(--z-base)] flex-1">
       <div className="mx-auto max-w-[1150px] px-[9.6rem] pb-[9.6rem] pt-[8rem] max-md:px-[2.4rem] max-md:pb-[6.4rem] max-md:pt-[4.8rem]">
         {children}
       </div>
     </main>
     <Footer dict={dict.footer} />
-  </>
+  </div>
 );
