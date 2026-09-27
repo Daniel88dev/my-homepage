@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import { languagePath, toLanguage, type Language } from "@/lib/language";
+import { languagePath, toLanguage } from "@/lib/language";
 import { pageAlternates } from "@/content/pages";
 import { getDictionary } from "@/content/dictionary";
-import { RESUME_PATH, RESUME_PDF_PATH, getResume } from "@/content/resume";
+import {
+  RESUME_PATH,
+  RESUME_PDF_PATH,
+  getResume,
+  resumePdfFilename,
+} from "@/content/resume";
 import { HeaderShell } from "@/components/nav/HeaderShell";
 import { HeaderActions } from "@/components/nav/HeaderActions";
 import { Footer } from "@/components/nav/Footer";
@@ -14,18 +18,12 @@ interface Props {
   params: Promise<{ lang: string }>;
 }
 
-const resolveResume = (lang: Language) => {
-  const resume = getResume(lang);
-  if (!resume) notFound();
-  return resume;
-};
-
 export const generateMetadata = async ({
   params,
 }: Props): Promise<Metadata> => {
   const { lang } = await params;
   const language = toLanguage(lang);
-  const resume = resolveResume(language);
+  const resume = getResume(language);
   const { chrome, resume: labels } = getDictionary(language);
 
   const title = `${resume.name} | ${chrome.resume}`;
@@ -57,7 +55,7 @@ export const generateMetadata = async ({
 export default async function ResumePage({ params }: Props) {
   const { lang } = await params;
   const language = toLanguage(lang);
-  const resume = resolveResume(language);
+  const resume = getResume(language);
   const dict = getDictionary(language);
 
   return (
@@ -82,7 +80,8 @@ export default async function ResumePage({ params }: Props) {
           lang={language}
           resume={resume}
           labels={dict.resume}
-          pdfHref={RESUME_PDF_PATH}
+          pdfHref={languagePath(language, RESUME_PDF_PATH)}
+          pdfFilename={resumePdfFilename(language)}
         />
       </main>
       <Footer dict={dict.footer} />

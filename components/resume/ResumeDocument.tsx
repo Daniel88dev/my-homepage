@@ -14,6 +14,7 @@ interface Props {
   resume: Resume;
   labels: Dictionary["resume"];
   pdfHref: string;
+  pdfFilename: string;
 }
 
 const Section = ({
@@ -59,7 +60,13 @@ const SkillList = ({
   </ul>
 );
 
-export const ResumeDocument = ({ lang, resume, labels, pdfHref }: Props) => (
+export const ResumeDocument = ({
+  lang,
+  resume,
+  labels,
+  pdfHref,
+  pdfFilename,
+}: Props) => (
   <article className="mx-auto max-w-[1150px] px-[9.6rem] py-[6.4rem] max-md:px-[2.4rem]">
     <header className="mb-[4.8rem] flex flex-wrap items-end justify-between gap-[2.4rem]">
       <div>
@@ -77,7 +84,7 @@ export const ResumeDocument = ({ lang, resume, labels, pdfHref }: Props) => (
       </div>
       <a
         href={pdfHref}
-        download
+        download={pdfFilename}
         className="inline-flex items-center rounded-[4px] border border-brand px-[2rem] py-[1rem] text-xs font-medium text-brand transition-colors duration-200 hover:bg-brand hover:text-background-dark"
       >
         {labels.downloadPdf}

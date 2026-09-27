@@ -1,54 +1,71 @@
 import { describe, expect, it } from "vitest";
-import { existsSync } from "node:fs";
-import { join } from "node:path";
 import { LANGUAGES } from "@/lib/language";
 import { publishedPaths } from "@/content/pages";
-import {
-  RESUME_PATH,
-  RESUME_PDF_PATH,
-  RESUMES_AWAITING_TRANSLATION,
-  getResume,
-} from "./index";
+import { RESUME_PATH, RESUMES, getResume } from "./index";
 import { formatPeriod, formatResumeDate, resumeDateTime } from "./format";
+import type { Resume } from "./types";
+
+const toMonths = (year: number, month: number | undefined, fallback: number) =>
+  year * 12 + (month ?? fallback);
+
+const invariants = (resume: Resume) => ({
+  links: resume.links.map((link) => link.url),
+  employment: resume.employment.map(({ employer, period }) => ({ employer, period })),
+  education: resume.education.map(({ period }) => period),
+  awards: resume.awards.map(({ issuer, date }) => ({ issuer, date })),
+  courses: resume.courses.map(({ provider, date }) => ({ provider, date })),
+  skillLevels: resume.skills.map(({ level }) => level),
+  languageLevels: resume.languages.map(({ level }) => level),
+});
 
 describe("resume content", () => {
-  it("has a Resume for every Language not awaiting translation", () => {
+  it("publishes the resume route in every Language", () => {
     for (const lang of LANGUAGES) {
-      expect(getResume(lang) !== undefined, lang).toBe(
-        !RESUMES_AWAITING_TRANSLATION.includes(lang)
-      );
+      expect(publishedPaths(lang), lang).toContain(RESUME_PATH);
     }
   });
 
-  it("publishes the resume route exactly where a Resume exists", () => {
+  it("lists employment newest first, with every closed period ending after it starts", () => {
     for (const lang of LANGUAGES) {
-      expect(publishedPaths(lang).includes(RESUME_PATH), lang).toBe(
-        getResume(lang) !== undefined
-      );
-    }
-  });
-
-  it("serves the downloadable PDF from /public", () => {
-    expect(existsSync(join(__dirname, "..", "..", "public", RESUME_PDF_PATH))).toBe(true);
-  });
-
-  it("lists employment newest first, with only the ongoing roles open-ended", () => {
-    const employment = getResume("en")!.employment;
-    const starts = employment.map(({ period: { start } }) => start.year * 12 + (start.month ?? 1));
-    expect(starts).toEqual([...starts].sort((a, b) => b - a));
-    for (const { period } of employment) {
-      if (!period.end) continue;
-      expect(period.end.year * 12 + (period.end.month ?? 12)).toBeGreaterThanOrEqual(
-        period.start.year * 12 + (period.start.month ?? 1)
-      );
+      const employment = getResume(lang).employment;
+      const starts = employment.map(({ period: { start } }) => toMonths(start.year, start.month, 1));
+      expect(starts, lang).toEqual([...starts].sort((a, b) => b - a));
+      for (const { period } of employment) {
+        if (!period.end) continue;
+        expect(toMonths(period.end.year, period.end.month, 12)).toBeGreaterThanOrEqual(
+          toMonths(period.start.year, period.start.month, 1)
+        );
+      }
     }
   });
 
   it("uses absolute https links and unique skill names", () => {
-    const resume = getResume("en")!;
-    for (const { url } of resume.links) expect(url).toMatch(/^https:\/\//);
-    const names = [...resume.skills, ...resume.languages].map((s) => s.name);
-    expect(new Set(names).size).toBe(names.length);
+    for (const lang of LANGUAGES) {
+      const resume = getResume(lang);
+      for (const { url } of resume.links) expect(url).toMatch(/^https:\/\//);
+      const names = [...resume.skills, ...resume.languages].map((s) => s.name);
+      expect(new Set(names).size, lang).toBe(names.length);
+    }
+  });
+
+  it("keeps dates, employers, links and levels identical across Languages", () => {
+    for (const lang of LANGUAGES) {
+      expect(invariants(RESUMES[lang]), lang).toEqual(invariants(RESUMES.en));
+    }
+  });
+
+  it("translates the prose rather than copying the English", () => {
+    for (const lang of LANGUAGES) {
+      if (lang === "en") continue;
+      const resume = getResume(lang);
+      expect(resume.summary).not.toBe(RESUMES.en.summary);
+      expect(resume.headline).not.toBe(RESUMES.en.headline);
+      resume.employment.forEach((position, i) => {
+        expect(position.description, `${lang} employment ${i}`).not.toBe(
+          RESUMES.en.employment[i]?.description
+        );
+      });
+    }
   });
 });
 

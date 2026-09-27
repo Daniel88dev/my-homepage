@@ -13,6 +13,7 @@ describe("sitemap", () => {
       `${SITE}/projects/flexi-day`,
       `${SITE}/cs/projects/flexi-day`,
       `${SITE}/resume`,
+      `${SITE}/cs/resume`,
     ]);
   });
 
@@ -36,7 +37,8 @@ describe("sitemap", () => {
       },
     ]);
     expect(alternates.slice(4)).toEqual([
-      { en: `${SITE}/resume`, "x-default": `${SITE}/resume` },
+      { en: `${SITE}/resume`, cs: `${SITE}/cs/resume`, "x-default": `${SITE}/resume` },
+      { en: `${SITE}/resume`, cs: `${SITE}/cs/resume`, "x-default": `${SITE}/resume` },
     ]);
   });
 

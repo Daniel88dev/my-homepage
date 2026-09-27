@@ -8,6 +8,13 @@ const nextConfig: NextConfig = {
   images: {
     qualities: [75, 90],
   },
+  redirects: async () => [
+    {
+      source: "/Resume_DanielHrynusiw.pdf",
+      destination: "/resume/pdf",
+      permanent: true,
+    },
+  ],
 };
 
 export default withSentryConfig(nextConfig, {

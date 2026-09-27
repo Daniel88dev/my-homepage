@@ -46,6 +46,16 @@ _Avoid_: Demo link, project link, preview
 The technologies shown for a Project, joined into one line on the Project Card and grouped by Related Repository in a Case Study.
 _Avoid_: Stack tags, badges, skills
 
+### Resume
+
+**Resume**:
+Daniel's CV as typed content, one per Language, rendered twice: as the Resume page at `/resume` and as the Resume PDF. Dates, employers, links and skill levels are the same in every Language; the prose is written anew in each.
+_Avoid_: CV, résumé, curriculum
+
+**Resume PDF**:
+The printable Resume at `/resume/pdf`, drawn by its own light-themed document rather than printed from the page, and written by `next build` itself. The old `/Resume_DanielHrynusiw.pdf` URL redirects to it.
+_Avoid_: Resume download, PDF export
+
 ### Languages
 
 **Language**:
