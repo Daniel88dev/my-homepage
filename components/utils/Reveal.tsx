@@ -8,12 +8,10 @@ interface Props {
   width?: "fit-content" | "100%";
 }
 
+const instant = { duration: 0 };
+
 export const Reveal = ({ children, width = "fit-content" }: Props) => {
   const reduceMotion = useReducedMotion();
-
-  if (reduceMotion) {
-    return <div style={{ width }}>{children}</div>;
-  }
 
   return (
     <motion.div
@@ -27,7 +25,11 @@ export const Reveal = ({ children, width = "fit-content" }: Props) => {
           hidden: { opacity: 0, y: 48 },
           visible: { opacity: 1, y: 0 },
         }}
-        transition={{ duration: 0.5, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        transition={
+          reduceMotion
+            ? instant
+            : { duration: 0.5, delay: 0.25, ease: [0.22, 1, 0.36, 1] }
+        }
       >
         {children}
       </motion.div>
@@ -37,7 +39,9 @@ export const Reveal = ({ children, width = "fit-content" }: Props) => {
           hidden: { x: "0%" },
           visible: { x: "101%" },
         }}
-        transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+        transition={
+          reduceMotion ? instant : { duration: 0.5, ease: [0.4, 0, 0.2, 1] }
+        }
         style={{
           position: "absolute",
           top: 4,
