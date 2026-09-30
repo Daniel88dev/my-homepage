@@ -14,7 +14,7 @@
     "@eslint-react/eslint-plugin": "^5.20.8",
     "@next/eslint-plugin-next": "16.3.6",
     "@react-pdf/renderer": "^4.9.0",
-    "@sentry/nextjs": "^10.75.2",
+    "@sentry/nextjs": "^11.0.0",
     "@types/node": "26.6.2",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
