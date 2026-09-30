@@ -82,6 +82,16 @@ carries `data-print-hide`. That is what the browser's own Print and Save as
 PDF use. A build-time PDF with its own renderer still reads `content/resume`
 rather than the page, so the two never disagree on content.
 
+**`useReducedMotion` disagrees with the server on the first client render.**
+framer-motion returns `null` on the server and reads `matchMedia` before
+hydration on the client, so for a visitor with reduced motion switched on
+(Windows' "Animation effects" off is enough) anything it decides that reaches
+the HTML differs from what was served. Rendering a different element is React
+error #418 in production (Sentry MY-HOMEPAGE-8); a different `initial`, which
+Motion writes into the `style` attribute, is a development-only warning.
+`transition` never reaches the HTML, which is why `Reveal` renders one tree and
+lets the preference choose only its transition.
+
 **The Resume PDF is a route handler, not a file in `public/`.**
 `app/[lang]/resume/pdf/route.ts` is `force-static`, so `next build` renders it
 with `@react-pdf/renderer` once per Language. It lives at `/resume/pdf` rather
